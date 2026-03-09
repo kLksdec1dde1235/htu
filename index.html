@@ -1027,16 +1027,10 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        opacity: .4;
-        pointer-events: none;
-        transition: opacity .7s, transform .7s;
+        transition: transform .7s;
         position: relative;
         width: 100%;
-      }
-
-      #main-slider-root .main-slider-list li.active {
-        opacity: 1;
-        pointer-events: auto;
+        /* z-index ensuring it stays on top */
         z-index: 3;
       }
 
@@ -1717,7 +1711,7 @@
           <dt>HTU는<br>건강하고 아름다운<br>세상을 만들어갑니다</dt>
           <dd>
             상업적으로 왜곡된 건강 정보가<br>넘쳐나는 시대 속에서,<br><br>
-            올바른 정보에 기반한<br><b><u style="color: #ff8a8a;">현명한 소비자</u></b>를 만드는 것은<br>
+            올바른 정보에 기반한<br><b><u>현명한 소비자</u></b>를 만드는 것은<br>
             건강한 사회를 위한<br>가장 중요한 출발점입니다.
           </dd>
         </dl>
@@ -2275,9 +2269,9 @@
                 <img class="pls-logo" src="./img/tuanc.png" alt="tuanc" loading="lazy" decoding="async">
               </div>
 
-
               <div class="pls-card">
-                <img class="pls-logo" src="./img/logo-20.png" alt="국민대학교" loading="lazy" decoding="async">
+                <img class="pls-logo" src="https://cdn.healthyagingnews.kr/image/logo/toplogo_20250917055858.png"
+                  alt="국민대학교" loading="lazy" decoding="async">
               </div>
               <div class="pls-card">
                 <img class="pls-logo" src="./img/logo-10.png" alt="KB Investment 로고" loading="lazy" decoding="async">
@@ -4401,7 +4395,8 @@
       {
         "title": "유튜브 영상 제목 8",
         "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://www.youtube.com/watch?v=pPQRVndCgPo"
+          "youtube": "https://www.youtube.com/watch?v=eOxR6Yu_bzE"
+        
       },
       {
         "title": "유튜브 영상 제목 9",
@@ -4416,7 +4411,7 @@
         {
         "title": "유튜브 영상 제목 9",
         "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-          "youtube": "https://www.youtube.com/watch?v=eOxR6Yu_bzE"
+       "youtube": "https://www.youtube.com/watch?v=pPQRVndCgPo"
       },
       {
         "title": "유튜브 영상 제목 10",
