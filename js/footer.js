@@ -10,7 +10,7 @@
 
 <style>
 #footerElite{
-  --bg:#1f554b;--ink:#e5e7eb;--muted:#9aa1aa;--line:rgba(255,255,255,.08);
+  --bg:#033b1e;--ink:#e5e7eb;--muted:#9aa1aa;--line:rgba(255,255,255,.08);
   --glass:rgba(255,255,255,.06);--max:1280px;
   font-family:Pretendard,"Noto Sans KR",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   background:var(--bg);color:var(--muted);
@@ -180,7 +180,7 @@ data-bizno="HTU GLOBAL HOLDINGS">
 <span class="meta">대표 : <b id="corpCEO">강영수</b></span>
 
 <span class="sep">·</span>
-<span class="meta">주소 : <b>강남구 역삼로 114, 8층</b></span>
+<span class="meta">주소 : <b>강남구 역삼로 114, 현죽빌딩 8층 8016호</b></span>
 </span>
 
 </div>
