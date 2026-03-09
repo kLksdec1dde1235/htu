@@ -875,10 +875,10 @@
   <section id="mainSliderPack" aria-label="Main Slider Pack">
     <style>
       /* =========================
-      Main Slider (Scope Pack)
-      - 외부 CSS와 충돌 최소화
-      - 기존 스타일 그대로 유지
-    ========================== */
+    Main Slider (Scope Pack)
+    - 외부 CSS와 충돌 최소화
+    - 기존 스타일 그대로 유지
+  ========================== */
 
       #main-slider-root {
         position: relative;
@@ -1074,7 +1074,8 @@
         margin-bottom: 1.6rem;
       }
 
-      #main-slider-root .main-slider-list li a {
+      #main-slider-root .main-slider-list li a,
+      #main-slider-root .main-slider-list li button.main-slider-link {
         font-size: 1.03rem;
         color: #fff;
         border-radius: 1.7em;
@@ -1083,17 +1084,25 @@
         font-weight: 500;
         background: #033b1e;
         border: 1px solid #ffffff30;
-        transition: background .19s;
+        transition: background .19s, transform .19s, border-color .19s, box-shadow .19s;
         display: inline-block;
         margin-top: 1rem;
         margin-right: 10px;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
       }
 
-      #main-slider-root .main-slider-list li a:hover {
+      #main-slider-root .main-slider-list li a:hover,
+      #main-slider-root .main-slider-list li button.main-slider-link:hover {
         background: #0b6660;
       }
 
-
+      #main-slider-root .main-slider-list li button.main-slider-link:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, .18);
+      }
 
       @media(max-width:800px) {
         #main-slider-root .main-slider-section1 dl {
@@ -1199,6 +1208,466 @@
         left: 0;
         top: 0;
       }
+
+      /* =========================
+       Family Site Premium Popup
+    ========================== */
+
+      #mainSliderPack .family-site-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 28px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .35s ease, visibility .35s ease;
+        touch-action: pan-y;
+      }
+
+      #mainSliderPack .family-site-modal.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      #mainSliderPack .family-site-backdrop {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at top, rgba(11, 102, 96, .22), transparent 34%),
+          linear-gradient(180deg, rgba(7, 20, 15, .55) 0%, rgba(5, 15, 11, .78) 100%);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      #mainSliderPack .family-site-dialog {
+        position: relative;
+        width: min(1120px, 100%);
+        height: min(88vh, 980px);
+        max-height: min(88vh, 980px);
+        overflow: hidden;
+        border-radius: 28px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .96) 0%, rgba(248, 251, 249, .94) 100%);
+        border: 1px solid rgba(255, 255, 255, .55);
+        box-shadow:
+          0 30px 80px rgba(0, 0, 0, .24),
+          0 8px 30px rgba(6, 45, 27, .10),
+          inset 0 1px 0 rgba(255, 255, 255, .72);
+        transform: translateY(26px) scale(.98);
+        transition: transform .38s cubic-bezier(.22, .61, .36, 1);
+        touch-action: pan-y;
+      }
+
+      #mainSliderPack .family-site-modal.is-open .family-site-dialog {
+        transform: translateY(0) scale(1);
+      }
+
+      #mainSliderPack .family-site-shell {
+        position: relative;
+        display: grid;
+        grid-template-columns: 340px minmax(0, 1fr);
+        height: 100%;
+        min-height: 0;
+      }
+
+      #mainSliderPack .family-site-side {
+        position: relative;
+        padding: 42px 30px 34px;
+        color: #fff;
+        background:
+          linear-gradient(160deg, rgba(3, 59, 30, .96) 0%, rgba(7, 94, 76, .94) 100%);
+        overflow: hidden;
+      }
+
+      #mainSliderPack .family-site-side::before {
+        content: "";
+        position: absolute;
+        inset: auto -40px -70px auto;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, .20), transparent 70%);
+        pointer-events: none;
+      }
+
+      #mainSliderPack .family-site-side::after {
+        content: "";
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, .13), transparent 70%);
+        pointer-events: none;
+      }
+
+      #mainSliderPack .family-site-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .14);
+        border: 1px solid rgba(255, 255, 255, .18);
+        font-size: .78rem;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+
+      #mainSliderPack .family-site-title {
+        font-size: clamp(1.9rem, 2.6vw, 2.7rem);
+        line-height: 1.15;
+        font-weight: 800;
+        margin: 0 0 14px;
+        letter-spacing: -.03em;
+      }
+
+      #mainSliderPack .family-site-desc {
+        margin: 0 0 30px;
+        color: rgba(255, 255, 255, .82);
+        font-size: 1rem;
+        line-height: 1.75;
+        word-break: keep-all;
+      }
+
+      #mainSliderPack .family-site-meta {
+        display: grid;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      #mainSliderPack .family-site-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, .10);
+        border: 1px solid rgba(255, 255, 255, .12);
+        color: rgba(255, 255, 255, .88);
+        font-size: .96rem;
+      }
+
+      #mainSliderPack .family-site-main {
+        position: relative;
+        padding: 34px 34px 44px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        min-height: 0;
+        height: 100%;
+        box-sizing: border-box;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .72) 0%, rgba(247, 250, 248, .92) 100%);
+      }
+
+      #mainSliderPack .family-site-main::after {
+        content: "";
+        display: block;
+        height: 24px;
+        flex: 0 0 auto;
+      }
+
+      #mainSliderPack .family-site-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 20px;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        padding-bottom: 14px;
+        background: linear-gradient(180deg, rgba(248, 251, 249, .96) 0%, rgba(248, 251, 249, .86) 82%, rgba(248, 251, 249, 0) 100%);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
+
+      #mainSliderPack .family-site-toolbar-left h3 {
+        margin: 0 0 5px;
+        color: #0a2b1c;
+        font-size: 1.35rem;
+        font-weight: 800;
+        letter-spacing: -.02em;
+      }
+
+      #mainSliderPack .family-site-toolbar-left p {
+        margin: 0;
+        color: #5f6f67;
+        font-size: .96rem;
+      }
+
+      #mainSliderPack .family-site-close {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 1px solid rgba(3, 59, 30, .10);
+        background: rgba(255, 255, 255, .86);
+        color: #0a2b1c;
+        font-size: 1.35rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, .06);
+        flex-shrink: 0;
+      }
+
+      #mainSliderPack .family-site-close:hover {
+        transform: rotate(90deg);
+        background: #fff;
+        box-shadow: 0 16px 28px rgba(0, 0, 0, .10);
+      }
+
+      #mainSliderPack .family-site-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        padding-bottom: 8px;
+      }
+
+      #mainSliderPack .family-site-card {
+        position: relative;
+        display: block;
+        padding: 22px 22px 20px;
+        border-radius: 22px;
+        text-decoration: none;
+        color: #18221d;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .95) 0%, rgba(248, 251, 249, .98) 100%);
+        border: 1px solid rgba(10, 43, 28, .08);
+        box-shadow:
+          0 14px 28px rgba(6, 36, 24, .06),
+          inset 0 1px 0 rgba(255, 255, 255, .74);
+        transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+        overflow: hidden;
+        min-height: 162px;
+      }
+
+      #mainSliderPack .family-site-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 4px;
+        background: linear-gradient(90deg, #033b1e 0%, #0b6660 100%);
+        opacity: .92;
+      }
+
+      #mainSliderPack .family-site-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(11, 102, 96, .24);
+        box-shadow:
+          0 20px 40px rgba(6, 36, 24, .10),
+          inset 0 1px 0 rgba(255, 255, 255, .82);
+      }
+
+      #mainSliderPack .family-site-card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+
+      #mainSliderPack .family-site-badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(3, 59, 30, .06);
+        color: #0b5a3b;
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+      }
+
+      #mainSliderPack .family-site-arrow {
+        flex: 0 0 auto;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(3, 59, 30, .06);
+        color: #0a2b1c;
+        font-size: 1rem;
+        transition: transform .22s ease, background .22s ease;
+      }
+
+      #mainSliderPack .family-site-card:hover .family-site-arrow {
+        transform: translateX(4px);
+        background: rgba(11, 102, 96, .12);
+      }
+
+      #mainSliderPack .family-site-card h4 {
+        margin: 0 0 10px;
+        font-size: 1.18rem;
+        font-weight: 800;
+        line-height: 1.35;
+        letter-spacing: -.02em;
+        color: #0c2318;
+        word-break: keep-all;
+      }
+
+      #mainSliderPack .family-site-card p {
+        margin: 0 0 16px;
+        color: #66776f;
+        font-size: .96rem;
+        line-height: 1.7;
+        word-break: keep-all;
+      }
+
+      #mainSliderPack .family-site-url {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: #0b5a3b;
+        font-size: .9rem;
+        font-weight: 700;
+        opacity: .9;
+        word-break: break-all;
+      }
+
+      #mainSliderPack .family-site-note {
+        margin-top: 22px;
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(3, 59, 30, .045);
+        border: 1px solid rgba(3, 59, 30, .06);
+        color: #5a6a63;
+        font-size: .94rem;
+        line-height: 1.7;
+        margin-bottom: 6px;
+      }
+
+      body.family-site-modal-open {
+        overflow: hidden;
+      }
+
+      @media (max-width: 980px) {
+        #mainSliderPack .family-site-shell {
+          grid-template-columns: 1fr;
+          height: 100%;
+          min-height: 0;
+        }
+
+        #mainSliderPack .family-site-side {
+          padding: 28px 24px 24px;
+          display: none;
+        }
+
+        #mainSliderPack .family-site-main {
+          padding: 24px 18px 34px;
+          min-height: 0;
+          height: 100%;
+        }
+
+        #mainSliderPack .family-site-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        #mainSliderPack .family-site-modal {
+          padding: 12px;
+          align-items: flex-end;
+        }
+
+        #mainSliderPack .family-site-dialog {
+          width: 100%;
+          height: 92vh;
+          max-height: 92vh;
+          border-radius: 24px 24px 0 0;
+        }
+
+        /* 모바일에서는 메인 설명 영역 숨김 */
+        #mainSliderPack .family-site-shell {
+          display: block;
+          height: 100%;
+        }
+
+        #mainSliderPack .family-site-side {
+          display: none;
+        }
+
+        #mainSliderPack .family-site-main {
+          padding: 18px 14px 34px;
+          overflow-y: auto;
+          overflow-x: hidden;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior: contain;
+          touch-action: pan-y;
+          max-height: none;
+          height: 100%;
+          min-height: 0;
+          box-sizing: border-box;
+        }
+
+        #mainSliderPack .family-site-toolbar {
+          margin-bottom: 14px;
+          padding-bottom: 12px;
+        }
+
+        #mainSliderPack .family-site-toolbar-left {
+          min-width: 0;
+        }
+
+        #mainSliderPack .family-site-toolbar-left h3 {
+          font-size: 1.12rem;
+        }
+
+        #mainSliderPack .family-site-toolbar-left p {
+          font-size: .88rem;
+          line-height: 1.5;
+        }
+
+        #mainSliderPack .family-site-close {
+          width: 44px;
+          height: 44px;
+          font-size: 1.1rem;
+        }
+
+        #mainSliderPack .family-site-grid {
+          grid-template-columns: 1fr;
+          gap: 14px;
+          padding-bottom: 10px;
+        }
+
+        #mainSliderPack .family-site-card {
+          min-height: auto;
+          padding: 18px 16px 16px;
+          border-radius: 18px;
+        }
+
+        #mainSliderPack .family-site-card h4 {
+          font-size: 1.03rem;
+        }
+
+        #mainSliderPack .family-site-card p {
+          font-size: .9rem;
+        }
+
+        #mainSliderPack .family-site-note {
+          margin-top: 16px;
+          margin-bottom: 10px;
+          padding: 14px 14px;
+          font-size: .88rem;
+        }
+      }
     </style>
 
     <section id="main-slider-root">
@@ -1225,9 +1694,9 @@
               <h4>올바른 정보를 통해<br>현명한 소비를 돕습니다.</h4>
               <p>건강한 사회가 되려면<br>
                 소비자가 먼저 현명해져야 하는 만큼<br><br>현명한 소비자가 될 수 있도록<br>HTU가 올바른 건강 기준을 만들어갑니다.</p>
-              <a href="http://hcn.or.kr/">건강소비자연대 ></a><br><a href="">패밀리사이트 ></a>
+              <a href="http://hcn.or.kr/">건강소비자연대 ></a><br>
+              <button type="button" class="main-slider-link family-site-open" data-family-key="health">패밀리사이트 ></button>
             </div>
-
           </li>
 
           <li>
@@ -1235,7 +1704,9 @@
               <h4>건강한 기업을 성장시켜<br>지속 성장과 고용 창출을 도와</h4>
               <p>건강한 삶에 가장 큰 영향을 끼치는<br>
                 경제적 문제 해결에 기여합니다.</p>
-              <a href="https://biznovalab.com">비즈니스 혁신 연구소 ></a><br><a href="">패밀리사이트 ></a>
+              <a href="https://biznovalab.com">비즈니스 혁신 연구소 ></a><br>
+              <button type="button" class="main-slider-link family-site-open" data-family-key="innovation">패밀리사이트
+                ></button>
             </div>
           </li>
 
@@ -1244,8 +1715,8 @@
               <h4>건강과 아름다움을<br>함께 누릴 수 있는 세상</h4>
               <p>HTU는 더 나은 삶의 기준을 만드는<br>
                 글로벌 헬스·뷰티 파트너입니다.</p>
-              <a href="./introduce.html">자세히 알아보기 ></a><br><a href="">패밀리사이트 ></a>
-
+              <a href="./introduce.html">자세히 알아보기 ></a><br>
+              <button type="button" class="main-slider-link family-site-open" data-family-key="htu">패밀리사이트 ></button>
             </div>
           </li>
         </ul>
@@ -1255,6 +1726,42 @@
     <!-- 마지막 이미지를 위한 영구 레이어 -->
     <div id="permanent-bg-layer" style="filter:brightness(0.5);">
       <img src="./img/bg-htu.jpg" alt="영구 배경">
+    </div>
+
+    <!-- Premium Family Site Modal -->
+    <div class="family-site-modal" id="familySiteModal" aria-hidden="true">
+      <div class="family-site-backdrop" data-close-family-site></div>
+
+      <div class="family-site-dialog" role="dialog" aria-modal="true" aria-labelledby="familySiteModalTitle">
+        <div class="family-site-shell">
+          <aside class="family-site-side">
+            <span class="family-site-eyebrow" id="familySiteEyebrow">HTU Global Network</span>
+            <h2 class="family-site-title" id="familySiteModalTitle">패밀리 사이트</h2>
+            <p class="family-site-desc" id="familySiteDesc">
+              HTU가 함께 만들어가는 건강, 아름다움, 혁신의 연결된 플랫폼을 한곳에서 만나보세요.
+            </p>
+
+            <div class="family-site-meta" id="familySiteMeta"></div>
+          </aside>
+
+          <div class="family-site-main">
+            <div class="family-site-toolbar">
+              <div class="family-site-toolbar-left">
+                <h3 id="familySiteToolbarTitle">관련 사이트 리스트</h3>
+                <p id="familySiteToolbarDesc">원하시는 플랫폼을 선택하면 새 창에서 이동합니다.</p>
+              </div>
+              <button type="button" class="family-site-close" aria-label="패밀리 사이트 팝업 닫기"
+                data-close-family-site>&times;</button>
+            </div>
+
+            <div class="family-site-grid" id="familySiteGrid"></div>
+
+            <div class="family-site-note" id="familySiteNote">
+              패밀리 사이트가 더 늘어나면 같은 카드 형식으로 계속 추가할 수 있도록 구성되어 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -1271,7 +1778,6 @@
         const fades = [...root.querySelectorAll('.fade-target')];
         const total = slides.length;
 
-        // 상태 관리
         let lastSlideReached = false;
         let permanentBackgroundActive = false;
         let prevScrollY = 0;
@@ -1280,7 +1786,6 @@
         let curScale = SCALE_MIN, trgScale = SCALE_MIN, rafId = null, active = false;
         const states = Array.from({ length: total }, () => ({ op: 1, y: MAX_Y }));
 
-        // 초기화: 첫 번째 이미지만 활성화
         function initializeImages() {
           bgImgs.forEach((img, i) => {
             img.classList.remove('active');
@@ -1292,7 +1797,6 @@
           });
         }
 
-        // 초기 설정
         initializeImages();
         slides[0].classList.add('active');
         permanentBgLayer.classList.remove('active');
@@ -1301,7 +1805,6 @@
         const lerp = (a, b, t) => a + (b - a) * t;
         const vh = () => innerHeight;
 
-        /* ---------- rAF ---------- */
         function animate() {
           curScale = lerp(curScale, trgScale, .18);
 
@@ -1323,7 +1826,6 @@
           rafId = requestAnimationFrame(animate);
         }
 
-        /* ---------- 상태 계산 ---------- */
         function updateStates() {
           const viewH = vh(), y = scrollY;
           const scrollDirection = y > prevScrollY ? 'down' : 'up';
@@ -1340,7 +1842,6 @@
             const idx = Math.min(total - 1, Math.max(0,
               Math.floor((y - s2Top + viewH / 2) / viewH)));
 
-            // 마지막 슬라이드 도달 체크
             if (idx === total - 1) {
               if (!lastSlideReached) {
                 lastSlideReached = true;
@@ -1349,7 +1850,6 @@
                 permanentBgLayer.classList.add('permanent');
               }
             } else {
-              // 마지막 슬라이드가 아닌 경우 - 역방향 스크롤 시에만 해제
               if (scrollDirection === 'up' && lastSlideReached) {
                 lastSlideReached = false;
                 permanentBackgroundActive = false;
@@ -1360,17 +1860,13 @@
 
             slides.forEach((li, i) => li.classList.toggle('active', i === idx));
 
-            // 이미지 전환 로직
             if (!permanentBackgroundActive) {
-              // 일반적인 이미지 전환
               bgImgs.forEach((img, i) => {
                 img.classList.toggle('active', i === idx);
                 img.classList.remove('permanent-active');
               });
             } else {
-              // 영구 배경이 활성화된 상태
               if (idx === total - 1) {
-                // 마지막 슬라이드에서는 영구 배경만 표시
                 bgImgs.forEach((img, i) => {
                   img.classList.remove('active');
                   if (i === total - 1) {
@@ -1378,14 +1874,12 @@
                   }
                 });
               } else {
-                // 역방향으로 다른 슬라이드로 이동한 경우
                 if (scrollDirection === 'up') {
                   bgImgs.forEach((img, i) => {
                     img.classList.toggle('active', i === idx);
                     img.classList.remove('permanent-active');
                   });
                 } else {
-                  // 순방향일 때는 영구 배경 유지
                   bgImgs.forEach((img, i) => {
                     if (i === total - 1) {
                       img.classList.add('permanent-active');
@@ -1398,7 +1892,6 @@
             }
           }
 
-          // 마지막 슬라이드 이후 영역에서의 영구 배경 유지
           const totalHeight = root.offsetHeight;
           const scrollProgress = (y + viewH) - root.offsetTop;
           const endThreshold = totalHeight - viewH * 0.3;
@@ -1408,7 +1901,6 @@
               permanentBackgroundActive = true;
               permanentBgLayer.classList.add('permanent');
 
-              // 마지막 이미지 영구 활성화
               bgImgs.forEach((img, i) => {
                 if (i === total - 1) {
                   img.classList.add('permanent-active');
@@ -1430,7 +1922,6 @@
           root.classList.toggle('s1-out', s1.getBoundingClientRect().bottom < viewH / 2);
         }
 
-        /* ---------- 활성 토글 ---------- */
         function setActive(on) {
           if (on === active) return;
           active = on;
@@ -1451,7 +1942,6 @@
           }
         }
 
-        /* ---------- 페이드 & 클립 ---------- */
         function applyFade(rect, viewH) {
           const START_LINE = viewH;
           const SPAN = viewH * 0.7;
@@ -1468,7 +1958,6 @@
           const r = root.getBoundingClientRect();
           const v = vh();
 
-          /* ✅ 침범 방지 핵심: "조금 보이면"이 아니라 "섹션이 화면 상단에 닿으면" */
           const shouldInView = (r.top <= 0) && (r.bottom > 0);
           setActive(shouldInView);
 
@@ -1487,6 +1976,239 @@
         });
 
         window.addEventListener('load', checkPos);
+
+        /* ---------- Family Site Modal ---------- */
+        const modal = document.getElementById('familySiteModal');
+        const openButtons = document.querySelectorAll('.family-site-open');
+        const closeButtons = modal ? modal.querySelectorAll('[data-close-family-site]') : [];
+        const eyebrowEl = document.getElementById('familySiteEyebrow');
+        const titleEl = document.getElementById('familySiteModalTitle');
+        const descEl = document.getElementById('familySiteDesc');
+        const metaEl = document.getElementById('familySiteMeta');
+        const toolbarTitleEl = document.getElementById('familySiteToolbarTitle');
+        const toolbarDescEl = document.getElementById('familySiteToolbarDesc');
+        const gridEl = document.getElementById('familySiteGrid');
+        const noteEl = document.getElementById('familySiteNote');
+
+        let lastFocusedElement = null;
+        let scrollLockY = 0;
+
+        const familySiteData = {
+          health: {
+            eyebrow: 'Health Consumer Network',
+            title: '건강소비자연대 패밀리 사이트',
+            desc: '건강 정보의 신뢰성과 소비자 관점을 중심으로 연결된 관련 사이트를 모았습니다.',
+            toolbarTitle: '건강·소비자 관련 사이트',
+            toolbarDesc: '건강 기준, 소비자 관점, 정보 신뢰를 중심으로 확인해보세요.',
+            note: '건강소비자연대 축의 사이트는 소비자 보호와 건강 정보 신뢰도를 강화하는 방향으로 계속 확장할 수 있습니다.',
+            meta: [
+              '왜곡되지 않은 건강 기준 중심',
+              '소비자 친화적인 정보 구조',
+              '신뢰도 높은 연결 플랫폼'
+            ],
+            sites: [
+              {
+                badge: 'Main',
+                title: '건강소비자연대',
+                desc: '올바른 건강 기준과 소비자 관점을 기반으로 신뢰할 수 있는 정보를 전하는 플랫폼입니다.',
+                urlText: 'hcn.or.kr',
+                href: 'http://hcn.or.kr/',
+                external: true
+              },
+              {
+                badge: 'HTU',
+                title: 'HTU GLOBAL 소개',
+                desc: '건강과 아름다움, 교육과 네트워크를 함께 연결하는 HTU의 전체 방향성을 확인할 수 있습니다.',
+                urlText: 'introduce.html',
+                href: './introduce.html',
+                external: false
+              },
+              {
+                badge: 'Partner',
+                title: '비즈니스 혁신 연구소',
+                desc: '건강한 기업 성장과 혁신 구조를 함께 고민하는 연계 플랫폼입니다.',
+                urlText: 'biznovalab.com',
+                href: 'https://biznovalab.com',
+                external: true
+              }
+            ]
+          },
+          innovation: {
+            eyebrow: 'Business Innovation Lab',
+            title: '비즈니스 혁신 연구소 패밀리 사이트',
+            desc: '기업 성장, 실행형 혁신, 지속 성장과 연결되는 플랫폼을 중심으로 구성했습니다.',
+            toolbarTitle: '혁신·성장 관련 사이트',
+            toolbarDesc: '기업 혁신과 실행 전략을 연결하는 사이트를 살펴보세요.',
+            note: '혁신 연구소 중심의 패밀리 사이트는 컨설팅, 교육, 실행 프로젝트 등으로 쉽게 확장 가능합니다.',
+            meta: [
+              '실행형 혁신 중심 플랫폼',
+              '지속 성장과 고용 창출 방향',
+              '기업 연결형 네트워크 구조'
+            ],
+            sites: [
+              {
+                badge: 'Main',
+                title: '비즈니스 혁신 연구소',
+                desc: '기업의 성장과 혁신, 실전 실행 구조를 다루는 플랫폼입니다.',
+                urlText: 'biznovalab.com',
+                href: 'https://biznovalab.com',
+                external: true
+              },
+              {
+                badge: 'Partner',
+                title: '건강소비자연대',
+                desc: '건강한 소비자 생태계를 기반으로 더 건강한 산업 구조를 만드는 연결 플랫폼입니다.',
+                urlText: 'hcn.or.kr',
+                href: 'http://hcn.or.kr/',
+                external: true
+              },
+              {
+                badge: 'HTU',
+                title: 'HTU GLOBAL 소개',
+                desc: 'HTU가 지향하는 건강·뷰티·비즈니스의 통합 방향을 확인할 수 있습니다.',
+                urlText: 'introduce.html',
+                href: './introduce.html',
+                external: false
+              }
+            ]
+          },
+          htu: {
+            eyebrow: 'HTU Global Holdings',
+            title: 'HTU GLOBAL 패밀리 사이트',
+            desc: '건강과 아름다움, 소비자 신뢰, 비즈니스 혁신까지 HTU와 연결된 핵심 플랫폼을 한곳에 모았습니다.',
+            toolbarTitle: 'HTU 연계 사이트',
+            toolbarDesc: 'HTU 브랜드와 직접 연결되는 핵심 사이트를 확인해보세요.',
+            note: 'HTU 메인 축에서는 브랜드, 교육, 미디어, 글로벌 네트워크 사이트를 같은 방식으로 계속 추가할 수 있습니다.',
+            meta: [
+              '건강과 아름다움의 통합 가치',
+              '브랜드·연구·네트워크 연결',
+              '글로벌 확장형 구조'
+            ],
+            sites: [
+              {
+                badge: 'Main',
+                title: 'HTU GLOBAL 소개',
+                desc: 'HTU의 비전과 철학, 전체 사업 구조를 소개하는 메인 페이지입니다.',
+                urlText: 'introduce.html',
+                href: './introduce.html',
+                external: false
+              },
+              {
+                badge: 'Health',
+                title: '건강소비자연대',
+                desc: '현명한 소비자와 신뢰 기반 건강 정보를 중심으로 한 연결 플랫폼입니다.',
+                urlText: 'hcn.or.kr',
+                href: 'http://hcn.or.kr/',
+                external: true
+              },
+              {
+                badge: 'Innovation',
+                title: '비즈니스 혁신 연구소',
+                desc: '건강한 기업 성장과 혁신 전략을 지원하는 연구·실행 플랫폼입니다.',
+                urlText: 'biznovalab.com',
+                href: 'https://biznovalab.com',
+                external: true
+              }
+            ]
+          }
+        };
+
+        function createMetaHTML(items) {
+          return items.map(function (item) {
+            return '<div class="family-site-meta-item"><span>●</span><span>' + item + '</span></div>';
+          }).join('');
+        }
+
+        function createCardHTML(site) {
+          const arrow = site.external ? '↗' : '→';
+          const target = site.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+          return `
+          <a href="${site.href}" class="family-site-card"${target}>
+            <div class="family-site-card-top">
+              <span class="family-site-badge">${site.badge}</span>
+              <span class="family-site-arrow">${arrow}</span>
+            </div>
+            <h4>${site.title}</h4>
+            <p>${site.desc}</p>
+            <span class="family-site-url">${site.urlText}</span>
+          </a>
+        `;
+        }
+
+        function renderFamilySiteContent(key) {
+          const data = familySiteData[key] || familySiteData.htu;
+          if (!data) return;
+
+          if (eyebrowEl) eyebrowEl.textContent = data.eyebrow;
+          if (titleEl) titleEl.textContent = data.title;
+          if (descEl) descEl.textContent = data.desc;
+          if (toolbarTitleEl) toolbarTitleEl.textContent = data.toolbarTitle;
+          if (toolbarDescEl) toolbarDescEl.textContent = data.toolbarDesc;
+          if (noteEl) noteEl.textContent = data.note;
+          if (metaEl) metaEl.innerHTML = createMetaHTML(data.meta);
+          if (gridEl) gridEl.innerHTML = data.sites.map(createCardHTML).join('');
+        }
+
+        function openFamilySiteModal(key) {
+          if (!modal) return;
+          renderFamilySiteContent(key);
+          lastFocusedElement = document.activeElement;
+
+          scrollLockY = window.scrollY || window.pageYOffset || 0;
+
+          document.body.style.position = 'fixed';
+          document.body.style.top = `-${scrollLockY}px`;
+          document.body.style.left = '0';
+          document.body.style.right = '0';
+          document.body.style.width = '100%';
+
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('family-site-modal-open');
+
+          requestAnimationFrame(function () {
+            const scrollArea = modal.querySelector('.family-site-main');
+            if (scrollArea) scrollArea.scrollTop = 0;
+          });
+        }
+
+        function closeFamilySiteModal() {
+          if (!modal) return;
+
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('family-site-modal-open');
+
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.left = '';
+          document.body.style.right = '';
+          document.body.style.width = '';
+
+          window.scrollTo(0, scrollLockY);
+
+          if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        openButtons.forEach(function (button) {
+          button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const key = button.getAttribute('data-family-key') || 'htu';
+            openFamilySiteModal(key);
+          });
+        });
+
+        closeButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+            closeFamilySiteModal();
+          });
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+            closeFamilySiteModal();
+          }
+        });
       })();
     </script>
   </section>
