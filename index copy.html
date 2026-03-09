@@ -1199,6 +1199,137 @@
         left: 0;
         top: 0;
       }
+
+      /* =========================
+         프리미엄 패밀리사이트 드롭다운
+         ========================= */
+      #main-slider-root .main-slider-list li .family-dropdown-premium {
+        display: inline-block;
+        position: relative;
+        margin-top: 1rem;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-btn-premium {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.03rem;
+        color: rgba(255, 255, 255, 0.9);
+        border-radius: 2em;
+        padding: 0.5em 1.4em;
+        text-decoration: none;
+        font-weight: 500;
+        background: rgba(3, 59, 30, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        cursor: pointer;
+        font-family: inherit;
+        outline: none;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-btn-premium:hover,
+      #main-slider-root .main-slider-list li .family-dropdown-premium.active .family-btn-premium {
+        background: rgba(3, 59, 30, 0.8);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .chevron-icon {
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium.active .chevron-icon {
+        transform: rotate(180deg);
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-list-wrapper {
+        position: absolute;
+        bottom: calc(100% + 12px);
+        left: 0;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 100;
+        min-width: 220px;
+        pointer-events: none;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium.active .family-list-wrapper {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-list-premium {
+        margin: 0;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.98);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        list-style: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-list-premium li {
+        min-height: auto;
+        width: 100%;
+        opacity: 1;
+        pointer-events: auto;
+        justify-content: flex-start;
+        margin: 0;
+        padding: 0;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-list-premium a {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 12px 16px;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        color: #333;
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-align: left;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-list-premium a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background: #033b1e;
+        transform: scaleY(0);
+        transition: transform 0.2s ease;
+        transform-origin: left center;
+        border-radius: 3px 0 0 3px;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-list-premium a:hover {
+        background: rgba(3, 59, 30, 0.05);
+        color: #033b1e;
+        padding-left: 20px;
+      }
+
+      #main-slider-root .main-slider-list li .family-dropdown-premium .family-list-premium a:hover::before {
+        transform: scaleY(1);
+      }
     </style>
 
     <section id="main-slider-root">
@@ -1225,7 +1356,24 @@
               <h4>올바른 정보를 통해<br>현명한 소비를 돕습니다.</h4>
               <p>건강한 사회가 되려면<br>
                 소비자가 먼저 현명해져야 하는 만큼<br><br>현명한 소비자가 될 수 있도록<br>HTU가 올바른 건강 기준을 만들어갑니다.</p>
-              <a href="http://hcn.or.kr/">건강소비자연대 ></a><br><a href="">패밀리사이트 ></a>
+              <a href="http://hcn.or.kr/">건강소비자연대 ></a>
+              <div class="family-dropdown-premium">
+                <button type="button" class="family-btn-premium"
+                  onclick="this.parentElement.classList.toggle('active')">
+                  패밀리사이트
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="family-list-wrapper">
+                  <ul class="family-list-premium">
+                    <li><a href="#" target="_blank">패밀리사이트 이름 1</a></li>
+                    <li><a href="#" target="_blank">패밀리사이트 이름 2</a></li>
+                    <li><a href="#" target="_blank">패밀리사이트 이름 3</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
           </li>
@@ -1235,7 +1383,24 @@
               <h4>건강한 기업을 성장시켜<br>지속 성장과 고용 창출을 도와</h4>
               <p>건강한 삶에 가장 큰 영향을 끼치는<br>
                 경제적 문제 해결에 기여합니다.</p>
-              <a href="https://biznovalab.com">비즈니스 혁신 연구소 ></a><br><a href="">패밀리사이트 ></a>
+              <a href="https://biznovalab.com">비즈니스 혁신 연구소 ></a>
+              <div class="family-dropdown-premium">
+                <button type="button" class="family-btn-premium"
+                  onclick="this.parentElement.classList.toggle('active')">
+                  패밀리사이트
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="family-list-wrapper">
+                  <ul class="family-list-premium">
+                    <li><a href="#" target="_blank">패밀리사이트 이름 1</a></li>
+                    <li><a href="#" target="_blank">패밀리사이트 이름 2</a></li>
+                    <li><a href="#" target="_blank">패밀리사이트 이름 3</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </li>
 
@@ -1244,7 +1409,24 @@
               <h4>건강과 아름다움을<br>함께 누릴 수 있는 세상</h4>
               <p>HTU는 더 나은 삶의 기준을 만드는<br>
                 글로벌 헬스·뷰티 파트너입니다.</p>
-              <a href="./introduce.html">자세히 알아보기 ></a><br><a href="">패밀리사이트 ></a>
+              <a href="./introduce.html">자세히 알아보기 ></a>
+              <div class="family-dropdown-premium">
+                <button type="button" class="family-btn-premium"
+                  onclick="this.parentElement.classList.toggle('active')">
+                  패밀리사이트
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="family-list-wrapper">
+                  <ul class="family-list-premium">
+                    <li><a href="#" target="_blank">패밀리사이트 이름 1</a></li>
+                    <li><a href="#" target="_blank">패밀리사이트 이름 2</a></li>
+                    <li><a href="#" target="_blank">패밀리사이트 이름 3</a></li>
+                  </ul>
+                </div>
+              </div>
 
             </div>
           </li>
@@ -1487,6 +1669,15 @@
         });
 
         window.addEventListener('load', checkPos);
+
+        // 외부 영역 클릭 시 프리미엄 패밀리사이트 드롭다운 닫기
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('.family-dropdown-premium')) {
+            document.querySelectorAll('.family-dropdown-premium').forEach(function (el) {
+              el.classList.remove('active');
+            });
+          }
+        });
       })();
     </script>
   </section>
