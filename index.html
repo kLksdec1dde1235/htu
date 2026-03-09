@@ -878,7 +878,7 @@
     Main Slider (Scope Pack)
     - 외부 CSS와 충돌 최소화
     - 기존 스타일 그대로 유지
-  ========================== */
+    ========================== */
 
       #main-slider-root {
         position: relative;
@@ -949,7 +949,6 @@
         z-index: 1;
       }
 
-      /* ★ 배경 이미지 컨테이너 */
       #main-slider-root .main-slider-bg {
         position: fixed;
         left: 0;
@@ -962,7 +961,6 @@
         filter: brightness(0.5);
       }
 
-      /* ★ 경계선 클리핑 효과를 위한 마스크 */
       #main-slider-root .main-slider-bg::after {
         content: '';
         position: absolute;
@@ -977,7 +975,6 @@
         transition: opacity 0.6s ease;
       }
 
-      /* ★ 클리핑 상태에서 경계선 효과 활성화 */
       #main-slider-root.clip .main-slider-bg::after {
         opacity: 1;
       }
@@ -1002,7 +999,6 @@
         filter: brightness(0.9);
       }
 
-      /* ★ 마지막 이미지 영구 유지를 위한 클래스 - 더 강력한 우선순위 */
       #main-slider-root .main-slider-bg img.permanent-active {
         opacity: 1 !important;
         z-index: 10 !important;
@@ -1150,7 +1146,6 @@
         opacity: 1;
       }
 
-      /* ★ 클리핑 상태 */
       #main-slider-root.clip {
         overflow: hidden;
         position: relative;
@@ -1162,12 +1157,10 @@
         top: -10vh;
       }
 
-      /* ★ 페이드 대상 - 텍스트만 페이드, 배경은 유지 */
       #main-slider-root .fade-target {
         transition: opacity .6s ease-out;
       }
 
-      /* ★ 다음 섹션 스타일 */
       .next-section {
         display: flex;
         align-items: center;
@@ -1177,7 +1170,6 @@
         z-index: 10;
       }
 
-      /* ★ 마지막 이미지를 위한 영구 레이어 */
       #permanent-bg-layer {
         position: fixed;
         left: 0;
@@ -1251,8 +1243,7 @@
         max-height: min(88vh, 980px);
         overflow: hidden;
         border-radius: 28px;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, .96) 0%, rgba(248, 251, 249, .94) 100%);
+        background: #f4f6f4;
         border: 1px solid rgba(255, 255, 255, .55);
         box-shadow:
           0 30px 80px rgba(0, 0, 0, .24),
@@ -1273,6 +1264,7 @@
         grid-template-columns: 340px minmax(0, 1fr);
         height: 100%;
         min-height: 0;
+        background: #f4f6f4;
       }
 
       #mainSliderPack .family-site-side {
@@ -1280,7 +1272,7 @@
         padding: 42px 30px 34px;
         color: #fff;
         background:
-          linear-gradient(160deg, rgba(3, 59, 30, .96) 0%, rgba(7, 94, 76, .94) 100%);
+          linear-gradient(160deg, rgba(3, 59, 30, .98) 0%, rgba(7, 94, 76, .96) 100%);
         overflow: hidden;
       }
 
@@ -1366,8 +1358,26 @@
         min-height: 0;
         height: 100%;
         box-sizing: border-box;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, .72) 0%, rgba(247, 250, 248, .92) 100%);
+        background: #f4f6f4;
+        isolation: isolate;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      #mainSliderPack .family-site-main::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+      }
+
+      #mainSliderPack .family-site-main::before {
+        content: "";
+        position: sticky;
+        top: 0;
+        display: block;
+        height: 0;
+        z-index: 4;
+        pointer-events: none;
       }
 
       #mainSliderPack .family-site-main::after {
@@ -1385,11 +1395,23 @@
         margin-bottom: 20px;
         position: sticky;
         top: 0;
-        z-index: 5;
-        padding-bottom: 14px;
-        background: linear-gradient(180deg, rgba(248, 251, 249, .96) 0%, rgba(248, 251, 249, .86) 82%, rgba(248, 251, 249, 0) 100%);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
+        z-index: 20;
+        padding: 2px 0 14px;
+        background: #f4f6f4;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+
+      #mainSliderPack .family-site-toolbar::before {
+        content: "";
+        position: absolute;
+        left: -34px;
+        right: -34px;
+        top: -24px;
+        bottom: 0;
+        background: #f4f6f4;
+        z-index: -1;
+        pointer-events: none;
       }
 
       #mainSliderPack .family-site-toolbar-left h3 {
@@ -1411,7 +1433,7 @@
         height: 50px;
         border-radius: 50%;
         border: 1px solid rgba(3, 59, 30, .10);
-        background: rgba(255, 255, 255, .86);
+        background: #eef1ee;
         color: #0a2b1c;
         font-size: 1.35rem;
         font-weight: 500;
@@ -1444,8 +1466,7 @@
         border-radius: 22px;
         text-decoration: none;
         color: #18221d;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, .95) 0%, rgba(248, 251, 249, .98) 100%);
+        background: #fbfcfb;
         border: 1px solid rgba(10, 43, 28, .08);
         box-shadow:
           0 14px 28px rgba(6, 36, 24, .06),
@@ -1459,9 +1480,9 @@
         content: "";
         position: absolute;
         inset: 0 0 auto 0;
-        height: 4px;
-        background: linear-gradient(90deg, #033b1e 0%, #0b6660 100%);
-        opacity: .92;
+        height: 6px;
+        background: linear-gradient(90deg, #0a4f30 0%, #0b6660 100%);
+        opacity: .98;
       }
 
       #mainSliderPack .family-site-card:hover {
@@ -1546,7 +1567,7 @@
         margin-top: 22px;
         padding: 16px 18px;
         border-radius: 18px;
-        background: rgba(3, 59, 30, .045);
+        background: #edf1ed;
         border: 1px solid rgba(3, 59, 30, .06);
         color: #5a6a63;
         font-size: .94rem;
@@ -1567,13 +1588,17 @@
 
         #mainSliderPack .family-site-side {
           padding: 28px 24px 24px;
-          display: none;
         }
 
         #mainSliderPack .family-site-main {
           padding: 24px 18px 34px;
           min-height: 0;
           height: 100%;
+        }
+
+        #mainSliderPack .family-site-toolbar::before {
+          left: -18px;
+          right: -18px;
         }
 
         #mainSliderPack .family-site-grid {
@@ -1583,7 +1608,7 @@
 
       @media (max-width: 720px) {
         #mainSliderPack .family-site-modal {
-          padding: 12px;
+          padding: 10px;
           align-items: flex-end;
         }
 
@@ -1594,7 +1619,6 @@
           border-radius: 24px 24px 0 0;
         }
 
-        /* 모바일에서는 메인 설명 영역 숨김 */
         #mainSliderPack .family-site-shell {
           display: block;
           height: 100%;
@@ -1615,11 +1639,27 @@
           height: 100%;
           min-height: 0;
           box-sizing: border-box;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        #mainSliderPack .family-site-main::-webkit-scrollbar {
+          width: 0;
+          height: 0;
+          display: none;
         }
 
         #mainSliderPack .family-site-toolbar {
           margin-bottom: 14px;
-          padding-bottom: 12px;
+          padding: 6px 0 12px;
+        }
+
+        #mainSliderPack .family-site-toolbar::before {
+          left: -14px;
+          right: -14px;
+          top: -20px;
+          bottom: -4px;
+          background: #f4f6f4;
         }
 
         #mainSliderPack .family-site-toolbar-left {
@@ -1673,11 +1713,12 @@
     <section id="main-slider-root">
       <div class="main-slider-section1 fade-target">
         <dl>
-          <dt>HTU는<br>건강하고 아름다운<br>
-            세상을 만들어갑니다</dt>
-          <dd>상업적으로 왜곡된 건강 정보가<br>넘쳐나는 시대 속에서,<br><br>
+          <dt>HTU는<br>건강하고 아름다운<br>세상을 만들어갑니다</dt>
+          <dd>
+            상업적으로 왜곡된 건강 정보가<br>넘쳐나는 시대 속에서,<br><br>
             올바른 정보에 기반한<br><b><u style="color: #ff8a8a;">현명한 소비자</u></b>를 만드는 것은<br>
-            건강한 사회를 위한<br>가장 중요한 출발점입니다.</dd>
+            건강한 사회를 위한<br>가장 중요한 출발점입니다.
+          </dd>
         </dl>
       </div>
 
@@ -1692,8 +1733,11 @@
           <li>
             <div class="slide-text">
               <h4>올바른 정보를 통해<br>현명한 소비를 돕습니다.</h4>
-              <p>건강한 사회가 되려면<br>
-                소비자가 먼저 현명해져야 하는 만큼<br><br>현명한 소비자가 될 수 있도록<br>HTU가 올바른 건강 기준을 만들어갑니다.</p>
+              <p>
+                건강한 사회가 되려면<br>
+                소비자가 먼저 현명해져야 하는 만큼<br><br>
+                현명한 소비자가 될 수 있도록<br>HTU가 올바른 건강 기준을 만들어갑니다.
+              </p>
               <a href="http://hcn.or.kr/">건강소비자연대 ></a><br>
               <button type="button" class="main-slider-link family-site-open" data-family-key="health">패밀리사이트 ></button>
             </div>
@@ -1702,8 +1746,7 @@
           <li>
             <div class="slide-text">
               <h4>건강한 기업을 성장시켜<br>지속 성장과 고용 창출을 도와</h4>
-              <p>건강한 삶에 가장 큰 영향을 끼치는<br>
-                경제적 문제 해결에 기여합니다.</p>
+              <p>건강한 삶에 가장 큰 영향을 끼치는<br>경제적 문제 해결에 기여합니다.</p>
               <a href="https://biznovalab.com">비즈니스 혁신 연구소 ></a><br>
               <button type="button" class="main-slider-link family-site-open" data-family-key="innovation">패밀리사이트
                 ></button>
@@ -1713,8 +1756,7 @@
           <li>
             <div class="slide-text">
               <h4>건강과 아름다움을<br>함께 누릴 수 있는 세상</h4>
-              <p>HTU는 더 나은 삶의 기준을 만드는<br>
-                글로벌 헬스·뷰티 파트너입니다.</p>
+              <p>HTU는 더 나은 삶의 기준을 만드는<br>글로벌 헬스·뷰티 파트너입니다.</p>
               <a href="./introduce.html">자세히 알아보기 ></a><br>
               <button type="button" class="main-slider-link family-site-open" data-family-key="htu">패밀리사이트 ></button>
             </div>
@@ -1723,12 +1765,10 @@
       </div>
     </section>
 
-    <!-- 마지막 이미지를 위한 영구 레이어 -->
     <div id="permanent-bg-layer" style="filter:brightness(0.5);">
       <img src="./img/bg-htu.jpg" alt="영구 배경">
     </div>
 
-    <!-- Premium Family Site Modal -->
     <div class="family-site-modal" id="familySiteModal" aria-hidden="true">
       <div class="family-site-backdrop" data-close-family-site></div>
 
@@ -1740,7 +1780,6 @@
             <p class="family-site-desc" id="familySiteDesc">
               HTU가 함께 만들어가는 건강, 아름다움, 혁신의 연결된 플랫폼을 한곳에서 만나보세요.
             </p>
-
             <div class="family-site-meta" id="familySiteMeta"></div>
           </aside>
 
@@ -1831,8 +1870,9 @@
           const scrollDirection = y > prevScrollY ? 'down' : 'up';
           prevScrollY = y;
 
-          const s2Top = root.offsetTop + s2.offsetTop,
-            start = s2Top - viewH, end = s2Top + viewH * .25;
+          const s2Top = root.offsetTop + s2.offsetTop;
+          const start = s2Top - viewH;
+          const end = s2Top + viewH * .25;
 
           trgScale = (y < start) ? SCALE_MIN : (y > end) ? SCALE_MAX
             : SCALE_MIN + (SCALE_MAX - SCALE_MIN) * ((y - start) / (end - start));
@@ -1900,7 +1940,6 @@
             if (!permanentBackgroundActive) {
               permanentBackgroundActive = true;
               permanentBgLayer.classList.add('permanent');
-
               bgImgs.forEach((img, i) => {
                 if (i === total - 1) {
                   img.classList.add('permanent-active');
@@ -1910,13 +1949,16 @@
           }
 
           texts.forEach((_, i) => {
-            const center = s2Top + viewH * i + viewH / 2,
-              dist = ((y + viewH / 2) - center) / viewH;
-            if (dist < -FADE_START) states[i] = { op: 0, y: MAX_Y };
-            else if (dist < -FADE_END) {
+            const center = s2Top + viewH * i + viewH / 2;
+            const dist = ((y + viewH / 2) - center) / viewH;
+            if (dist < -FADE_START) {
+              states[i] = { op: 0, y: MAX_Y };
+            } else if (dist < -FADE_END) {
               const p = (dist + FADE_START) / (FADE_START - FADE_END);
               states[i] = { op: p, y: MAX_Y * (1 - p) };
-            } else states[i] = { op: 1, y: 0 };
+            } else {
+              states[i] = { op: 1, y: 0 };
+            }
           });
 
           root.classList.toggle('s1-out', s1.getBoundingClientRect().bottom < viewH / 2);
@@ -1977,7 +2019,6 @@
 
         window.addEventListener('load', checkPos);
 
-        /* ---------- Family Site Modal ---------- */
         const modal = document.getElementById('familySiteModal');
         const openButtons = document.querySelectorAll('.family-site-open');
         const closeButtons = modal ? modal.querySelectorAll('[data-close-family-site]') : [];
@@ -1996,8 +2037,8 @@
         const familySiteData = {
           health: {
             eyebrow: 'Health Consumer Network',
-            title: '건강소비자연대 패밀리 사이트',
-            desc: '건강 정보의 신뢰성과 소비자 관점을 중심으로 연결된 관련 사이트를 모았습니다.',
+            title: '건강·소비자 관련 사이트',
+            desc: '건강 기준, 소비자 관점, 정보 신뢰를 중심으로 확인해보세요.',
             toolbarTitle: '건강·소비자 관련 사이트',
             toolbarDesc: '건강 기준, 소비자 관점, 정보 신뢰를 중심으로 확인해보세요.',
             note: '건강소비자연대 축의 사이트는 소비자 보호와 건강 정보 신뢰도를 강화하는 방향으로 계속 확장할 수 있습니다.',
@@ -2008,7 +2049,7 @@
             ],
             sites: [
               {
-                badge: 'Main',
+                badge: 'MAIN',
                 title: '건강소비자연대',
                 desc: '올바른 건강 기준과 소비자 관점을 기반으로 신뢰할 수 있는 정보를 전하는 플랫폼입니다.',
                 urlText: 'hcn.or.kr',
@@ -2024,7 +2065,7 @@
                 external: false
               },
               {
-                badge: 'Partner',
+                badge: 'PARTNER',
                 title: '비즈니스 혁신 연구소',
                 desc: '건강한 기업 성장과 혁신 구조를 함께 고민하는 연계 플랫폼입니다.',
                 urlText: 'biznovalab.com',
@@ -2035,8 +2076,8 @@
           },
           innovation: {
             eyebrow: 'Business Innovation Lab',
-            title: '비즈니스 혁신 연구소 패밀리 사이트',
-            desc: '기업 성장, 실행형 혁신, 지속 성장과 연결되는 플랫폼을 중심으로 구성했습니다.',
+            title: '혁신·성장 관련 사이트',
+            desc: '기업 혁신과 실행 전략을 연결하는 사이트를 살펴보세요.',
             toolbarTitle: '혁신·성장 관련 사이트',
             toolbarDesc: '기업 혁신과 실행 전략을 연결하는 사이트를 살펴보세요.',
             note: '혁신 연구소 중심의 패밀리 사이트는 컨설팅, 교육, 실행 프로젝트 등으로 쉽게 확장 가능합니다.',
@@ -2047,7 +2088,7 @@
             ],
             sites: [
               {
-                badge: 'Main',
+                badge: 'MAIN',
                 title: '비즈니스 혁신 연구소',
                 desc: '기업의 성장과 혁신, 실전 실행 구조를 다루는 플랫폼입니다.',
                 urlText: 'biznovalab.com',
@@ -2055,7 +2096,7 @@
                 external: true
               },
               {
-                badge: 'Partner',
+                badge: 'PARTNER',
                 title: '건강소비자연대',
                 desc: '건강한 소비자 생태계를 기반으로 더 건강한 산업 구조를 만드는 연결 플랫폼입니다.',
                 urlText: 'hcn.or.kr',
@@ -2074,8 +2115,8 @@
           },
           htu: {
             eyebrow: 'HTU Global Holdings',
-            title: 'HTU GLOBAL 패밀리 사이트',
-            desc: '건강과 아름다움, 소비자 신뢰, 비즈니스 혁신까지 HTU와 연결된 핵심 플랫폼을 한곳에 모았습니다.',
+            title: 'HTU 연계 사이트',
+            desc: 'HTU 브랜드와 직접 연결되는 핵심 사이트를 확인해보세요.',
             toolbarTitle: 'HTU 연계 사이트',
             toolbarDesc: 'HTU 브랜드와 직접 연결되는 핵심 사이트를 확인해보세요.',
             note: 'HTU 메인 축에서는 브랜드, 교육, 미디어, 글로벌 네트워크 사이트를 같은 방식으로 계속 추가할 수 있습니다.',
@@ -2086,7 +2127,7 @@
             ],
             sites: [
               {
-                badge: 'Main',
+                badge: 'MAIN',
                 title: 'HTU GLOBAL 소개',
                 desc: 'HTU의 비전과 철학, 전체 사업 구조를 소개하는 메인 페이지입니다.',
                 urlText: 'introduce.html',
@@ -2094,7 +2135,7 @@
                 external: false
               },
               {
-                badge: 'Health',
+                badge: 'HEALTH',
                 title: '건강소비자연대',
                 desc: '현명한 소비자와 신뢰 기반 건강 정보를 중심으로 한 연결 플랫폼입니다.',
                 urlText: 'hcn.or.kr',
@@ -2102,7 +2143,7 @@
                 external: true
               },
               {
-                badge: 'Innovation',
+                badge: 'INNOVATION',
                 title: '비즈니스 혁신 연구소',
                 desc: '건강한 기업 성장과 혁신 전략을 지원하는 연구·실행 플랫폼입니다.',
                 urlText: 'biznovalab.com',
@@ -2137,7 +2178,6 @@
 
         function renderFamilySiteContent(key) {
           const data = familySiteData[key] || familySiteData.htu;
-          if (!data) return;
 
           if (eyebrowEl) eyebrowEl.textContent = data.eyebrow;
           if (titleEl) titleEl.textContent = data.title;
@@ -3476,10 +3516,10 @@
         "link": "https://kbhga.com/34/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=81380640&t=board"
       },
       {
-        "title": "뷰티·헬스 융합 비즈니스 생태계 확장을 위한 상생 협력 진행",
-        "excerpt": "국내 뷰티·헬스 산업의 융합과 글로벌 경쟁력 강화를 목표로, 각 기업의 핵심 역량을 결합해 차별화된 비즈니스 모델을 구축한다는 데 의의가 커, 업계의 주목을 받고 있다.",
-        "img": "https://cdn.mdjournal.kr/news/photo/202509/41563_23022_937.jpg",
-        "link": "https://kbhga.com/34/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=167449760&t=board"
+        "title": "한국뷰티헬시에이징국제교류회 특별 세미나 경희대병원에서 개최",
+        "excerpt": "한국뷰티헬시에이징국제교류회의 특별 세미나가 6월 13일 경희대병원 정보행정동 제1세미나실에서 개최되었다.",
+        "img": "https://cdn.mdjournal.kr/news/photo/202406/41053_21825_1848.png",
+        "link": "https://www.mdjournal.kr/news/articleView.html?idxno=41053"
       },
       {
         "title": "KBHGA B&H INNOVATION CONCERT 리포트",
@@ -3495,9 +3535,9 @@
       },
       {
         "title": "엠디저널과 엔도그룹 업무협약 체결",
-        "excerpt": "국민건강 증진, 그중에서도 당뇨인의 가치관과 삶의 질을 향상시키겠다 밝혀",
-        "img": "https://cdn.mdjournal.kr/news/photo/202410/41183_22107_73.jpeg",
-        "link": "https://www.mdjournal.kr/news/articleView.html?idxno=41183"
+        "excerpt": "세포배양육의 국내 산업화를 두고 안전성 검증과 투명한 정보 공개부터 선행돼야 한다는 목소리가 국회에서 제기됐다.",
+        "img": "https://cdn.mdjournal.kr/news/photo/202512/41646_23197_3919.jpg",
+        "link": "https://www.mdjournal.kr/news/articleView.html?idxno=41646"
       }
     ]
     </script>
