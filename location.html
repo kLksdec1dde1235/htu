@@ -742,289 +742,398 @@
       });
     </script>
 
-    <section id="kakaoDirectionsSection" aria-label="오시는 길 섹션">
-      <style>
-        /* ===============================
+<section id="kakaoDirectionsSection" aria-label="오시는 길 섹션">
+  <style>
+    /* ===============================
        Scope: #kakaoDirectionsSection ONLY
        =============================== */
-        #kakaoDirectionsSection {
-          --bg: #ffffff;
-          --ink: #111111;
-          --muted: #6b7280;
-          --line: rgba(17, 17, 17, .10);
-          --soft: #f5f6f8;
-          --soft2: #f1f2f4;
-          --accent: #e11d2e;
-          --max: 1160px;
+    #kakaoDirectionsSection {
+      --bg: #ffffff;
+      --ink: #111111;
+      --muted: #6b7280;
+      --line: rgba(17, 17, 17, .10);
+      --soft: #f5f6f8;
+      --soft2: #f1f2f4;
+      --accent: #e11d2e;
+      --max: 1160px;
 
-          font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-          color: var(--ink);
-          background: var(--bg);
-          padding: 34px 16px 44px;
-          -webkit-font-smoothing: antialiased;
-          text-rendering: optimizeLegibility;
-        }
+      font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      padding: 34px 16px 44px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-        #kakaoDirectionsSection * {
-          box-sizing: border-box;
-        }
+    #kakaoDirectionsSection * {
+      box-sizing: border-box;
+    }
 
-        #kakaoDirectionsSection .kd-wrap {
-          max-width: var(--max);
-          margin: 0 auto;
-        }
+    #kakaoDirectionsSection .kd-wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
 
-        /* Header */
-        #kakaoDirectionsSection .kd-head {
-          text-align: center;
-          padding: 10px 0 16px;
-        }
+    /* Header */
+    #kakaoDirectionsSection .kd-head {
+      text-align: center;
+      padding: 10px 0 16px;
+    }
 
-        #kakaoDirectionsSection .kd-title {
-          margin: 0;
-          font-size: 28px;
-          line-height: 1.1;
-          letter-spacing: -.02em;
-        }
+    #kakaoDirectionsSection .kd-title {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+    }
 
-        #kakaoDirectionsSection .kd-divider {
-          height: 1px;
-          background: var(--line);
-          margin: 0 0 18px;
-        }
+    #kakaoDirectionsSection .kd-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 0 0 18px;
+    }
 
-        /* Map */
-        #kakaoDirectionsSection .kd-mapShell {
-          border: 1px solid var(--line);
-          border-radius: 10px;
-          overflow: hidden;
-          background: #fff;
-        }
+    /* Map */
+    #kakaoDirectionsSection .kd-mapShell {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
 
-        #kakaoDirectionsSection .kd-map {
-          width: 100%;
-          aspect-ratio: 16/7.4;
-          min-height: 340px;
-          background: #f4f5f7;
-        }
+    #kakaoDirectionsSection .kd-map {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 7.4;
+      min-height: 340px;
+      background: #f4f5f7;
+      overflow: hidden;
+      isolation: isolate;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
 
-        /* RoughMap responsive */
-        #kakaoDirectionsSection .root_daum_roughmap,
-        #kakaoDirectionsSection .root_daum_roughmap .wrap_map,
-        #kakaoDirectionsSection .root_daum_roughmap iframe {
-          width: 100% !important;
-          height: 100% !important;
-          border: 0 !important;
-          display: block;
-        }
+    /* RoughMap responsive + iPhone height fix */
+    #kakaoDirectionsSection .root_daum_roughmap {
+      width: 100% !important;
+      height: 100% !important;
+      min-height: inherit;
+    }
 
-        /* Info */
-        #kakaoDirectionsSection .kd-infoRow {
-          display: grid;
-          grid-template-columns: 1fr auto;
-          gap: 18px;
-          padding: 18px 2px 6px;
-        }
+    #kakaoDirectionsSection .root_daum_roughmap,
+    #kakaoDirectionsSection .root_daum_roughmap .wrap_map,
+    #kakaoDirectionsSection .root_daum_roughmap iframe,
+    #kakaoDirectionsSection .root_daum_roughmap .wrap_controllers {
+      width: 100% !important;
+      border: 0 !important;
+      display: block !important;
+    }
 
-        #kakaoDirectionsSection .kd-address {
-          display: flex;
-          gap: 10px;
-        }
+    #kakaoDirectionsSection .root_daum_roughmap .wrap_map,
+    #kakaoDirectionsSection .root_daum_roughmap iframe {
+      height: 100% !important;
+      min-height: inherit !important;
+    }
 
-        #kakaoDirectionsSection .kd-pin {
-          width: 18px;
-          height: 18px;
-          margin-top: 2px;
-          color: var(--accent);
-        }
+    #kakaoDirectionsSection .root_daum_roughmap .wrap_btn_zoom,
+    #kakaoDirectionsSection .root_daum_roughmap .wrap_controllers {
+      z-index: 2;
+    }
 
-        #kakaoDirectionsSection .kd-addrText {
-          font-size: 16px;
-          font-weight: 600;
-        }
+    /* Info */
+    #kakaoDirectionsSection .kd-infoRow {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      padding: 18px 2px 6px;
+    }
 
-        #kakaoDirectionsSection .kd-contacts {
-          display: flex;
-          gap: 18px;
-          flex-wrap: wrap;
-        }
+    #kakaoDirectionsSection .kd-address {
+      display: flex;
+      gap: 10px;
+    }
 
-        #kakaoDirectionsSection .kd-contact {
-          display: grid;
-          grid-template-columns: 56px auto;
-          gap: 12px;
-          min-width: 220px;
-        }
+    #kakaoDirectionsSection .kd-pin {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      color: var(--accent);
+    }
 
-        #kakaoDirectionsSection .kd-bubble {
-          width: 56px;
-          height: 56px;
-          border-radius: 999px;
-          background: var(--soft2);
-          display: grid;
-          place-items: center;
-        }
+    #kakaoDirectionsSection .kd-addrText {
+      font-size: 16px;
+      font-weight: 600;
+    }
 
-        #kakaoDirectionsSection .kd-label {
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: .06em;
-        }
+    #kakaoDirectionsSection .kd-contacts {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
 
-        /* 클릭 가능한 링크 */
-        #kakaoDirectionsSection .kd-link {
-          font-size: 15px;
-          font-weight: 600;
-          color: #111;
-          text-decoration: none;
-          cursor: pointer;
-        }
+    #kakaoDirectionsSection .kd-contact {
+      display: grid;
+      grid-template-columns: 56px auto;
+      gap: 12px;
+      min-width: 220px;
+    }
 
-        #kakaoDirectionsSection .kd-link:hover {
-          text-decoration: underline;
-        }
+    #kakaoDirectionsSection .kd-bubble {
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: var(--soft2);
+      display: grid;
+      place-items: center;
+    }
 
-        #kakaoDirectionsSection .kd-divider2 {
-          height: 1px;
-          background: var(--line);
-          margin: 18px 0;
-        }
+    #kakaoDirectionsSection .kd-label {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
 
-        /* Traffic */
-        #kakaoDirectionsSection .kd-trafficTitle {
-          margin: 0 0 14px;
-          font-weight: 800;
-          color: var(--accent);
-        }
+    /* 클릭 가능한 링크 */
+    #kakaoDirectionsSection .kd-link {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-        #kakaoDirectionsSection .kd-trafficGrid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 18px;
-        }
+    #kakaoDirectionsSection .kd-link:hover {
+      text-decoration: underline;
+    }
 
-        #kakaoDirectionsSection .kd-trafficItem {
-          display: grid;
-          grid-template-columns: 72px 1fr;
-          gap: 14px;
-          padding: 14px;
-          border-radius: 14px;
-          background: #fff;
-        }
+    #kakaoDirectionsSection .kd-divider2 {
+      height: 1px;
+      background: var(--line);
+      margin: 18px 0;
+    }
 
-        #kakaoDirectionsSection .kd-trafficIcon {
-          width: 72px;
-          height: 72px;
-          border-radius: 999px;
-          background: var(--soft);
-          display: grid;
-          place-items: center;
-        }
+    /* Traffic */
+    #kakaoDirectionsSection .kd-trafficTitle {
+      margin: 0 0 14px;
+      font-weight: 800;
+      color: var(--accent);
+    }
 
-        @media (max-width:900px) {
-          #kakaoDirectionsSection .kd-infoRow {
-            grid-template-columns: 1fr;
-          }
+    #kakaoDirectionsSection .kd-trafficGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
 
-          #kakaoDirectionsSection .kd-trafficGrid {
-            grid-template-columns: 1fr;
-          }
-        }
-      </style>
+    #kakaoDirectionsSection .kd-trafficItem {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: #fff;
+    }
 
-      <div class="kd-wrap" data-address="서울 강남구 강남대로 358 타워" data-tel="02-1234-1234" data-fax="02-1234-1234">
+    #kakaoDirectionsSection .kd-trafficIcon {
+      width: 72px;
+      height: 72px;
+      border-radius: 999px;
+      background: var(--soft);
+      display: grid;
+      place-items: center;
+    }
 
-        <header class="kd-head">
-          <!-- <h2 class="kd-title">오시는 길</h2> -->
-        </header>
+    @media (max-width: 900px) {
+      #kakaoDirectionsSection .kd-infoRow {
+        grid-template-columns: 1fr;
+      }
 
-        <div class="kd-divider"></div>
+      #kakaoDirectionsSection .kd-trafficGrid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        <div class="kd-mapShell">
-          <div class="kd-map">
-            <div id="daumRoughmapContainer1770267986161" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+    /* iPhone Safari에서 지도 높이가 절반만 보이는 문제 대응 */
+    @media (max-width: 768px) {
+      #kakaoDirectionsSection {
+        padding: 28px 14px 38px;
+      }
+
+      #kakaoDirectionsSection .kd-map {
+        aspect-ratio: auto;
+        height: 56vw;
+        min-height: 300px;
+        max-height: 420px;
+      }
+
+      #kakaoDirectionsSection .root_daum_roughmap,
+      #kakaoDirectionsSection .root_daum_roughmap .wrap_map,
+      #kakaoDirectionsSection .root_daum_roughmap iframe {
+        height: 100% !important;
+        min-height: 300px !important;
+      }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      #kakaoDirectionsSection .kd-map {
+        -webkit-mask-image: -webkit-radial-gradient(white, black);
+      }
+    }
+  </style>
+
+  <div class="kd-wrap" data-address="강남구 역삼로 114, 현죽빌딩 8층 8016호" data-tel="02-1234-1234" data-fax="02-1234-1234">
+    <header class="kd-head">
+      <!-- <h2 class="kd-title">오시는 길</h2> -->
+    </header>
+
+    <div class="kd-divider"></div>
+
+    <div class="kd-mapShell">
+      <div class="kd-map">
+        <div id="daumRoughmapContainer1773101240693" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+      </div>
+    </div>
+
+    <div class="kd-infoRow">
+      <div class="kd-address">
+        <svg class="kd-pin" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2c3.9 0 7 3.1 7 7 0 5.3-7 13-7 13S5 14.3 5 9c0-3.9 3.1-7 7-7z" />
+        </svg>
+        <div class="kd-addrText" id="kdAddrText"></div>
+      </div>
+
+      <!--
+      <div class="kd-contacts">
+        <div class="kd-contact">
+          <div class="kd-bubble">☎</div>
+          <div>
+            <div class="kd-label">TEL</div>
+            <a id="kdTelLink" class="kd-link"></a>
           </div>
         </div>
 
-        <div class="kd-infoRow">
-          <div class="kd-address">
-            <svg class="kd-pin" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2c3.9 0 7 3.1 7 7 0 5.3-7 13-7 13S5 14.3 5 9c0-3.9 3.1-7 7-7z" />
-            </svg>
-            <div class="kd-addrText" id="kdAddrText"></div>
-          </div>
-
-          <!-- <div class="kd-contacts">
-            <div class="kd-contact">
-              <div class="kd-bubble">☎</div>
-              <div>
-                <div class="kd-label">TEL</div>
-                <a id="kdTelLink" class="kd-link"></a>
-              </div>
-            </div>
-
-            <div class="kd-contact">
-              <div class="kd-bubble">📠</div>
-              <div>
-                <div class="kd-label">FAX</div>
-                <a id="kdFaxLink" class="kd-link"></a>
-              </div>
-            </div>
-          </div> -->
-        </div>
-
-        <div class="kd-divider2"></div>
-
-        <h3 class="kd-trafficTitle">교통편</h3>
-
-        <div class="kd-trafficGrid">
-          <div class="kd-trafficItem">
-            <div class="kd-trafficIcon">🚌</div>
-            <div>
-              <strong>버스</strong>
-              <p>신분당선강남역(중), 강남역 4번출구 하차</p>
-            </div>
-          </div>
-
-          <div class="kd-trafficItem">
-            <div class="kd-trafficIcon">🚇</div>
-            <div>
-              <strong>지하철</strong>
-              <p>강남역 4번출구 도보 3분</p>
-            </div>
+        <div class="kd-contact">
+          <div class="kd-bubble">📠</div>
+          <div>
+            <div class="kd-label">FAX</div>
+            <a id="kdFaxLink" class="kd-link"></a>
           </div>
         </div>
       </div>
+      -->
+    </div>
 
-      <!-- Kakao Map -->
-      <script charset="UTF-8" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+    <div class="kd-divider2"></div>
 
-      <script charset="UTF-8">
+    <h3 class="kd-trafficTitle">교통편</h3>
+
+    <div class="kd-trafficGrid">
+      <div class="kd-trafficItem">
+        <div class="kd-trafficIcon">🚌</div>
+        <div>
+          <strong>버스</strong>
+          <p>신분당선강남역(중), 강남역 4번출구 하차</p>
+        </div>
+      </div>
+
+      <div class="kd-trafficItem">
+        <div class="kd-trafficIcon">🚇</div>
+        <div>
+          <strong>지하철</strong>
+          <p>강남역 4번출구 도보 3분</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kakao Map -->
+  <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+  <script charset="UTF-8">
+    (function () {
+      const wrap = document.querySelector('#kakaoDirectionsSection .kd-wrap');
+      const addr = wrap ? wrap.dataset.address : '';
+      const tel = wrap ? wrap.dataset.tel : '';
+      const fax = wrap ? wrap.dataset.fax : '';
+
+      const addrText = document.getElementById('kdAddrText');
+      if (addrText) addrText.textContent = addr;
+
+      const telLink = document.getElementById('kdTelLink');
+      if (telLink) {
+        telLink.textContent = tel;
+        telLink.href = 'tel:' + String(tel).replace(/[^0-9]/g, '');
+      }
+
+      const faxLink = document.getElementById('kdFaxLink');
+      if (faxLink) {
+        faxLink.textContent = fax;
+        faxLink.href = 'fax:' + String(fax).replace(/[^0-9]/g, '');
+      }
+
+      function forceKakaoMapLayout() {
+        const mapBox = document.querySelector('#kakaoDirectionsSection .kd-map');
+        const root = document.getElementById('daumRoughmapContainer1773101240693');
+        if (!mapBox || !root) return;
+
+        const h = Math.max(mapBox.clientHeight, window.innerWidth <= 768 ? 300 : 340);
+
+        root.style.width = '100%';
+        root.style.height = h + 'px';
+
+        const wrapMap = root.querySelector('.wrap_map');
+        if (wrapMap) {
+          wrapMap.style.width = '100%';
+          wrapMap.style.height = h + 'px';
+        }
+
+        const iframe = root.querySelector('iframe');
+        if (iframe) {
+          iframe.style.width = '100%';
+          iframe.style.height = h + 'px';
+          iframe.setAttribute('scrolling', 'no');
+        }
+      }
+
+      function renderKakaoMap() {
+        if (!window.daum || !daum.roughmap || !daum.roughmap.Lander) return;
+
         new daum.roughmap.Lander({
-          "timestamp": "1770267986161",
-          "key": "gu63h7hi7da",
+          "timestamp": "1773101240693",
+          "key": "j3rzm7aajcp",
           "mapWidth": "640",
           "mapHeight": "360"
         }).render();
 
-        (function () {
-          const wrap = document.querySelector('#kakaoDirectionsSection .kd-wrap');
-          const addr = wrap.dataset.address;
-          const tel = wrap.dataset.tel;
-          const fax = wrap.dataset.fax;
+        setTimeout(forceKakaoMapLayout, 150);
+        setTimeout(forceKakaoMapLayout, 500);
+        setTimeout(forceKakaoMapLayout, 1000);
+      }
 
-          document.getElementById('kdAddrText').textContent = addr;
+      if (window.daum && daum.roughmap && daum.roughmap.Lander) {
+        renderKakaoMap();
+      } else {
+        window.addEventListener('load', renderKakaoMap, { once: true });
+      }
 
-          const telLink = document.getElementById('kdTelLink');
-          telLink.textContent = tel;
-          telLink.href = 'tel:' + tel.replace(/[^0-9]/g, '');
+      window.addEventListener('resize', forceKakaoMapLayout);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(forceKakaoMapLayout, 250);
+        setTimeout(forceKakaoMapLayout, 700);
+      });
 
-          const faxLink = document.getElementById('kdFaxLink');
-          faxLink.textContent = fax;
-          faxLink.href = 'fax:' + fax.replace(/[^0-9]/g, '');
-        })();
-      </script>
-    </section>
+      if ('ResizeObserver' in window) {
+        const mapBox = document.querySelector('#kakaoDirectionsSection .kd-map');
+        if (mapBox) {
+          const ro = new ResizeObserver(function () {
+            forceKakaoMapLayout();
+          });
+          ro.observe(mapBox);
+        }
+      }
+    })();
+  </script>
+</section>
 
 
 
