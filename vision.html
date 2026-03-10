@@ -60,7 +60,19 @@
   <script src="./menu3.js"></script>
 
 
-  <style>
+ 
+
+  </head>
+
+  <body>
+
+    <!-- 메뉴(외부 로드) -->
+    <div id="menu"></div>
+
+    <!-- SEC02: BENEFITS -->
+    <div id="section-benefits">
+
+       <style>
     *,
     *::before,
     *::after {
@@ -662,131 +674,6 @@
     }
   </style>
 
-  <style>
-    /* ──────────────────────────────────────────
-          #visual-section 전용 스타일
-      ─────────────────────────────────────────── */
-    #visual-section {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden
-    }
-
-    #visual-section .video_wrap {
-      position: absolute;
-      inset: 0;
-      z-index: 0
-    }
-
-    #visual-section .video_wrap video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center
-    }
-
-    #visual-section .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5)
-    }
-
-    #visual-section .txt_container {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-      text-align: center;
-      pointer-events: none
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    #visual-section .company,
-    #visual-section .logo,
-    #visual-section .exp {
-      opacity: 0
-    }
-
-    #visual-section.animate .company {
-      color: #fff;
-      font-size: 2.5rem;
-      font-weight: 500;
-      margin-bottom: .5em;
-      animation: fadeInUp 1s ease-out forwards;
-      animation-delay: .2s
-    }
-
-    #visual-section.animate .logo {
-      animation: fadeInUp 1s ease-out forwards;
-      animation-delay: .7s
-    }
-
-    #visual-section .logo .m_logo {
-      width: 800px;
-      height: 130px;
-      background: url("../img/sm-logo.png") no-repeat center/contain;
-      margin-bottom: .5em
-    }
-
-    #visual-section.animate .exp {
-      color: #fff;
-      font-size: 1.25rem;
-      line-height: 1.6;
-      max-width: 80%;
-      animation: fadeInUp 1s ease-out forwards;
-      animation-delay: 1s
-    }
-
-    #visual-section .highlight {
-      color: #e6d3a3;
-      font-weight: 600
-    }
-
-    @media (max-width:768px) {
-      #visual-section .company {
-        font-size: 2rem !important
-      }
-
-      #visual-section .logo .m_logo {
-        background: url("../img/sm-font.png") no-repeat center/contain;
-        width: 400px;
-        height: 300px
-      }
-
-      #visual-section .exp {
-        font-size: 1rem
-      }
-
-      #visual-section .video_wrap video {
-        object-position: right center
-      }
-    }
-  </style>
-  </head>
-
-  <body>
-
-    <!-- 메뉴(외부 로드) -->
-    <div id="menu"></div>
-
-    <!-- SEC02: BENEFITS -->
-    <div id="section-benefits">
-
       <!-- PIN WRAPPER (sticky visual area) -->
       <div class="pin-wrapper" id="pinWrapper">
 
@@ -982,11 +869,8 @@
         </div>
 
       </div>
-    </div>
 
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <script>
@@ -1200,6 +1084,11 @@
 
       })();
     </script>
+    </div>
+
+
+
+
 
 
     <div id="footer_template"></div>
