@@ -174,7 +174,7 @@ data-bizno="HTU GLOBAL HOLDINGS">
 <span class="meta">회사명 : <b id="bizNo">HTU </b></span>
 
 <span class="sep">·</span>
-<span class="meta">법인 : <b id="corpNo">110-230-129994</b></span>
+<span class="meta">사업자등록번호 : <b id="corpNo">110-230-129994</b></span>
 
 <span class="sep">·</span>
 <span class="meta">대표 : <b id="corpCEO">강영수</b></span>
