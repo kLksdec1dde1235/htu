@@ -461,8 +461,6 @@
       color: var(--ink);
       width: 100%;
       position: relative;
-      /* overflow: clip 은 overflow: hidden 과 시각적으로 동일하나
-           position: sticky 를 방해하지 않음 */
       overflow: clip;
       background: #000;
       isolation: isolate;
@@ -497,17 +495,15 @@
       will-change: transform;
       z-index: 1;
       overflow: hidden;
-      /* Hide iframe overflow when shrinking */
+      background: #000;
     }
 
     #bgfScrollWrap .video_wrap video,
     #bgfScrollWrap .video_wrap iframe {
       width: 100vw;
       min-width: 177.77vh;
-      /* Aspect ratio 16:9 */
       height: 100vh;
       min-height: 56.25vw;
-      /* Aspect ratio 16:9 */
       position: absolute;
       top: 50%;
       left: 50%;
@@ -515,6 +511,36 @@
       display: block;
       background: #000;
       pointer-events: none;
+    }
+
+    /* ✅ 핵심: 영상은 실제 재생 신호가 오기 전까지 안 보이게 */
+    #bgfScrollWrap .video_wrap iframe {
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+      will-change: opacity;
+    }
+
+    /* ✅ 미리보기는 영상 위에 올려두고, 영상 준비되면 자연스럽게 사라짐 */
+    #bgfScrollWrap .video-placeholder {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: #000 url('./img/forum1.jpg') center/cover no-repeat;
+      filter: brightness(0.5);
+      opacity: 1;
+      transition: opacity 0.9s ease;
+      will-change: opacity;
+      pointer-events: none;
+    }
+
+    /* 영상 준비 완료 상태 */
+    #bgfScrollWrap .video_wrap.is-video-ready iframe {
+      opacity: 1;
+    }
+
+    #bgfScrollWrap .video_wrap.is-video-ready .video-placeholder {
+      opacity: 0;
     }
 
     #bgfScrollWrap .dim {
@@ -530,7 +556,6 @@
     /* ====== Mobile Visual Swiper ====== */
     #bgfScrollWrap .m_slide_visual {
       position: absolute;
-      /* ✅ 모바일에서 이미지가 영상 전체를 덮지 않도록: 하단 영역만 사용 */
       left: 0;
       right: 0;
       bottom: 0;
@@ -854,7 +879,6 @@
       transition: transform 900ms cubic-bezier(.2, .8, .2, 1);
     }
 
-    /* ✅ 요청: 사업영역 이미지는 scrollWrap(독립 섹션)에서는 노출하지 않음 */
     #bgfScrollWrap .sec01 .contents_area {
       background: #f3f4f6;
     }
@@ -940,8 +964,6 @@
         display: inline;
       }
 
-      /* ✅ 모바일: PNG/비주얼은 하단 영역에만 깔려서 영상 가림 방지 */
-      /* 모바일에서 자동차 PNG/슬라이드 이미지 완전히 제거 */
       #bgfScrollWrap .m_slide_visual {
         display: none !important;
       }
@@ -995,63 +1017,32 @@
       #bgfScrollWrap .scroll_indicator::after {
         animation: none;
       }
+
+      #bgfScrollWrap .video_wrap iframe,
+      #bgfScrollWrap .video-placeholder {
+        transition: none;
+      }
     }
   </style>
 
-  <!-- ===============================
-       CONTENT (원본 scrollWrap 내부 구조를 독립형으로 재구성)
-       =============================== -->
   <div class="bgf-container">
     <div class="content">
 
-      <!-- HERO VISUAL (pin + text transitions) -->
-      <!-- pin-spacer: JS가 height를 동적으로 설정 (4×100vh) -->
       <div class="pin-spacer">
-        <!-- sec_visual: JS가 position:sticky 를 설정 -->
         <div class="sec sec_visual" data-bgf-hero="">
           <div class="video_wrap" data-bgf-video="">
-            <!-- 영상 로딩 전 미리보기 이미지 (원하시는 이미지 URL로 변경해주세요) -->
-            <div class="video-placeholder"
-              style="position: absolute; inset: 0; background: #000 url('./img/forum1.jpg') center/cover no-repeat; z-index: 2; transition: opacity 0.8s ease;filter:brightness(0.5)">
-            </div>
+            <div class="video-placeholder" aria-hidden="true"></div>
 
-            <!-- 반복 재생 시 부드러운 연결을 위한 오버레이 -->
-            <div class="loop-overlay"
-              style="position: absolute; inset: 0; background: #000; z-index: 1; opacity: 0; transition: opacity 0.6s ease; pointer-events: none;">
-            </div>
-
-            <iframe id="bgf-vimeo-iframe"
-              src="https://player.vimeo.com/video/1172355423?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
-              allow="autoplay; fullscreen" title="비즈니스 혁신 연구소 2" frameborder="0"></iframe>
+            <iframe
+              id="bgf-vimeo-iframe"
+              src="https://player.vimeo.com/video/1172814900?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
+              allow="autoplay; fullscreen"
+              title="비즈니스 혁신 연구소 2"
+              frameborder="0"></iframe>
           </div>
 
           <div class="dim" data-bgf-dim=""></div>
 
-          <!-- mobile visuals (fade) -->
-          <!-- <div class="m_slide_visual" aria-label="모바일 비주얼 슬라이드" data-bgf-swiper="">
-              <div class="swiper-wrapper m_visual_list">
-                <div class="swiper-slide visual_item1" role="group" aria-label="1 / 3">
-                  <div class="img_wrap">
-                    <img src="https://www.bgfecomaterials.com/resources/kr/images/company/overview/m_visual_01.png"
-                      alt="">
-                  </div>
-                </div>
-                <div class="swiper-slide visual_item" role="group" aria-label="2 / 3">
-                  <div class="img_wrap">
-                    <img src="https://www.bgfecomaterials.com/resources/kr/images/company/overview/m_visual_02.png"
-                      alt="">
-                  </div>
-                </div>
-                <div class="swiper-slide visual_item" role="group" aria-label="3 / 3">
-                  <div class="img_wrap">
-                    <img src="https://www.bgfecomaterials.com/resources/kr/images/company/overview/m_visual_03.png"
-                      alt="">
-                  </div>
-                </div>
-              </div>
-            </div> -->
-
-          <!-- texts -->
           <div class="title_wrap">
             <div class="title_inner">
               <div class="txt_box box01" data-bgf-titlewrap="">
@@ -1079,13 +1070,11 @@
                 <div class="vision_wrap" data-bgf-visionwrap="">
                   <dl class="vision" data-bgf-vision="">
                     <dt>VISION</dt>
-                    <!-- font-size: 16px 는 애니메이션 시작값 (CSS의 clamp()값 대신 작게 출발) -->
                     <dd class="sub_text01" data-bgf-visiontext=""
                       style="line-height: normal; font-size: 16px; margin-bottom: 0px;">
                       HEALTH TO YOU<br>
                       HAPPY TO YOU<br>
                       HOPE TO YOU
-
                     </dd>
                   </dl>
 
@@ -1101,7 +1090,6 @@
                   <div class="empty_box" aria-hidden="true"></div>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -1112,7 +1100,6 @@
         </div>
       </div>
 
-      <!-- 사업영역 섹션 삭제됨 -->
     </div>
   </div>
 
@@ -1120,24 +1107,18 @@
     (function () {
       'use strict';
 
-      /* ─────────────────────────────────────────
-         BGF Hero Scroll  —  Vanilla JS (no GSAP / no Swiper)
-         외부 라이브러리 없이 동일한 스크롤 핀+애니메이션 구현
-      ───────────────────────────────────────── */
-
       const root = document.getElementById('bgfScrollWrap');
       if (!root) return;
 
-      // 중복 초기화 방지
       if (root.dataset.bgfVanillaInit === '1') return;
       root.dataset.bgfVanillaInit = '1';
 
       const prefersReduce =
         window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      /* ── 요소 참조 ── */
       const secVisual = root.querySelector('[data-bgf-hero]');
       if (!secVisual) return;
+
       const pinSpacer = secVisual.parentElement;
       const dim = root.querySelector('[data-bgf-dim]');
       const titleWrap = root.querySelector('[data-bgf-titlewrap]');
@@ -1149,34 +1130,21 @@
       const visionText01 = root.querySelector('[data-bgf-visiontext]');
       const missionDD = root.querySelector('[data-bgf-missiondd]');
       const videoWrap = root.querySelector('[data-bgf-video]');
-      const titleWrapEl = root.querySelector('.title_wrap'); // 텍스트 전체 레이어 (video 와 동기 축소용)
+      const titleWrapEl = root.querySelector('.title_wrap');
 
-      /* ──────────────────────────────────────────
-         1. Sticky-pin 설정
-            pin-spacer  = 4×vh  (1vh 표시 + 3vh 스크롤 여백)
-            sec_visual  = position:sticky; top:0; height:100vh
-      ────────────────────────────────────────── */
       function setupPin() {
         const vh = window.innerHeight;
-        pinSpacer.style.cssText =
-          'position:relative;height:' + (vh * 4) + 'px;';
+        pinSpacer.style.cssText = 'position:relative;height:' + (vh * 4) + 'px;';
         secVisual.style.cssText =
           'position:sticky;top:0;width:100%;height:100vh;' +
           'max-height:none;max-width:none;box-sizing:border-box;overflow:hidden;';
       }
 
-      /* ──────────────────────────────────────────
-         2. 스크롤 진행도 0→1
-            (pinSpacer 상단이 뷰포트 상단을 지나친 거리 / 3×vh)
-      ────────────────────────────────────────── */
       function getProgress() {
         const scrolled = -pinSpacer.getBoundingClientRect().top;
         return Math.max(0, Math.min(1, scrolled / (window.innerHeight * 3)));
       }
 
-      /* ──────────────────────────────────────────
-         3. 선형 리맵 헬퍼: v 가 [i0,i1] 범위일 때 [o0,o1] 로 매핑
-      ────────────────────────────────────────── */
       function remap(v, i0, i1, o0, o1) {
         return o0 + (o1 - o0) * Math.max(0, Math.min(1, (v - i0) / (i1 - i0)));
       }
@@ -1185,10 +1153,6 @@
         return a + (b - a) * t;
       }
 
-      /* ──────────────────────────────────────────
-         4. 브레이크포인트별 비전 폰트 목표값
-            (원본 GSAP matchMedia 와 동일한 breakpoints)
-      ────────────────────────────────────────── */
       function getVisionCfg() {
         const w = window.innerWidth;
         if (w >= 1367) return { font: 50, line: 70 };
@@ -1196,10 +1160,6 @@
         return { font: 30, line: 40 };
       }
 
-      /* ──────────────────────────────────────────
-         5. 진입 타이틀 애니메이션 (페이지 로드 시 1회)
-            원본: gsap.to(mainTitle, { duration:1, opacity:1, y:0 })
-      ────────────────────────────────────────── */
       function revealTitle() {
         if (prefersReduce) {
           mainTitle.forEach(function (el) {
@@ -1208,12 +1168,12 @@
           });
           return;
         }
-        // 초기 숨김
+
         mainTitle.forEach(function (el) {
           el.style.opacity = '0';
           el.style.transform = 'translate3d(0,20px,0)';
         });
-        // 다음 프레임에서 트랜지션 적용 후 페이드인
+
         requestAnimationFrame(function () {
           requestAnimationFrame(function () {
             mainTitle.forEach(function (el, i) {
@@ -1227,24 +1187,6 @@
         });
       }
 
-      /* ──────────────────────────────────────────
-         6. 메인 스크롤 업데이트
-            원본 GSAP 타임라인의 각 단계를 진행도(p) 구간으로 매핑
-
-         타임라인 구간 요약 (p = 0~1):
-           0.00–0.15  dim 어두워짐
-           0.15–0.35  titleWrap(box01) 페이드아웃
-           0.20–0.38  mainText02 페이드인  (y 24→0)
-           0.45–0.60  mainText02 페이드아웃
-           0.35–0.50  scrollIcon 페이드아웃
-           0.55–0.70  video + dim 축소 (scale 1→0.9)
-           0.55–0.70  모바일 img_wrap 축소
-           0.60–0.75  visionWrap 등장 (y 26→0)
-           0.75–0.87  visionText01 폰트 확대, visionBox.active
-           0.87+      visionWrap.active
-           0.90–1.00  missionDD 등장 (y 18→0)
-      ────────────────────────────────────────── */
-      var rafPending = false;
       var animationFrameId = 0;
       var targetProgress = 0;
       var smoothProgress = 0;
@@ -1280,12 +1222,9 @@
         var p = typeof progressValue === 'number' ? progressValue : getProgress();
         var cfg = getVisionCfg();
 
-        /* sec_visual 배경: 축소 시 검정→흰색 전환
-           (video/dim 이 scale 0.9로 줄어들 때 테두리 배경이 흰색이 되도록) */
         var bgVal = Math.round(255 * remap(p, 0.55, 0.70, 0, 1));
         secVisual.style.backgroundColor = 'rgb(' + bgVal + ',' + bgVal + ',' + bgVal + ')';
 
-        /* dim: 투명도 어두워짐 + 스크롤 후반 축소 */
         if (dim) {
           var da = remap(p, 0, 0.15, 0, 0.5);
           var ds = remap(p, 0.55, 0.70, 1, 0.9);
@@ -1293,12 +1232,10 @@
           dim.style.transform = 'translate3d(0,0,0) scale(' + ds.toFixed(4) + ')';
         }
 
-        /* box01(titleWrap): 페이드아웃 */
         if (titleWrap) {
           titleWrap.style.opacity = remap(p, 0.15, 0.35, 1, 0).toFixed(3);
         }
 
-        /* mainText02: 페이드인 후 페이드아웃, y 이동 */
         if (mainText02) {
           var inO = remap(p, 0.20, 0.38, 0, 1);
           var outO = remap(p, 0.45, 0.60, 1, 0);
@@ -1307,19 +1244,14 @@
           mainText02.style.transform = 'translate3d(0,' + yVal.toFixed(1) + 'px,0)';
         }
 
-        /* scrollIcon: 페이드아웃 */
         if (scrollIcon) {
           scrollIcon.style.opacity = remap(p, 0.35, 0.50, 1, 0).toFixed(3);
         }
 
-        /* videoWrap + 텍스트 레이어: 동일 비율로 함께 축소
-           (video 가 0.9 로 줄어들 때 텍스트도 같이 줄어들어 흰 배경 밖으로 나가지 않음)
-           transform-origin 이 모두 center 이므로 위치가 자연스럽게 일치함 */
         var vs = remap(p, 0.55, 0.70, 1, 0.9);
         if (videoWrap) videoWrap.style.transform = 'translate3d(0,0,0) scale(' + vs.toFixed(4) + ')';
         if (titleWrapEl) titleWrapEl.style.transform = 'translate3d(0,0,0) scale(' + vs.toFixed(4) + ')';
 
-        /* 모바일 img_wrap: 비대칭 축소 */
         var imgWraps = root.querySelectorAll('.m_slide_visual .img_wrap');
         if (imgWraps.length) {
           var sx = remap(p, 0.55, 0.70, 1, 0.93).toFixed(4);
@@ -1329,7 +1261,6 @@
           }
         }
 
-        /* visionWrap: 등장 */
         if (visionWrap) {
           var vo = remap(p, 0.60, 0.75, 0, 1);
           var vy = remap(p, 0.60, 0.75, 26, 0);
@@ -1337,7 +1268,6 @@
           visionWrap.style.transform = 'translate3d(0,' + vy.toFixed(1) + 'px,0)';
         }
 
-        /* visionText01: 폰트 크기 확대 (16px → cfg.font) */
         var vtP = remap(p, 0.75, 0.87, 0, 1);
         if (visionText01) {
           visionText01.style.fontSize = remap(vtP, 0, 1, 16, cfg.font).toFixed(1) + 'px';
@@ -1349,13 +1279,11 @@
           else visionBox.classList.remove('active');
         }
 
-        /* visionWrap active 클래스 */
         if (visionWrap) {
           if (p >= 0.87) visionWrap.classList.add('active');
           else visionWrap.classList.remove('active');
         }
 
-        /* missionDD: 등장 */
         if (missionDD) {
           var mo = remap(p, 0.90, 1.00, 0, 1);
           var my = remap(p, 0.90, 1.00, 18, 0);
@@ -1364,15 +1292,13 @@
         }
       }
 
-      /* ──────────────────────────────────────────
-         7. 섹션 타이틀 스크롤 reveal (IntersectionObserver)
-            원본: scrollTrigger start='-30% 75%'
-      ────────────────────────────────────────── */
       function watchSectionTitle() {
         var el = root.querySelector('[data-bgf-sectitle]');
         if (!el) return;
         if (prefersReduce) {
-          el.style.opacity = '1'; el.style.transform = 'none'; return;
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+          return;
         }
         var io = new IntersectionObserver(function (entries) {
           if (!entries[0].isIntersecting) return;
@@ -1384,10 +1310,6 @@
         io.observe(el);
       }
 
-      /* ──────────────────────────────────────────
-         8. 비즈니스 카드: mask 오픈 + 타이틀 reveal + 호버
-            원본: ScrollTrigger mask scaleX 0, title fadeIn
-      ────────────────────────────────────────── */
       function watchCards() {
         var cons = root.querySelectorAll('.contents_inner .con');
         for (var i = 0; i < cons.length; i++) {
@@ -1398,12 +1320,12 @@
 
             if (prefersReduce) {
               mask.style.transform = 'scaleX(0)';
-              title.style.opacity = '1'; title.style.transform = 'none'; return;
+              title.style.opacity = '1';
+              title.style.transform = 'none';
+              return;
             }
 
             var isMobile = window.innerWidth <= 1024;
-
-            // mask 열리는 트리거 (원본: start '-50% 50%' PC / '-70% 60%' 모바일)
             var maskMargin = isMobile ? '0px 0px -40% 0px' : '0px 0px -50% 0px';
             var maskIO = new IntersectionObserver(function (entries) {
               if (!entries[0].isIntersecting) return;
@@ -1412,7 +1334,6 @@
               maskIO.unobserve(item);
             }, { rootMargin: maskMargin });
 
-            // 타이틀 페이드인 (원본: start '40% 50%' PC / '-20% 50%' 모바일)
             var titleMargin = isMobile ? '0px 0px -45% 0px' : '0px 0px -50% 0px';
             var titleIO = new IntersectionObserver(function (entries) {
               if (!entries[0].isIntersecting) return;
@@ -1425,7 +1346,6 @@
             maskIO.observe(item);
             titleIO.observe(item);
 
-            // 호버 (image_box 확대)
             title.addEventListener('mouseenter', function () {
               var img = item.querySelector('.image_box');
               if (img) img.classList.add('show');
@@ -1438,11 +1358,6 @@
         }
       }
 
-      /* ──────────────────────────────────────────
-         9. 모바일 페이드 슬라이더 (Swiper 대체)
-            원본: effect:'fade', speed:2500, autoplay:{delay:3000}, crossFade:true
-            모바일에서는 CSS display:none !important 이므로 시각적 차이 없음
-      ────────────────────────────────────────── */
       function initSlider() {
         var sEl = root.querySelector('[data-bgf-swiper]');
         if (!sEl) return;
@@ -1453,7 +1368,6 @@
         var slides = wrap.querySelectorAll('.swiper-slide');
         if (slides.length < 2) return;
 
-        // 슬라이드 컨테이너를 position:relative 로 리셋
         wrap.style.cssText = 'position:relative;width:100%;height:100%;';
         for (var i = 0; i < slides.length; i++) {
           slides[i].style.cssText =
@@ -1470,67 +1384,58 @@
         }, 3000);
       }
 
-      /* ──────────────────────────────────────────
-         10. Vimeo 플레이어 로딩 후 미리보기 숨김
-      ────────────────────────────────────────── */
+      /* ✅ 블랙아웃 없는 미리보기 → 영상 전환 */
       function initVideoPlaceholder() {
         var iframe = root.querySelector('.video_wrap iframe');
-        var placeholder = root.querySelector('.video-placeholder');
-        var loopOverlay = root.querySelector('.loop-overlay');
+        var wrap = root.querySelector('.video_wrap');
+        if (!iframe || !wrap) return;
 
-        if (iframe && placeholder) {
-          iframe.addEventListener('load', function () {
-            setTimeout(function () {
-              placeholder.style.opacity = '0';
-              setTimeout(function () {
-                placeholder.style.display = 'none';
-              }, 800);
-            }, 1000);
-          });
-        }
-
-        // Vimeo API를 동적으로 로드하여 끝날때쯤 페이드인(검은화면), 다시 시작될때 페이드아웃 적용
         var script = document.createElement('script');
         script.src = 'https://player.vimeo.com/api/player.js';
         script.onload = function () {
-          if (iframe && window.Vimeo) {
-            var player = new Vimeo.Player(iframe);
-            var isFading = false;
-            var duration = 0;
+          if (!window.Vimeo) return;
 
-            // 영상 길이 가져오기 (가끔 로딩때문에 지연될 수 있으므로 예외처리)
-            player.getDuration().then(function (d) {
-              duration = d;
-            }).catch(function (e) {
+          var player = new Vimeo.Player(iframe);
+          var hasSwitched = false;
+
+          function revealVideo() {
+            if (hasSwitched) return;
+            hasSwitched = true;
+            wrap.classList.add('is-video-ready');
+
+            var placeholder = wrap.querySelector('.video-placeholder');
+            if (placeholder) {
               setTimeout(function () {
-                player.getDuration().then(function (d) { duration = d; });
-              }, 2000);
-            });
-
-            // 영상 재생 시간 업데이트 감지
-            player.on('timeupdate', function (data) {
-              if (duration > 0 && data.seconds > duration - 0.7) {
-                // 끝에서 0.7초 남았을 때 검은 오버레이 페이드 인
-                if (!isFading) {
-                  isFading = true;
-                  if (loopOverlay) loopOverlay.style.opacity = '1';
-                }
-              } else if (data.seconds < 1.0) {
-                // 영상이 처음으로 돌아와 1.0초 미만일 때 검은 오버레이 페이드 아웃
-                if (isFading) {
-                  isFading = false;
-                  if (loopOverlay) loopOverlay.style.opacity = '0';
-                }
-              }
-            });
+                placeholder.style.display = 'none';
+              }, 950);
+            }
           }
+
+          player.ready().then(function () {
+            player.play().catch(function () {});
+          }).catch(function () {});
+
+          player.on('playing', function () {
+            revealVideo();
+          });
+
+          player.on('timeupdate', function (data) {
+            if (data && data.seconds >= 0.08) {
+              revealVideo();
+            }
+          });
+
+          // 혹시 playing 이벤트가 늦거나 누락될 때 대비한 보조 처리
+          setTimeout(function () {
+            player.getCurrentTime().then(function (sec) {
+              if (sec > 0) revealVideo();
+            }).catch(function () {});
+          }, 1800);
         };
+
         document.body.appendChild(script);
       }
 
-      /* ──────────────────────────────────────────
-         초기화
-      ────────────────────────────────────────── */
       function boot() {
         setupPin();
         revealTitle();
@@ -1540,7 +1445,7 @@
         initVideoPlaceholder();
         targetProgress = getProgress();
         smoothProgress = targetProgress;
-        update(smoothProgress); // 현재 스크롤 위치에 맞게 즉시 적용
+        update(smoothProgress);
       }
 
       if (document.readyState === 'loading') {
@@ -1549,10 +1454,8 @@
         boot();
       }
 
-      // 스크롤: RAF + 보간으로 부드럽게
       window.addEventListener('scroll', scheduleUpdate, { passive: true });
 
-      // 리사이즈: 핀 높이 및 폰트 재계산
       var resizeRaf = 0;
       window.addEventListener('resize', function () {
         cancelAnimationFrame(resizeRaf);
