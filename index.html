@@ -3653,7 +3653,7 @@
   <div class="wrap">
     <div class="head">
       <div class="head-left">
-        <h2>News &amp; Media</h2>
+        <h2>News &amp; Event</h2>
       </div>
       <div class="head-right" aria-label="뉴스 슬라이드 버튼">
         <button type="button" class="head-btn prev" id="newsPrev" aria-label="이전 뉴스 페이지">
@@ -3729,22 +3729,28 @@
     "link": "https://kbhga.com/34/?bmode=view&idx=166036234"
   },
    {
-    "title": "건강하고 아름다운 노년을 위한 준비 추계 헬시에이징 세미나",
-    "excerpt": "추계 헬시에이징 세미나의 마지막 세션은 한국 뷰티헬시에이징국제교류회 회장이자 더유리아트앤컬쳐 운영자인 이유리 회장이 맡아 진행했다.",
+    "title": "뷰티와 헬시에이징, 그리고 삶의 균형을 향해",
+    "excerpt": "대한민국은 급격히 고령화가 진행되는 중, 아니 이미 인구의 20% 이상이 만65세 이상으로 초고령 사회에 돌입했다.",
     "img": "https://cdn.gukjenews.com/news/photo/202410/3122026_3218895_3048.jpg",
-    "link": "https://www.gukjenews.com/news/articleView.html?idxno=3122026"
+    "link": "https://www.mdjournal.kr/news/articleView.html?idxno=41577"
   },
   {
     "title": "제15회 일본 헬시에이징학회 학술 대회 개최",
     "excerpt": "일본 사단법인 헬시에이징 학회 주최로 제15회 헬시에이징학회 학술대회(학술집회, 學術集會)가 지난해 12월 03일(토) 일본 도쿄 분쿄 시빅 센터에서 거행됐다.",
     "img": "https://cdn.mdjournal.kr/news/photo/202401/40803_21402_448.jpg",
-    "link": "https://kbhga.com/34/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=81380640&t=board"
+    "link": "https://www.mdjournal.kr/news/articleView.html?idxno=40803"
   },
   {
     "title": "KBHGA B&H INNOVATION CONCERT 리포트",
     "excerpt": "‘소비자가 곧 건강한 삶의 주체’라는 주장을 통해 건강 시장에서의 소비자의 인식 전환에 대해 강조했다.",
     "img": "https://cdn.mdjournal.kr/news/photo/202504/41411_22693_3717.jpeg",
     "link": "https://www.mdjournal.kr/news/articleView.html?idxno=41411"
+  },
+  {
+    "title": "더유리아트앤컬쳐(TUANC) 이유리 대표를 만나다.",
+    "excerpt": "옛것의 그리움이 담긴 도자기 예술 작품에 마케팅 감성을 더해 문화사업을 펼치다.",
+    "img": "https://cdn.mdjournal.kr/news/photo/202304/40283_20411_456.jpg",
+    "link": "https://www.mdjournal.kr/news/articleView.html?idxno=40283"
   },
   {
     "title": "(주)헬스투유•한국뷰티헬시에이징국제교류회•K FITNESS AGENCY 업무협약 체결",
@@ -3919,7 +3925,7 @@
 
         if (btnPrev) {
           btnPrev.style.display = '';
-          btnPrev.disabled = (currentPage <= 0) || isAnimating;
+          btnPrev.disabled = isAnimating;
         }
 
         if (btnNext) {
@@ -4001,8 +4007,8 @@
         const nextEl = buildPage(nextPageIndex);
         nextEl.classList.add('is-abs');
 
-        const enterFrom = direction === 1 ? '-100%' : '100%';
-        const leaveTo = direction === 1 ? '100%' : '-100%';
+        const enterFrom = direction === 1 ? '100%' : '-100%';
+        const leaveTo = direction === 1 ? '-100%' : '100%';
 
         currentEl.classList.add('is-abs');
         currentEl.style.transform = 'translate3d(0,0,0)';
@@ -4080,7 +4086,8 @@
       function prev() {
         if (isMobile() || isAnimating) return;
 
-        const prevPage = Math.max(0, currentPage - 1);
+        const lastPage = pageCount - 1;
+        const prevPage = currentPage <= 0 ? lastPage : currentPage - 1;
         transitionToPage(prevPage, -1);
       }
 
@@ -4161,980 +4168,1005 @@
 </section>
 
 
-  <section id="youtubePopupGallerySection" aria-label="유튜브 영상 갤러리 섹션" style="position: relative;">
-    <style>
-      /* ===============================
-     Scope: #youtubePopupGallerySection ONLY
-     =============================== */
+<section id="youtubePopupGallerySection" aria-label="유튜브 영상 갤러리 섹션" style="position: relative;">
+  <style>
+    /* ===============================
+   Scope: #youtubePopupGallerySection ONLY
+   =============================== */
+    #youtubePopupGallerySection {
+      --bg: #ffffff;
+      --card: #ffffff;
+      --ink: #0b0b0b;
+      --muted: rgba(11, 11, 11, .62);
+      --subtle: rgba(11, 11, 11, .08);
+      --line: rgba(11, 11, 11, .10);
+      --accent: #0b5fff;
+      --radius: 18px;
+      --radius2: 14px;
+      --gap: 18px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+      --shadow2: 0 8px 22px rgba(0, 0, 0, .06);
+      font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 86px 20px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    #youtubePopupGallerySection * {
+      box-sizing: border-box;
+    }
+
+    #youtubePopupGallerySection .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #youtubePopupGallerySection .head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    #youtubePopupGallerySection .head-left {
+      min-width: 0;
+    }
+
+    #youtubePopupGallerySection .head-left h2 {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: -.04em;
+      line-height: 1.12;
+    }
+
+    #youtubePopupGallerySection .head-left p {
+      margin: 10px 0 0;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 740px;
+    }
+
+    #youtubePopupGallerySection .head-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    #youtubePopupGallerySection .head-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .92);
+      color: rgba(11, 11, 11, .86);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .06);
+      transition: transform .14s ease, background .14s ease, border-color .14s ease, box-shadow .14s ease, opacity .14s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #youtubePopupGallerySection .head-btn svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    #youtubePopupGallerySection .head-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(11, 11, 11, .16);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, .08);
+    }
+
+    #youtubePopupGallerySection .head-btn:active {
+      transform: translateY(0px) scale(.98);
+    }
+
+    #youtubePopupGallerySection .head-btn[disabled] {
+      opacity: .35;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    #youtubePopupGallerySection .slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--subtle);
+      background: rgba(0, 0, 0, .015);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    #youtubePopupGallerySection .track {
+      position: relative;
+      min-height: 1px;
+      overflow: hidden;
+    }
+
+    #youtubePopupGallerySection .track.is-mobile {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--gap);
+    }
+
+    #youtubePopupGallerySection .page {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--gap);
+      min-height: 1px;
+      will-change: transform;
+      transition: transform .72s cubic-bezier(.22, .61, .36, 1);
+      backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
+    }
+
+    #youtubePopupGallerySection .page.is-abs {
+      position: absolute;
+      inset: 0;
+    }
+
+    #youtubePopupGallerySection .slide {
+      min-width: 0;
+    }
+
+    #youtubePopupGallerySection .slide-btn {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #youtubePopupGallerySection .slide-btn:focus {
+      outline: 2px solid rgba(11, 95, 255, .42);
+      outline-offset: 2px;
+      border-radius: var(--radius2);
+    }
+
+    #youtubePopupGallerySection .video-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--card);
+      border: 1px solid var(--subtle);
+      border-radius: var(--radius2);
+      overflow: hidden;
+      color: inherit;
+      box-shadow: var(--shadow2);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    #youtubePopupGallerySection .video-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(11, 11, 11, .12);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .10);
+    }
+
+    #youtubePopupGallerySection .thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #youtubePopupGallerySection .thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center center;
+      transform: scale(1.001);
+      transition: transform .6s ease;
+    }
+
+    #youtubePopupGallerySection .video-card:hover .thumb img {
+      transform: scale(1.05);
+    }
+
+    #youtubePopupGallerySection .thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .02), rgba(0, 0, 0, .18));
+      pointer-events: none;
+    }
+
+    #youtubePopupGallerySection .play-badge {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 68px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 0, 0, .92);
+      box-shadow: 0 18px 30px rgba(0, 0, 0, .18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    #youtubePopupGallerySection .play-badge::before {
+      content: "";
+      display: block;
+      margin-left: 3px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 16px solid #fff;
+    }
+
+    #youtubePopupGallerySection .text {
+      padding: 18px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    #youtubePopupGallerySection .title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 950;
+      line-height: 1.42;
+      letter-spacing: -.02em;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    #youtubePopupGallerySection .excerpt {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.68;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    #youtubePopupGallerySection .more-wrap {
+      display: none;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    #youtubePopupGallerySection .more-btn {
+      min-width: 160px;
+      padding: 14px 20px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .06);
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, opacity .16s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #youtubePopupGallerySection .more-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(11, 11, 11, .16);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, .08);
+    }
+
+    #youtubePopupGallerySection .more-btn:active {
+      transform: translateY(0) scale(.98);
+    }
+
+    #youtubePopupGallerySection .more-btn[hidden] {
+      display: none !important;
+    }
+
+    #youtubePopupGallerySection .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .78);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .24s ease, visibility .24s ease;
+      z-index: 9999;
+    }
+
+    #youtubePopupGallerySection .popup.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    #youtubePopupGallerySection .popup-dialog {
+      position: relative;
+      width: min(1100px, 100%);
+      background: #0b0b0b;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .38);
+      transform: translateY(10px) scale(.985);
+      transition: transform .24s ease;
+    }
+
+    #youtubePopupGallerySection .popup.is-open .popup-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+    #youtubePopupGallerySection .popup-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 3;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(0, 0, 0, .55);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #youtubePopupGallerySection .popup-close svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    #youtubePopupGallerySection .popup-frame-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    #youtubePopupGallerySection .popup-frame {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #000;
+    }
+
+    @media (max-width: 900px) {
       #youtubePopupGallerySection {
-        --bg: #ffffff;
-        --card: #ffffff;
-        --ink: #0b0b0b;
-        --muted: rgba(11, 11, 11, .62);
-        --subtle: rgba(11, 11, 11, .08);
-        --line: rgba(11, 11, 11, .10);
-        --accent: #0b5fff;
-        --radius: 18px;
-        --radius2: 14px;
-        --gap: 18px;
-        --shadow: 0 10px 30px rgba(0, 0, 0, .08);
-        --shadow2: 0 8px 22px rgba(0, 0, 0, .06);
-        font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        background: var(--bg);
-        color: var(--ink);
-        padding: 86px 20px;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-      }
-
-      #youtubePopupGallerySection * {
-        box-sizing: border-box;
-      }
-
-      #youtubePopupGallerySection .wrap {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      #youtubePopupGallerySection .head {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 18px;
-      }
-
-      #youtubePopupGallerySection .head-left {
-        min-width: 0;
+        padding: 68px 16px;
       }
 
       #youtubePopupGallerySection .head-left h2 {
-        margin: 0;
-        font-size: 34px;
-        font-weight: 950;
-        letter-spacing: -.04em;
-        line-height: 1.12;
-      }
-
-      #youtubePopupGallerySection .head-left p {
-        margin: 10px 0 0;
-        font-size: 15px;
-        color: var(--muted);
-        line-height: 1.55;
-        max-width: 740px;
-      }
-
-      #youtubePopupGallerySection .head-right {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-shrink: 0;
-      }
-
-      #youtubePopupGallerySection .head-btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 999px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, .92);
-        color: rgba(11, 11, 11, .86);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 10px 22px rgba(0, 0, 0, .06);
-        transition: transform .14s ease, background .14s ease, border-color .14s ease, box-shadow .14s ease, opacity .14s ease;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      #youtubePopupGallerySection .head-btn svg {
-        width: 18px;
-        height: 18px;
-        display: block;
-      }
-
-      #youtubePopupGallerySection .head-btn:hover {
-        transform: translateY(-1px);
-        border-color: rgba(11, 11, 11, .16);
-        box-shadow: 0 14px 30px rgba(0, 0, 0, .08);
-      }
-
-      #youtubePopupGallerySection .head-btn:active {
-        transform: translateY(0px) scale(.98);
-      }
-
-      #youtubePopupGallerySection .head-btn[disabled] {
-        opacity: .35;
-        cursor: not-allowed;
-        box-shadow: none;
+        font-size: 28px;
       }
 
       #youtubePopupGallerySection .slider {
-        position: relative;
-        overflow: hidden;
-        border-radius: var(--radius);
-        border: 1px solid var(--subtle);
-        background: rgba(0, 0, 0, .015);
-        box-shadow: var(--shadow);
-        padding: 16px;
-      }
-
-      #youtubePopupGallerySection .track {
-        position: relative;
-        min-height: 1px;
-        overflow: hidden;
-      }
-
-      #youtubePopupGallerySection .track.is-mobile {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--gap);
+        padding: 12px;
       }
 
       #youtubePopupGallerySection .page {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--gap);
-        min-height: 1px;
-        will-change: transform;
-        transition: transform .72s cubic-bezier(.22, .61, .36, 1);
-        backface-visibility: hidden;
-        transform: translate3d(0, 0, 0);
-      }
-
-      #youtubePopupGallerySection .page.is-abs {
-        position: absolute;
-        inset: 0;
-      }
-
-      #youtubePopupGallerySection .slide {
-        min-width: 0;
-      }
-
-      #youtubePopupGallerySection .slide-btn {
-        display: block;
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        border: 0;
-        background: transparent;
-        text-align: left;
-        cursor: pointer;
-        color: inherit;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      #youtubePopupGallerySection .slide-btn:focus {
-        outline: 2px solid rgba(11, 95, 255, .42);
-        outline-offset: 2px;
-        border-radius: var(--radius2);
-      }
-
-      #youtubePopupGallerySection .video-card {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        background: var(--card);
-        border: 1px solid var(--subtle);
-        border-radius: var(--radius2);
-        overflow: hidden;
-        color: inherit;
-        box-shadow: var(--shadow2);
-        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      }
-
-      #youtubePopupGallerySection .video-card:hover {
-        transform: translateY(-2px);
-        border-color: rgba(11, 11, 11, .12);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, .10);
-      }
-
-      #youtubePopupGallerySection .thumb {
-        position: relative;
-        aspect-ratio: 16/9;
-        overflow: hidden;
-        background: #000;
-      }
-
-      #youtubePopupGallerySection .thumb img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-        object-position: center center;
-        transform: scale(1.001);
-        transition: transform .6s ease;
-      }
-
-      #youtubePopupGallerySection .video-card:hover .thumb img {
-        transform: scale(1.05);
-      }
-
-      #youtubePopupGallerySection .thumb::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(0, 0, 0, .02), rgba(0, 0, 0, .18));
-        pointer-events: none;
-      }
-
-      #youtubePopupGallerySection .play-badge {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 68px;
-        height: 48px;
-        border-radius: 14px;
-        background: rgba(255, 0, 0, .92);
-        box-shadow: 0 18px 30px rgba(0, 0, 0, .18);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
-        pointer-events: none;
-      }
-
-      #youtubePopupGallerySection .play-badge::before {
-        content: "";
-        display: block;
-        margin-left: 3px;
-        width: 0;
-        height: 0;
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-left: 16px solid #fff;
-      }
-
-      #youtubePopupGallerySection .text {
-        padding: 18px 18px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        flex: 1;
-        min-width: 0;
-      }
-
-      #youtubePopupGallerySection .title {
-        margin: 0;
-        font-size: 18px;
-        font-weight: 950;
-        line-height: 1.42;
-        letter-spacing: -.02em;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-
-      #youtubePopupGallerySection .excerpt {
-        margin: 0;
-        font-size: 14px;
-        color: var(--muted);
-        line-height: 1.68;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        grid-template-columns: 1fr;
       }
 
       #youtubePopupGallerySection .more-wrap {
+        display: flex;
+      }
+
+      #youtubePopupGallerySection .head-right {
         display: none;
-        justify-content: center;
-        margin-top: 18px;
-      }
-
-      #youtubePopupGallerySection .more-btn {
-        min-width: 160px;
-        padding: 14px 20px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: #fff;
-        color: var(--ink);
-        font-size: 14px;
-        font-weight: 800;
-        letter-spacing: -.01em;
-        cursor: pointer;
-        box-shadow: 0 10px 22px rgba(0, 0, 0, .06);
-        transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, opacity .16s ease;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      #youtubePopupGallerySection .more-btn:hover {
-        transform: translateY(-1px);
-        border-color: rgba(11, 11, 11, .16);
-        box-shadow: 0 14px 30px rgba(0, 0, 0, .08);
-      }
-
-      #youtubePopupGallerySection .more-btn:active {
-        transform: translateY(0) scale(.98);
-      }
-
-      #youtubePopupGallerySection .more-btn[hidden] {
-        display: none !important;
       }
 
       #youtubePopupGallerySection .popup {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, .78);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: opacity .24s ease, visibility .24s ease;
-        z-index: 9999;
-      }
-
-      #youtubePopupGallerySection .popup.is-open {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
+        padding: 14px;
       }
 
       #youtubePopupGallerySection .popup-dialog {
-        position: relative;
-        width: min(1100px, 100%);
-        background: #0b0b0b;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, .38);
-        transform: translateY(10px) scale(.985);
-        transition: transform .24s ease;
+        border-radius: 16px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      #youtubePopupGallerySection .head {
+        align-items: flex-start;
       }
 
-      #youtubePopupGallerySection .popup.is-open .popup-dialog {
-        transform: translateY(0) scale(1);
+      #youtubePopupGallerySection .head-left p {
+        margin-top: 8px;
+        font-size: 14px;
+      }
+
+      #youtubePopupGallerySection .head-btn {
+        width: 38px;
+        height: 38px;
+      }
+
+      #youtubePopupGallerySection .head-btn svg {
+        width: 17px;
+        height: 17px;
       }
 
       #youtubePopupGallerySection .popup-close {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        z-index: 3;
-        width: 42px;
-        height: 42px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, .14);
-        background: rgba(0, 0, 0, .55);
-        color: #fff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 38px;
+        height: 38px;
+        top: 10px;
+        right: 10px;
       }
 
-      #youtubePopupGallerySection .popup-close svg {
-        width: 18px;
-        height: 18px;
-        display: block;
+      #youtubePopupGallerySection .play-badge {
+        width: 62px;
+        height: 44px;
       }
+    }
+  </style>
 
-      #youtubePopupGallerySection .popup-frame-wrap {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        background: #000;
-      }
-
-      #youtubePopupGallerySection .popup-frame {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        display: block;
-        background: #000;
-      }
-
-      @media (max-width: 900px) {
-        #youtubePopupGallerySection {
-          padding: 68px 16px;
-        }
-
-        #youtubePopupGallerySection .head-left h2 {
-          font-size: 28px;
-        }
-
-        #youtubePopupGallerySection .slider {
-          padding: 12px;
-        }
-
-        #youtubePopupGallerySection .page {
-          grid-template-columns: 1fr;
-        }
-
-        #youtubePopupGallerySection .more-wrap {
-          display: flex;
-        }
-
-        #youtubePopupGallerySection .head-right {
-          display: none;
-        }
-
-        #youtubePopupGallerySection .popup {
-          padding: 14px;
-        }
-
-        #youtubePopupGallerySection .popup-dialog {
-          border-radius: 16px;
-        }
-      }
-
-      @media (max-width: 520px) {
-        #youtubePopupGallerySection .head {
-          align-items: flex-start;
-        }
-
-        #youtubePopupGallerySection .head-left p {
-          margin-top: 8px;
-          font-size: 14px;
-        }
-
-        #youtubePopupGallerySection .head-btn {
-          width: 38px;
-          height: 38px;
-        }
-
-        #youtubePopupGallerySection .head-btn svg {
-          width: 17px;
-          height: 17px;
-        }
-
-        #youtubePopupGallerySection .popup-close {
-          width: 38px;
-          height: 38px;
-          top: 10px;
-          right: 10px;
-        }
-
-        #youtubePopupGallerySection .play-badge {
-          width: 62px;
-          height: 44px;
-        }
-      }
-    </style>
-
-    <div class="wrap">
-      <div class="head">
-        <div class="head-left">
-          <h2>YouTube Video</h2>
-        </div>
-        <div class="head-right" aria-label="유튜브 영상 슬라이드 버튼">
-          <button type="button" class="head-btn prev" id="ytPopupPrev" aria-label="이전 영상 페이지">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button type="button" class="head-btn next" id="ytPopupNext" aria-label="다음 영상 페이지">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M9.5 18.5L16 12 9.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-        </div>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-left">
+        <h2>YouTube Video</h2>
       </div>
-
-      <div class="slider" aria-label="유튜브 영상 카드 슬라이더">
-        <div class="track" id="ytPopupTrack"></div>
-      </div>
-
-      <div class="more-wrap">
-        <button type="button" class="more-btn" id="ytPopupMoreBtn">더 보기</button>
-      </div>
-
-      <script type="application/json" id="ytPopupData">
-    [
-
-
-      {
-        "title": "유튜브 영상 제목 7",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://youtu.be/2TgN2F9zHZ0"
-      },
-      {
-        "title": "유튜브 영상 제목 8",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-          "youtube": "https://www.youtube.com/watch?v=eOxR6Yu_bzE"
-        
-      },
-      {
-        "title": "유튜브 영상 제목 9",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://youtu.be/tYTyRFhQqug"
-      },
-      {
-        "title": "유튜브 영상 제목 10",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://youtu.be/Ih-dimdhARY"
-      },
-        {
-        "title": "유튜브 영상 제목 9",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-       "youtube": "https://www.youtube.com/watch?v=pPQRVndCgPo"
-      },
-      {
-        "title": "유튜브 영상 제목 10",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-       "youtube": "https://youtu.be/oN_VVQlF1F4"
-      },
-
-
-      {
-        "title": "유튜브 영상 제목 1",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://youtu.be/b0yyiCBOozY"
-      },
-      {
-        "title": "유튜브 영상 제목 2",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://www.youtube.com/watch?v=WM1HFWKuOh4"
-      },
-      {
-        "title": "유튜브 영상 제목 3",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://youtu.be/FgEszUc-V4A"
-      },
-      {
-        "title": "유튜브 영상 제목 4",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://www.youtube.com/watch?v=44HN81MtUWQ"
-      },
-            {
-        "title": "유튜브 영상 제목 6",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://youtu.be/2t4D4ZKLQNs"
-      },
-      {
-        "title": "유튜브 영상 제목 5",
-        "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
-        "youtube": "https://www.youtube.com/watch?v=YZdvGiYsOls"
-      }
-
-    ]
-    </script>
-
-      <template id="ytPopupTemplate">
-        <div class="slide">
-          <button type="button" class="slide-btn" aria-label="유튜브 영상 열기">
-            <div class="video-card">
-              <div class="thumb">
-                <img src="" alt="">
-                <span class="play-badge" aria-hidden="true"></span>
-              </div>
-            </div>
-          </button>
-        </div>
-      </template>
-    </div>
-
-    <div class="popup" id="ytPopupModal" aria-hidden="true">
-      <div class="popup-dialog" role="dialog" aria-modal="true" aria-label="유튜브 영상 팝업">
-        <button type="button" class="popup-close" id="ytPopupClose" aria-label="영상 닫기">
+      <div class="head-right" aria-label="유튜브 영상 슬라이드 버튼">
+        <button type="button" class="head-btn prev" id="ytPopupPrev" aria-label="이전 영상 페이지">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </button>
-        <div class="popup-frame-wrap">
-          <iframe id="ytPopupFrame" class="popup-frame" src="" title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
+        <button type="button" class="head-btn next" id="ytPopupNext" aria-label="다음 영상 페이지">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9.5 18.5L16 12 9.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
       </div>
     </div>
 
-    <script>
-      (function () {
-        const section = document.getElementById('youtubePopupGallerySection');
-        if (!section) return;
+    <div class="slider" aria-label="유튜브 영상 카드 슬라이더">
+      <div class="track" id="ytPopupTrack"></div>
+    </div>
 
-        const track = section.querySelector('#ytPopupTrack');
-        const tpl = section.querySelector('#ytPopupTemplate');
-        const dataEl = section.querySelector('#ytPopupData');
-        const btnPrev = section.querySelector('#ytPopupPrev');
-        const btnNext = section.querySelector('#ytPopupNext');
-        const moreBtn = section.querySelector('#ytPopupMoreBtn');
-        const popup = section.querySelector('#ytPopupModal');
-        const popupClose = section.querySelector('#ytPopupClose');
-        const popupFrame = section.querySelector('#ytPopupFrame');
-        const mobileMq = window.matchMedia('(max-width: 900px)');
+    <div class="more-wrap">
+      <button type="button" class="more-btn" id="ytPopupMoreBtn">더 보기</button>
+    </div>
 
-        let items = [];
-        try {
-          items = JSON.parse((dataEl && dataEl.textContent) ? dataEl.textContent.trim() : '[]');
-        } catch (e) {
-          items = [];
+    <script type="application/json" id="ytPopupData">
+[
+  {
+    "title": "유튜브 영상 제목 7",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://youtu.be/2TgN2F9zHZ0"
+  },
+  {
+    "title": "유튜브 영상 제목 8",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?v=eOxR6Yu_bzE"
+  },
+  {
+    "title": "유튜브 영상 제목 9",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://youtu.be/tYTyRFhQqug"
+  },
+  {
+    "title": "유튜브 영상 제목 10",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://youtu.be/Ih-dimdhARY"
+  },
+  {
+    "title": "유튜브 영상 제목 9",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?v=pPQRVndCgPo"
+  },
+  {
+    "title": "유튜브 영상 제목 10",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://youtu.be/oN_VVQlF1F4"
+  },
+  {
+    "title": "유튜브 영상 제목 1",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://youtu.be/b0yyiCBOozY"
+  },
+  {
+    "title": "유튜브 영상 제목 2",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?v=WM1HFWKuOh4"
+  },
+  {
+    "title": "유튜브 영상 제목 3",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://youtu.be/FgEszUc-V4A"
+  },
+  {
+    "title": "유튜브 영상 제목 4",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?v=44HN81MtUWQ"
+  },
+  {
+    "title": "유튜브 영상 제목 6",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://youtu.be/2t4D4ZKLQNs"
+  },
+  {
+    "title": "유튜브 영상 제목 6",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "youtube.com/watch?app=desktop&v=9sj1vRskvBg&t=2s&pp=2AECkAIB"
+  },
+  {
+    "title": "유튜브 영상 제목 6",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?app=desktop&v=w-Tagdeu4qM&t=5s"
+  },
+  {
+    "title": "유튜브 영상 제목 6",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?app=desktop&v=FZxCqUi13nA&t=3s&pp=2AEDkAIB"
+  },
+  {
+    "title": "유튜브 영상 제목 6",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?v=iCypnqsUSyA"
+  },
+  {
+    "title": "유튜브 영상 제목 6",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?v=5SFikMDf6SM"
+  },
+  {
+    "title": "유튜브 영상 제목 6",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?v=NbkmT3eHWWE"
+  },
+  {
+    "title": "유튜브 영상 제목 5",
+    "excerpt": "여기에 유튜브 영상 설명을 입력하세요.",
+    "youtube": "https://www.youtube.com/watch?v=YZdvGiYsOls"
+  }
+]
+</script>
+
+    <template id="ytPopupTemplate">
+      <div class="slide">
+        <button type="button" class="slide-btn" aria-label="유튜브 영상 열기">
+          <div class="video-card">
+            <div class="thumb">
+              <img src="" alt="">
+              <span class="play-badge" aria-hidden="true"></span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </template>
+  </div>
+
+  <div class="popup" id="ytPopupModal" aria-hidden="true">
+    <div class="popup-dialog" role="dialog" aria-modal="true" aria-label="유튜브 영상 팝업">
+      <button type="button" class="popup-close" id="ytPopupClose" aria-label="영상 닫기">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="popup-frame-wrap">
+        <iframe id="ytPopupFrame" class="popup-frame" src="" title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const section = document.getElementById('youtubePopupGallerySection');
+      if (!section) return;
+
+      const track = section.querySelector('#ytPopupTrack');
+      const tpl = section.querySelector('#ytPopupTemplate');
+      const dataEl = section.querySelector('#ytPopupData');
+      const btnPrev = section.querySelector('#ytPopupPrev');
+      const btnNext = section.querySelector('#ytPopupNext');
+      const moreBtn = section.querySelector('#ytPopupMoreBtn');
+      const popup = section.querySelector('#ytPopupModal');
+      const popupClose = section.querySelector('#ytPopupClose');
+      const popupFrame = section.querySelector('#ytPopupFrame');
+      const mobileMq = window.matchMedia('(max-width: 900px)');
+
+      let items = [];
+      try {
+        items = JSON.parse((dataEl && dataEl.textContent) ? dataEl.textContent.trim() : '[]');
+      } catch (e) {
+        items = [];
+      }
+
+      let currentPage = 0;
+      let pageCount = 1;
+      let autoTimer = null;
+      let mobileVisibleCount = 5;
+      let dragStartX = 0;
+      let isDragging = false;
+      let dragMoved = false;
+      let isAnimating = false;
+
+      function isMobile() {
+        return mobileMq.matches;
+      }
+
+      function getPageSize() {
+        return 6;
+      }
+
+      function getYoutubeId(url) {
+        if (!url) return '';
+        const str = String(url).trim();
+        const shortMatch = str.match(/youtu\.be\/([^?&/]+)/i);
+        if (shortMatch && shortMatch[1]) return shortMatch[1];
+        const watchMatch = str.match(/[?&]v=([^?&/]+)/i);
+        if (watchMatch && watchMatch[1]) return watchMatch[1];
+        const embedMatch = str.match(/youtube\.com\/embed\/([^?&/]+)/i);
+        if (embedMatch && embedMatch[1]) return embedMatch[1];
+        const shortsMatch = str.match(/youtube\.com\/shorts\/([^?&/]+)/i);
+        if (shortsMatch && shortsMatch[1]) return shortsMatch[1];
+        return '';
+      }
+
+      function getThumbUrl(videoId) {
+        return videoId ? 'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg' : '';
+      }
+
+      function getEmbedUrl(videoId) {
+        return videoId ? 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&playsinline=1' : '';
+      }
+
+      function buildSlide(item) {
+        const videoId = getYoutubeId(item.youtube || item.link || '');
+        if (!videoId) return null;
+
+        const node = tpl.content.cloneNode(true);
+        const slide = node.querySelector('.slide');
+        const btn = node.querySelector('.slide-btn');
+        const img = node.querySelector('img');
+
+        img.src = getThumbUrl(videoId);
+        img.alt = item.title ? item.title : 'youtube thumbnail';
+        btn.setAttribute('data-video-id', videoId);
+        btn.setAttribute('data-title', item.title || '');
+
+        btn.addEventListener('click', function () {
+          if (dragMoved) return;
+          openPopup(videoId, item.title || '');
+        });
+
+        return slide;
+      }
+
+      function buildPage(pageIndex) {
+        const pageSize = getPageSize();
+        const start = pageIndex * pageSize;
+        const end = start + pageSize;
+        const visibleItems = items.slice(start, end);
+
+        const page = document.createElement('div');
+        page.className = 'page';
+
+        visibleItems.forEach((item) => {
+          const slide = buildSlide(item);
+          if (slide) page.appendChild(slide);
+        });
+
+        return page;
+      }
+
+      function setTrackHeightFrom(el) {
+        if (!el) return;
+        const h = el.offsetHeight;
+        if (h > 0) track.style.height = h + 'px';
+      }
+
+      function syncButtons() {
+        if (isMobile()) {
+          if (btnPrev) btnPrev.style.display = 'none';
+          if (btnNext) btnNext.style.display = 'none';
+          return;
         }
 
-        let currentPage = 0;
-        let pageCount = 1;
-        let autoTimer = null;
-        let mobileVisibleCount = 5;
-        let dragStartX = 0;
-        let isDragging = false;
-        let dragMoved = false;
-        let isAnimating = false;
-
-        function isMobile() {
-          return mobileMq.matches;
+        if (btnPrev) {
+          btnPrev.style.display = '';
+          btnPrev.disabled = isAnimating;
         }
 
-        function getPageSize() {
-          return 6;
+        if (btnNext) {
+          btnNext.style.display = '';
+          btnNext.disabled = isAnimating;
         }
+      }
 
-        function getYoutubeId(url) {
-          if (!url) return '';
-          const str = String(url).trim();
-          const shortMatch = str.match(/youtu\.be\/([^?&/]+)/i);
-          if (shortMatch && shortMatch[1]) return shortMatch[1];
-          const watchMatch = str.match(/[?&]v=([^?&/]+)/i);
-          if (watchMatch && watchMatch[1]) return watchMatch[1];
-          const embedMatch = str.match(/youtube\.com\/embed\/([^?&/]+)/i);
-          if (embedMatch && embedMatch[1]) return embedMatch[1];
-          const shortsMatch = str.match(/youtube\.com\/shorts\/([^?&/]+)/i);
-          if (shortsMatch && shortsMatch[1]) return shortsMatch[1];
-          return '';
+      function syncMoreButton() {
+        if (!moreBtn) return;
+        if (!isMobile()) {
+          moreBtn.hidden = true;
+          return;
         }
+        moreBtn.hidden = mobileVisibleCount >= items.length;
+      }
 
-        function getThumbUrl(videoId) {
-          return videoId ? 'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg' : '';
-        }
+      function renderMobile() {
+        isAnimating = false;
+        track.classList.add('is-mobile');
+        track.innerHTML = '';
 
-        function getEmbedUrl(videoId) {
-          return videoId ? 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&playsinline=1' : '';
-        }
+        const visibleItems = items.slice(0, mobileVisibleCount);
+        visibleItems.forEach((item) => {
+          const slide = buildSlide(item);
+          if (slide) track.appendChild(slide);
+        });
 
-        function buildSlide(item) {
-          const videoId = getYoutubeId(item.youtube || item.link || '');
-          if (!videoId) return null;
+        track.style.height = '';
+        syncButtons();
+        syncMoreButton();
+      }
 
-          const node = tpl.content.cloneNode(true);
-          const slide = node.querySelector('.slide');
-          const btn = node.querySelector('.slide-btn');
-          const img = node.querySelector('img');
+      function renderDesktopInitial() {
+        track.classList.remove('is-mobile');
 
-          img.src = getThumbUrl(videoId);
-          img.alt = item.title ? item.title : 'youtube thumbnail';
-          btn.setAttribute('data-video-id', videoId);
-          btn.setAttribute('data-title', item.title || '');
+        const pageSize = getPageSize();
+        pageCount = Math.max(1, Math.ceil(items.length / pageSize));
 
-          btn.addEventListener('click', function () {
-            if (dragMoved) return;
-            openPopup(videoId, item.title || '');
-          });
+        if (currentPage > pageCount - 1) currentPage = pageCount - 1;
+        if (currentPage < 0) currentPage = 0;
 
-          return slide;
-        }
+        track.innerHTML = '';
+        const page = buildPage(currentPage);
+        page.classList.add('is-active');
+        track.appendChild(page);
 
-        function buildPage(pageIndex) {
-          const pageSize = getPageSize();
-          const start = pageIndex * pageSize;
-          const end = start + pageSize;
-          const visibleItems = items.slice(start, end);
+        requestAnimationFrame(function () {
+          setTrackHeightFrom(page);
+        });
 
-          const page = document.createElement('div');
-          page.className = 'page';
+        syncButtons();
+        syncMoreButton();
+      }
 
-          visibleItems.forEach((item) => {
-            const slide = buildSlide(item);
-            if (slide) page.appendChild(slide);
-          });
+      function transitionToPage(nextPageIndex, direction) {
+        if (isMobile()) return;
+        if (isAnimating) return;
 
-          return page;
-        }
+        const pageSize = getPageSize();
+        pageCount = Math.max(1, Math.ceil(items.length / pageSize));
+        nextPageIndex = Math.max(0, Math.min(pageCount - 1, nextPageIndex));
 
-        function setTrackHeightFrom(el) {
-          if (!el) return;
-          const h = el.offsetHeight;
-          if (h > 0) track.style.height = h + 'px';
-        }
-
-        function syncButtons() {
-          if (isMobile()) {
-            if (btnPrev) btnPrev.style.display = 'none';
-            if (btnNext) btnNext.style.display = 'none';
-            return;
-          }
-
-          if (btnPrev) {
-            btnPrev.style.display = '';
-            btnPrev.disabled = (currentPage <= 0) || isAnimating;
-          }
-
-          if (btnNext) {
-            btnNext.style.display = '';
-            btnNext.disabled = isAnimating;
-          }
-        }
-
-        function syncMoreButton() {
-          if (!moreBtn) return;
-          if (!isMobile()) {
-            moreBtn.hidden = true;
-            return;
-          }
-          moreBtn.hidden = mobileVisibleCount >= items.length;
-        }
-
-        function renderMobile() {
-          isAnimating = false;
-          track.classList.add('is-mobile');
-          track.innerHTML = '';
-
-          const visibleItems = items.slice(0, mobileVisibleCount);
-          visibleItems.forEach((item) => {
-            const slide = buildSlide(item);
-            if (slide) track.appendChild(slide);
-          });
-
-          track.style.height = '';
-          syncButtons();
-          syncMoreButton();
-        }
-
-        function renderDesktopInitial() {
-          track.classList.remove('is-mobile');
-
-          const pageSize = getPageSize();
-          pageCount = Math.max(1, Math.ceil(items.length / pageSize));
-
-          if (currentPage > pageCount - 1) currentPage = pageCount - 1;
-          if (currentPage < 0) currentPage = 0;
-
-          track.innerHTML = '';
-          const page = buildPage(currentPage);
-          page.classList.add('is-active');
-          track.appendChild(page);
-
-          requestAnimationFrame(function () {
-            setTrackHeightFrom(page);
-          });
-
-          syncButtons();
-          syncMoreButton();
-        }
-
-        function transitionToPage(nextPageIndex, direction) {
-          if (isMobile()) return;
-          if (isAnimating) return;
-
-          const pageSize = getPageSize();
-          pageCount = Math.max(1, Math.ceil(items.length / pageSize));
-          nextPageIndex = Math.max(0, Math.min(pageCount - 1, nextPageIndex));
-
-          const currentEl = track.querySelector('.page.is-active');
-          if (!currentEl) {
-            currentPage = nextPageIndex;
-            renderDesktopInitial();
-            return;
-          }
-
-          if (nextPageIndex === currentPage) {
-            syncButtons();
-            return;
-          }
-
-          isAnimating = true;
-          syncButtons();
-
-          const nextEl = buildPage(nextPageIndex);
-          nextEl.classList.add('is-abs');
-
-          const enterFrom = direction === 1 ? '-100%' : '100%';
-          const leaveTo = direction === 1 ? '100%' : '-100%';
-
-          currentEl.classList.add('is-abs');
-          currentEl.style.transform = 'translate3d(0,0,0)';
-          nextEl.style.transform = 'translate3d(' + enterFrom + ',0,0)';
-
-          track.appendChild(nextEl);
-
-          const currentHeight = currentEl.offsetHeight || 0;
-          const nextHeight = nextEl.offsetHeight || 0;
-          track.style.height = Math.max(currentHeight, nextHeight) + 'px';
-
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              currentEl.style.transform = 'translate3d(' + leaveTo + ',0,0)';
-              nextEl.style.transform = 'translate3d(0,0,0)';
-            });
-          });
-
-          let done = false;
-
-          function cleanup() {
-            if (done) return;
-            done = true;
-
-            currentPage = nextPageIndex;
-
-            currentEl.remove();
-
-            nextEl.classList.remove('is-abs');
-            nextEl.classList.add('is-active');
-            nextEl.style.transform = 'translate3d(0,0,0)';
-            nextEl.style.position = '';
-            nextEl.style.inset = '';
-
-            setTrackHeightFrom(nextEl);
-
-            isAnimating = false;
-            syncButtons();
-            syncMoreButton();
-          }
-
-          nextEl.addEventListener('transitionend', function onEnd(e) {
-            if (e.propertyName !== 'transform') return;
-            nextEl.removeEventListener('transitionend', onEnd);
-            cleanup();
-          });
-
-          setTimeout(cleanup, 900);
-        }
-
-        function renderDesktop() {
+        const currentEl = track.querySelector('.page.is-active');
+        if (!currentEl) {
+          currentPage = nextPageIndex;
           renderDesktopInitial();
+          return;
         }
 
-        function render() {
-          if (isMobile()) {
-            renderMobile();
-          } else {
-            renderDesktop();
-          }
+        if (nextPageIndex === currentPage) {
+          syncButtons();
+          return;
         }
 
-        function next() {
-          if (isMobile() || isAnimating) return;
+        isAnimating = true;
+        syncButtons();
 
-          const lastPage = pageCount - 1;
-          const nextPage = currentPage >= lastPage ? 0 : currentPage + 1;
-          transitionToPage(nextPage, 1);
+        const nextEl = buildPage(nextPageIndex);
+        nextEl.classList.add('is-abs');
+
+        const enterFrom = direction === 1 ? '100%' : '-100%';
+        const leaveTo = direction === 1 ? '-100%' : '100%';
+
+        currentEl.classList.add('is-abs');
+        currentEl.style.transform = 'translate3d(0,0,0)';
+        nextEl.style.transform = 'translate3d(' + enterFrom + ',0,0)';
+
+        track.appendChild(nextEl);
+
+        const currentHeight = currentEl.offsetHeight || 0;
+        const nextHeight = nextEl.offsetHeight || 0;
+        track.style.height = Math.max(currentHeight, nextHeight) + 'px';
+
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            currentEl.style.transform = 'translate3d(' + leaveTo + ',0,0)';
+            nextEl.style.transform = 'translate3d(0,0,0)';
+          });
+        });
+
+        let done = false;
+
+        function cleanup() {
+          if (done) return;
+          done = true;
+
+          currentPage = nextPageIndex;
+
+          currentEl.remove();
+
+          nextEl.classList.remove('is-abs');
+          nextEl.classList.add('is-active');
+          nextEl.style.transform = 'translate3d(0,0,0)';
+          nextEl.style.position = '';
+          nextEl.style.inset = '';
+
+          setTrackHeightFrom(nextEl);
+
+          isAnimating = false;
+          syncButtons();
+          syncMoreButton();
         }
 
-        function prev() {
-          if (isMobile() || isAnimating) return;
+        nextEl.addEventListener('transitionend', function onEnd(e) {
+          if (e.propertyName !== 'transform') return;
+          nextEl.removeEventListener('transitionend', onEnd);
+          cleanup();
+        });
 
-          const prevPage = Math.max(0, currentPage - 1);
-          transitionToPage(prevPage, -1);
-        }
+        setTimeout(cleanup, 900);
+      }
 
-        function stopAuto() {
-          if (autoTimer) clearInterval(autoTimer);
-          autoTimer = null;
-        }
+      function renderDesktop() {
+        renderDesktopInitial();
+      }
 
-        function startAuto() {
-          stopAuto();
-          if (isMobile()) return;
-          autoTimer = setInterval(function () {
-            if (!isAnimating) next();
-          }, 4200);
-        }
-
-        function onMore() {
-          mobileVisibleCount += 5;
+      function render() {
+        if (isMobile()) {
           renderMobile();
+        } else {
+          renderDesktop();
+        }
+      }
+
+      function next() {
+        if (isMobile() || isAnimating) return;
+
+        const lastPage = pageCount - 1;
+        const nextPage = currentPage >= lastPage ? 0 : currentPage + 1;
+        transitionToPage(nextPage, 1);
+      }
+
+      function prev() {
+        if (isMobile() || isAnimating) return;
+
+        const lastPage = pageCount - 1;
+        const prevPage = currentPage <= 0 ? lastPage : currentPage - 1;
+        transitionToPage(prevPage, -1);
+      }
+
+      function stopAuto() {
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = null;
+      }
+
+      function startAuto() {
+        stopAuto();
+        if (isMobile()) return;
+        autoTimer = setInterval(function () {
+          if (!isAnimating) next();
+        }, 4200);
+      }
+
+      function onMore() {
+        mobileVisibleCount += 5;
+        renderMobile();
+      }
+
+      function openPopup(videoId, title) {
+        popupFrame.src = getEmbedUrl(videoId);
+        popup.classList.add('is-open');
+        popup.setAttribute('aria-hidden', 'false');
+        if (title) popupFrame.setAttribute('title', title);
+        document.documentElement.style.overflow = 'hidden';
+      }
+
+      function closePopup() {
+        popup.classList.remove('is-open');
+        popup.setAttribute('aria-hidden', 'true');
+        popupFrame.src = '';
+        document.documentElement.style.overflow = '';
+      }
+
+      function onPointerDown(e) {
+        if (isMobile() || isAnimating) return;
+        dragStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        isDragging = true;
+        dragMoved = false;
+      }
+
+      function onPointerMove(e) {
+        if (!isDragging || isMobile()) return;
+        const currentX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        if (Math.abs(currentX - dragStartX) > 12) {
+          dragMoved = true;
+        }
+      }
+
+      function onPointerUp(e) {
+        if (!isDragging || isMobile() || isAnimating) return;
+        const endX = e.clientX || (e.changedTouches && e.changedTouches[0].clientX) || 0;
+        const diff = endX - dragStartX;
+
+        if (Math.abs(diff) > 60) {
+          if (diff < 0) next();
+          else prev();
         }
 
-        function openPopup(videoId, title) {
-          popupFrame.src = getEmbedUrl(videoId);
-          popup.classList.add('is-open');
-          popup.setAttribute('aria-hidden', 'false');
-          if (title) popupFrame.setAttribute('title', title);
-          document.documentElement.style.overflow = 'hidden';
-        }
+        isDragging = false;
+        setTimeout(function () { dragMoved = false; }, 0);
+      }
 
-        function closePopup() {
-          popup.classList.remove('is-open');
-          popup.setAttribute('aria-hidden', 'true');
-          popupFrame.src = '';
-          document.documentElement.style.overflow = '';
-        }
+      if (btnPrev) btnPrev.addEventListener('click', prev);
+      if (btnNext) btnNext.addEventListener('click', next);
+      if (moreBtn) moreBtn.addEventListener('click', onMore);
+      if (popupClose) popupClose.addEventListener('click', closePopup);
 
-        function onPointerDown(e) {
-          if (isMobile() || isAnimating) return;
-          dragStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-          isDragging = true;
-          dragMoved = false;
-        }
+      popup.addEventListener('click', function (e) {
+        if (e.target === popup) closePopup();
+      });
 
-        function onPointerMove(e) {
-          if (!isDragging || isMobile()) return;
-          const currentX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-          if (Math.abs(currentX - dragStartX) > 12) {
-            dragMoved = true;
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && popup.classList.contains('is-open')) {
+          closePopup();
+        }
+      });
+
+      section.addEventListener('mouseenter', stopAuto);
+      section.addEventListener('mouseleave', startAuto);
+
+      track.addEventListener('mousedown', onPointerDown);
+      track.addEventListener('mousemove', onPointerMove);
+      track.addEventListener('touchstart', onPointerDown, { passive: true });
+      track.addEventListener('touchmove', onPointerMove, { passive: true });
+      window.addEventListener('mouseup', onPointerUp);
+      window.addEventListener('touchend', onPointerUp);
+
+      let resizeTimer = null;
+      let wasMobile = isMobile();
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          const nowMobile = isMobile();
+          if (nowMobile && !wasMobile) {
+            mobileVisibleCount = 5;
           }
-        }
+          wasMobile = nowMobile;
+          isAnimating = false;
+          render();
+          startAuto();
+        }, 120);
+      });
 
-        function onPointerUp(e) {
-          if (!isDragging || isMobile() || isAnimating) return;
-          const endX = e.clientX || (e.changedTouches && e.changedTouches[0].clientX) || 0;
-          const diff = endX - dragStartX;
-
-          if (Math.abs(diff) > 60) {
-            if (diff < 0) next();
-            else prev();
-          }
-
-          isDragging = false;
-          setTimeout(function () { dragMoved = false; }, 0);
-        }
-
-        if (btnPrev) btnPrev.addEventListener('click', prev);
-        if (btnNext) btnNext.addEventListener('click', next);
-        if (moreBtn) moreBtn.addEventListener('click', onMore);
-        if (popupClose) popupClose.addEventListener('click', closePopup);
-
-        popup.addEventListener('click', function (e) {
-          if (e.target === popup) closePopup();
-        });
-
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && popup.classList.contains('is-open')) {
-            closePopup();
-          }
-        });
-
-        section.addEventListener('mouseenter', stopAuto);
-        section.addEventListener('mouseleave', startAuto);
-
-        track.addEventListener('mousedown', onPointerDown);
-        track.addEventListener('mousemove', onPointerMove);
-        track.addEventListener('touchstart', onPointerDown, { passive: true });
-        track.addEventListener('touchmove', onPointerMove, { passive: true });
-        window.addEventListener('mouseup', onPointerUp);
-        window.addEventListener('touchend', onPointerUp);
-
-        let resizeTimer = null;
-        let wasMobile = isMobile();
-        window.addEventListener('resize', function () {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(function () {
-            const nowMobile = isMobile();
-            if (nowMobile && !wasMobile) {
-              mobileVisibleCount = 5;
-            }
-            wasMobile = nowMobile;
-            isAnimating = false;
-            render();
-            startAuto();
-          }, 120);
-        });
-
-        render();
-        startAuto();
-      })();
-    </script>
-  </section>
+      render();
+      startAuto();
+    })();
+  </script>
+</section>
 
 
 
