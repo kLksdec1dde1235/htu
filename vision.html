@@ -69,20 +69,20 @@
     <!-- 메뉴(외부 로드) -->
     <div id="menu"></div>
 
-    <!-- SEC02: BENEFITS -->
-    <div id="section-benefits">
-
-       <style>
-    *,
-    *::before,
-    *::after {
+<!-- SEC02: BENEFITS -->
+<section id="section-benefits" aria-label="Benefits Section">
+  <style>
+    /* ===== SECTION SCOPE RESET ===== */
+    #section-benefits,
+    #section-benefits *,
+    #section-benefits *::before,
+    #section-benefits *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
-    html,
-    body {
+    #section-benefits {
+      position: relative;
+      transition: background-color 0.6s ease;
       font-size: 16px;
       font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
       color: #000;
@@ -92,42 +92,46 @@
       overflow-x: hidden;
     }
 
-    ul,
-    ol,
-    li {
+    #section-benefits ul,
+    #section-benefits ol,
+    #section-benefits li {
       list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    a {
+    #section-benefits a {
       text-decoration: none;
       color: inherit;
     }
 
-    img {
+    #section-benefits img {
       display: block;
       max-width: 100%;
       border: 0;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    #section-benefits h1,
+    #section-benefits h2,
+    #section-benefits h3,
+    #section-benefits h4,
+    #section-benefits h5,
+    #section-benefits h6 {
       font-size: 100%;
       font-weight: inherit;
       line-height: 1;
+      margin: 0;
     }
 
-    dl,
-    dt,
-    dd {
+    #section-benefits dl,
+    #section-benefits dt,
+    #section-benefits dd,
+    #section-benefits p {
       margin: 0;
       padding: 0;
     }
 
-    .blind {
+    #section-benefits .blind {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -140,13 +144,13 @@
     }
 
     /* ===== LAYOUT ===== */
-    .inner {
+    #section-benefits .inner {
       position: relative;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .inner::after {
+    #section-benefits .inner::after {
       content: "";
       display: block;
       clear: both;
@@ -155,33 +159,33 @@
     }
 
     @media (max-width: 1200px) {
-      .inner {
+      #section-benefits .inner {
         padding: 0 24px;
       }
     }
 
     @media (max-width: 766px) {
-      .inner {
+      #section-benefits .inner {
         padding: 0 16px;
       }
     }
 
     /* ===== BREADCRUMB ===== */
-    .route {
+    #section-benefits .route {
       position: absolute;
       top: -40px;
       right: 0;
       font-size: 0;
     }
 
-    .route li {
+    #section-benefits .route li {
       position: relative;
       display: inline-block;
       vertical-align: top;
       padding: 0 10px;
     }
 
-    .route li::after {
+    #section-benefits .route li::after {
       content: "";
       display: block;
       position: absolute;
@@ -193,46 +197,46 @@
       background: #999;
     }
 
-    .route li p {
+    #section-benefits .route li p {
       font-size: .875rem;
       letter-spacing: -0.02em;
       line-height: 1.714;
       color: #999;
     }
 
-    .route li:first-child {
+    #section-benefits .route li:first-child {
       padding-left: 0;
     }
 
-    .route li:last-child {
+    #section-benefits .route li:last-child {
       padding-right: 0;
     }
 
-    .route li:last-child::after {
+    #section-benefits .route li:last-child::after {
       display: none;
     }
 
-    .route li.active p {
+    #section-benefits .route li.active p {
       color: #000;
     }
 
     @media (max-width: 1023px) {
-      .route {
+      #section-benefits .route {
         position: static;
         text-align: left;
       }
 
-      .route li p {
+      #section-benefits .route li p {
         font-size: .75rem;
         line-height: 1;
       }
 
-      .route li::after {
+      #section-benefits .route li::after {
         height: 10px;
       }
     }
 
-    /* ===== HERO SECTION ===== */
+    /* ===== HERO SECTION (외부 섹션용 기존 스타일 유지 필요 시 참조용) ===== */
     #section-hero {
       padding: 170px 0 70px;
     }
@@ -266,58 +270,48 @@
     }
 
     /* ===== BENEFITS MAIN SECTION ===== */
-    #section-benefits {
-      position: relative;
-      transition: background-color 0.6s ease;
-    }
-
-    /* --- PIN WRAPPER (전체 고정 영역) --- */
-    .pin-wrapper {
+    #section-benefits .pin-wrapper {
       position: relative;
       width: 100%;
       height: 100vh;
     }
 
-    /* --- VISUAL CONTAINER (이미지 + 오버레이) --- */
-    .visual-container {
+    #section-benefits .visual-container {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
-      /* 초기: 전체화면, border-radius 없음 */
       border-radius: 0;
     }
 
-    /* 이미지 스택 (3장 세로 이어붙임) */
-    .image-stack {
+    #section-benefits .image-stack {
       width: 100%;
       height: 300%;
       will-change: transform;
     }
 
-    .image-stack .slide {
+    #section-benefits .image-stack .slide {
       width: 100%;
       height: 33.3333%;
       background-size: cover;
       background-position: center;
     }
 
-    .image-stack .slide-work {
-      background-image: url('./img/beauty.jpg');
+    #section-benefits .image-stack .slide-work {
+      background-image: url('./img/healthtoyou.jpg');
     }
 
-    .image-stack .slide-life {
-      background-image: url('./img/healthy.jpg');
+    #section-benefits .image-stack .slide-life {
+      background-image: url('https://www.casenews.co.kr/news/photo/202404/15247_33031_1327.jpg');
     }
 
-    .image-stack .slide-family {
-      background-image: url('./img/lab1.jpg');
+    #section-benefits .image-stack .slide-family {
+      background-image: url('./img/8.jpg');
     }
 
-    /* DIM 오버레이 */
-    .dim-overlay {
+    #section-benefits .dim-overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -327,8 +321,7 @@
       z-index: 2;
     }
 
-    /* --- 키워드 텍스트 (Work · Life · Family) --- */
-    .keyword-text {
+    #section-benefits .keyword-text {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -338,17 +331,18 @@
       align-items: center;
       gap: 30px;
       white-space: nowrap;
+      flex-direction: column;
     }
 
-    .keyword-text p {
+    #section-benefits .keyword-text p {
       font-family: 'Nunito Sans', sans-serif;
       font-weight: 800;
-      font-size: 4.5rem;
+      font-size: 3.5rem;
       color: #fff;
       letter-spacing: -0.02em;
     }
 
-    .keyword-text .dot {
+    #section-benefits .keyword-text .dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
@@ -357,42 +351,39 @@
     }
 
     @media (max-width: 1023px) {
-      .keyword-text p {
+      #section-benefits .keyword-text p {
         font-size: 3rem;
       }
 
-      .keyword-text .dot {
+      #section-benefits .keyword-text .dot {
         display: none;
       }
 
-      .keyword-text {
+      #section-benefits .keyword-text {
         flex-direction: column;
         gap: 15px;
       }
 
-      /* 모바일 환경에서 그림을 어둡게 처리하여 글자 가독성 확보 */
-      .image-stack .slide {
+      #section-benefits .image-stack .slide {
         filter: brightness(0.5);
       }
 
-      /* 첫 번째 사진은 조금 덜 어둡게 (0.7) */
-      .image-stack .slide:first-child {
+      #section-benefits .image-stack .slide:first-child {
         filter: brightness(0.7);
       }
     }
 
     @media (max-width: 766px) {
-      .keyword-text p {
+      #section-benefits .keyword-text p {
         font-size: 2.25rem;
       }
 
-      .keyword-text {
+      #section-benefits .keyword-text {
         gap: 14px;
       }
     }
 
-    /* --- 카테고리 고정 제목 (Work / Life / Family) --- */
-    .fixed-category-title {
+    #section-benefits .fixed-category-title {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -405,7 +396,966 @@
       pointer-events: none;
     }
 
-    .fixed-category-title h3 {
+    #section-benefits .fixed-category-title h3 {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 900;
+      font-size: 4rem;
+      color: #20584e;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+    }
+
+    @media (max-width: 1200px) {
+      #section-benefits .fixed-category-title {
+        padding: 0 24px;
+      }
+
+      #section-benefits .fixed-category-title h3 {
+        left: 24px;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      #section-benefits .fixed-category-title {
+        top: 17.5vh;
+        z-index: 20;
+        text-align: center;
+      }
+
+      #section-benefits .fixed-category-title h3 {
+        font-size: 3.5rem;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        color: #fff;
+      }
+    }
+
+    @media (max-width: 766px) {
+      #section-benefits .fixed-category-title {
+        padding: 0 16px;
+      }
+
+      #section-benefits .fixed-category-title h3 {
+        left: 16px;
+        font-size: 3rem;
+      }
+    }
+
+    /* ===== DETAIL CONTENT SECTIONS ===== */
+    #section-benefits .detail-sections {
+      position: relative;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    #section-benefits .category-block {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      pointer-events: auto;
+    }
+
+    #section-benefits .category-block .layout {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-right: 120px;
+    }
+
+    @media (max-width: 1200px) {
+      #section-benefits .category-block .layout {
+        padding: 0 24px;
+      }
+    }
+
+    @media (max-width: 766px) {
+      #section-benefits .category-block .layout {
+        padding: 0 16px;
+      }
+    }
+
+    #section-benefits .category-block .cat-title {
+      display: none;
+    }
+
+    #section-benefits .category-block .cat-title h3 {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 900;
+      font-size: 3.5rem;
+      color: #000;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    #section-benefits .category-block .cat-image {
+      display: none;
+    }
+
+    #section-benefits .category-block .cat-benefits {
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    #section-benefits .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    #section-benefits .benefit-item .icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #section-benefits .benefit-item .icon svg {
+      width: 40px;
+      height: 40px;
+      color: #70d44b;
+    }
+
+    #section-benefits .benefit-item .text dt {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    #section-benefits .benefit-item .text dd {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: #666;
+      letter-spacing: -0.02em;
+    }
+
+    #section-benefits .benefit-item .text dd span {
+      color: #999;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 1023px) {
+      #section-benefits .pin-wrapper {
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      #section-benefits .detail-sections {
+        z-index: 1;
+      }
+
+      #section-benefits .category-block {
+        min-height: auto;
+        padding: 120px 0;
+        display: block;
+      }
+
+      #section-benefits .category-block .layout {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 24px;
+        gap: 30px;
+        text-align: center;
+      }
+
+      #section-benefits .category-block .cat-title {
+        display: none;
+      }
+
+      #section-benefits .category-block .cat-benefits {
+        width: 100%;
+        max-width: 400px;
+        gap: 30px;
+      }
+
+      #section-benefits .benefit-item {
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.65);
+        padding: 32px 24px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        width: 100%;
+        transform: translateY(0);
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease,
+          opacity 0.35s ease,
+          filter 0.35s ease,
+          background 0.35s ease,
+          border-color 0.35s ease;
+        opacity: 0.5;
+        filter: blur(1.2px);
+        transform: translateY(18px) scale(0.965);
+      }
+
+      #section-benefits .benefit-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+
+      #section-benefits .benefit-item .icon {
+        margin: 0 auto 12px;
+      }
+
+      /* 모바일 스크롤 집중 효과 */
+      #section-benefits .benefit-item.is-visible {
+        opacity: 0.78;
+        filter: blur(0px);
+        transform: translateY(0) scale(0.985);
+      }
+
+      #section-benefits .benefit-item.is-active {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0) scale(1);
+        background: rgba(255, 255, 255, 0.82);
+        border-color: rgba(255, 255, 255, 0.7);
+        box-shadow:
+          0 18px 40px rgba(0, 0, 0, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      }
+
+      #section-benefits .benefit-item.is-active .icon {
+        transform: scale(1.06);
+        transition: transform 0.35s ease;
+      }
+
+      #section-benefits .benefit-item .text dt,
+      #section-benefits .benefit-item .text dd {
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+
+      #section-benefits .benefit-item .text dt {
+        opacity: 0.9;
+        transform: translateY(6px);
+      }
+
+      #section-benefits .benefit-item .text dd {
+        opacity: 0.82;
+        transform: translateY(8px);
+      }
+
+      #section-benefits .benefit-item.is-visible .text dt,
+      #section-benefits .benefit-item.is-visible .text dd,
+      #section-benefits .benefit-item.is-active .text dt,
+      #section-benefits .benefit-item.is-active .text dd {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 766px) {
+      #section-benefits .category-block {
+        padding: 40px 0;
+      }
+
+      #section-benefits .category-block .cat-title h3 {
+        font-size: 2rem;
+      }
+
+      #section-benefits .benefit-item {
+        padding: 28px 20px;
+        border-radius: 22px;
+      }
+
+      #section-benefits .benefit-item .text dt {
+        font-size: 1.05rem;
+        line-height: 1.45;
+      }
+
+      #section-benefits .benefit-item .text dd {
+        font-size: 0.92rem;
+        line-height: 1.75;
+      }
+    }
+  </style>
+
+  <!-- PIN WRAPPER (sticky visual area) -->
+  <div class="pin-wrapper" id="pinWrapper">
+    <!-- VISUAL CONTAINER (이미지 영역 - 전체화면 → pill 축소) -->
+    <div class="visual-container" id="visualContainer">
+      <div class="image-stack" id="imageStack">
+        <div class="slide slide-work"></div>
+        <div class="slide slide-life"></div>
+        <div class="slide slide-family"></div>
+      </div>
+      <div class="dim-overlay" id="dimOverlay"></div>
+    </div>
+
+    <!-- 키워드 텍스트 -->
+    <div class="keyword-text" id="keywordText">
+      <p>HEALTH TO YOU</p>
+      <span class="dot"></span>
+      <p>HAPPY TO YOU</p>
+      <span class="dot"></span>
+      <p>HOPE TO YOU</p>
+    </div>
+
+    <!-- 고정 카테고리 제목 -->
+    <div class="fixed-category-title" id="fixedCatTitle">
+      <h3 id="fixTitle-work">HEALTH TO YOU</h3>
+      <h3 id="fixTitle-life">HAPPY TO YOU</h3>
+      <h3 id="fixTitle-family">HOPE TO YOU</h3>
+    </div>
+  </div>
+
+  <!-- DETAIL SECTIONS -->
+  <div class="detail-sections" id="detailSections">
+    <!-- BEAUTY -->
+    <div class="category-block" id="block-work" data-bg="#ffffff">
+      <div class="layout">
+        <div class="cat-title">
+          <h3>Beauty</h3>
+        </div>
+        <div class="cat-image"></div>
+        <div class="cat-benefits">
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M14 34l-6-6 2-2 4 4 10-10 2 2-12 12z" />
+                <path d="M24 6c-2 0-4 1.5-4 4s2 4 4 4 4-1.5 4-4-2-4-4-4z" />
+                <path d="M34 18c0 0-4-4-10-4s-10 4-10 4" />
+                <circle cx="24" cy="24" r="20" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>아름다움의 새로운 기준</dt>
+              <dd>HTU는 보여지는 아름다움을 넘어<br>건강과 품격이 연결된 진짜 아름다움을 제안합니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="24" cy="16" r="8" />
+                <path d="M24 24v12" />
+                <path d="M18 30h12" />
+                <path d="M20 42h8" />
+                <circle cx="24" cy="8" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>자신감을 만드는 가치</dt>
+              <dd>아름다움은 외형의 변화에 그치지 않고<br>삶의 태도와 자신감을 바꾸는 힘이 됩니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 28c0-4 4-8 12-8s12 4 12 8" />
+                <circle cx="24" cy="14" r="6" />
+                <path d="M8 20l-4 4m40-4l4 4" />
+                <path d="M16 38h16M20 42h8" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>세대를 잇는 아름다움</dt>
+              <dd>HTU는 다양한 세대와 문화를 연결하며<br>더 넓은 아름다움의 가능성을 만들어갑니다.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEALTHY -->
+    <div class="category-block" id="block-life" data-bg="#EDF6FD">
+      <div class="layout">
+        <div class="cat-title">
+          <h3>Healthy</h3>
+        </div>
+        <div class="cat-image"></div>
+        <div class="cat-benefits">
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="8" y="10" width="32" height="28" rx="4" />
+                <path d="M16 18h16M16 26h10M16 34h6" />
+                <path d="M24 4v6" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>건강한 삶의 기반</dt>
+              <dd>건강은 더 나은 삶을 위한 선택이 아니라<br>지속 가능한 미래를 위한 가장 중요한 기반입니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M24 4L24 12M20 8h8" />
+                <rect x="10" y="14" width="28" height="30" rx="4" />
+                <path d="M18 24h12M18 32h8" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>지식과 연구의 연결</dt>
+              <dd>HTU는 올바른 건강 지식과 전문 연구를 바탕으로<br>신뢰할 수 있는 기준을 만들어갑니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="6" y="16" width="36" height="24" rx="3" />
+                <path d="M6 22h36" />
+                <path d="M18 10v6M30 10v6" />
+                <circle cx="16" cy="32" r="2" />
+                <circle cx="24" cy="32" r="2" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>건강한 에이징의 실천</dt>
+              <dd>시간의 흐름을 두려움이 아닌 성장으로 바꾸는 것,<br>그것이 HTU가 생각하는 건강한 에이징입니다.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPPORTUNITY -->
+    <div class="category-block" id="block-family" data-bg="#F0FDED">
+      <div class="layout">
+        <div class="cat-title">
+          <h3>Opportunity</h3>
+        </div>
+        <div class="cat-image"></div>
+        <div class="cat-benefits">
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M8 40V18l16-12 16 12v22H8z" />
+                <rect x="18" y="28" width="12" height="12" />
+                <path d="M24 28v12" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>배움이 기회가 되는 구조</dt>
+              <dd>교육과 인증, 실전 경험을 통해<br>누구나 새로운 가능성을 시작할 수 있도록 돕습니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M24 4C14 4 8 14 8 20c0 10 16 24 16 24s16-14 16-24c0-6-6-16-16-16z" />
+                <circle cx="24" cy="20" r="6" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>사람과 산업을 잇는 연결</dt>
+              <dd>전문가와 기업, 연구기관과 현장을 연결하여<br>더 큰 성장의 기회를 만들어갑니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="24" cy="24" r="18" />
+                <path d="M18 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+                <path d="M24 26v8" />
+                <circle cx="24" cy="38" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>새로운 인생 후반의 성장</dt>
+              <dd>HTU는 50+ 이후의 시간을 끝이 아닌<br>다시 성장하는 가장 강력한 기회로 바라봅니다.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      var $benefits = document.getElementById('section-benefits');
+      if (!$benefits) return;
+
+      var $visual = $benefits.querySelector('#visualContainer');
+      var $imageStack = $benefits.querySelector('#imageStack');
+      var $dim = $benefits.querySelector('#dimOverlay');
+      var $keywords = $benefits.querySelector('#keywordText');
+      var $fixedTitle = $benefits.querySelector('#fixedCatTitle');
+      var $pinWrapper = $benefits.querySelector('#pinWrapper');
+      var $details = $benefits.querySelector('#detailSections');
+
+      var fixTitles = [
+        $benefits.querySelector('#fixTitle-work'),
+        $benefits.querySelector('#fixTitle-life'),
+        $benefits.querySelector('#fixTitle-family')
+      ];
+
+      var blocks = $benefits.querySelectorAll('.category-block');
+      var bgColors = ['#ffffff', '#EDF6FD', '#F0FDED'];
+
+      function clearMobileActive(items) {
+        items.forEach(function (item) {
+          item.classList.remove('is-active');
+        });
+      }
+
+      function setupMobileFocusEffect(block) {
+        var items = block.querySelectorAll('.benefit-item');
+        if (!items.length) return;
+
+        items.forEach(function (item) {
+          ScrollTrigger.create({
+            trigger: item,
+            start: 'top 88%',
+            end: 'bottom 20%',
+            invalidateOnRefresh: true,
+            onEnter: function () {
+              item.classList.add('is-visible');
+            },
+            onEnterBack: function () {
+              item.classList.add('is-visible');
+            },
+            onLeave: function () {
+              item.classList.remove('is-visible');
+              item.classList.remove('is-active');
+            },
+            onLeaveBack: function () {
+              item.classList.remove('is-visible');
+              item.classList.remove('is-active');
+            }
+          });
+
+          ScrollTrigger.create({
+            trigger: item,
+            start: 'top 58%',
+            end: 'bottom 52%',
+            invalidateOnRefresh: true,
+            onEnter: function () {
+              clearMobileActive(items);
+              item.classList.add('is-active');
+              item.classList.add('is-visible');
+            },
+            onEnterBack: function () {
+              clearMobileActive(items);
+              item.classList.add('is-active');
+              item.classList.add('is-visible');
+            },
+            onLeave: function () {
+              item.classList.remove('is-active');
+            },
+            onLeaveBack: function () {
+              item.classList.remove('is-active');
+            }
+          });
+        });
+      }
+
+      window.addEventListener('load', function () {
+        var heroTrigger = document.getElementById('section-hero') || $benefits.previousElementSibling || $benefits;
+
+        ScrollTrigger.matchMedia({
+          all: function () {
+            /* [Phase 1] Hero 지나면서 dim 강화 + blur */
+            gsap.timeline({
+              scrollTrigger: {
+                trigger: heroTrigger,
+                scrub: 0.5,
+                start: 'top top',
+                endTrigger: $pinWrapper,
+                end: 'top top'
+              }
+            })
+            .to($dim, { backgroundColor: 'rgba(0,0,0,0.6)' })
+            .to($imageStack, { filter: 'blur(5px)' }, '<');
+
+            /* [Phase 2] 키워드 사라지면서 이미지 pill 축소 */
+            gsap.timeline({
+              scrollTrigger: {
+                trigger: $benefits,
+                scrub: 1.5,
+                start: 'top -30%',
+                end: 'top -80%',
+                invalidateOnRefresh: true,
+                onEnter: function () {
+                  var isMobile = window.innerWidth <= 1023;
+                  var tTop = isMobile ? '17.5vh' : '50%';
+                  var tWidth = isMobile ? '100vw' : '380px';
+                  var tHeight = isMobile ? '35vh' : '520px';
+                  var tRadius = isMobile ? '0px' : '999px';
+
+                  gsap.to($keywords, { opacity: 0, duration: 0.4 });
+                  gsap.to($dim, { backgroundColor: 'rgba(0,0,0,0)', duration: 0.6 });
+                  gsap.to($imageStack, { filter: 'blur(0px)', duration: 0.6 });
+
+                  gsap.to($visual, {
+                    width: tWidth,
+                    height: tHeight,
+                    borderRadius: tRadius,
+                    top: tTop,
+                    left: '50%',
+                    xPercent: -50,
+                    yPercent: -50,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                  });
+
+                  gsap.to(fixTitles[0], { opacity: 1, duration: 0.5 });
+                },
+                onLeaveBack: function () {
+                  gsap.to($keywords, { opacity: 1, duration: 0.4 });
+                  gsap.to($dim, { backgroundColor: 'rgba(0,0,0,0.6)', duration: 0.6 });
+                  gsap.to($imageStack, { filter: 'blur(0px)', duration: 0.6 });
+
+                  gsap.to($visual, {
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '0px',
+                    top: '0%',
+                    left: '0%',
+                    xPercent: 0,
+                    yPercent: 0,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                  });
+
+                  gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
+                },
+                onEnterBack: function () {
+                  gsap.to(fixTitles[0], { opacity: 1, duration: 0.3 });
+                }
+              }
+            });
+
+            /* [Phase 3] 각 카테고리 블록 진입 시 이미지 전환 + 타이틀 전환 + 배경색 */
+            blocks.forEach(function (block, idx) {
+              var items = block.querySelectorAll('.benefit-item');
+              gsap.set(items, { opacity: 0, y: 30 });
+
+              ScrollTrigger.create({
+                trigger: block,
+                start: 'top 55%',
+                end: 'bottom 50%',
+                invalidateOnRefresh: true,
+                onEnter: function () {
+                  gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
+                  gsap.to(fixTitles[idx], { opacity: 1, duration: 0.3 });
+                  gsap.to($imageStack, {
+                    y: -(100 / 3 * idx) + '%',
+                    duration: 1.2,
+                    ease: 'power2.inOut'
+                  });
+                  gsap.to($benefits, {
+                    backgroundColor: bgColors[idx],
+                    duration: 0.8
+                  });
+                  gsap.to(items, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    stagger: 0.12,
+                    ease: 'power2.out'
+                  });
+                },
+                onEnterBack: function () {
+                  gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
+                  gsap.to(fixTitles[idx], { opacity: 1, duration: 0.3 });
+                  gsap.to($imageStack, {
+                    y: -(100 / 3 * idx) + '%',
+                    duration: 1.2,
+                    ease: 'power2.inOut'
+                  });
+                  gsap.to($benefits, {
+                    backgroundColor: bgColors[idx],
+                    duration: 0.8
+                  });
+                  gsap.to(items, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    stagger: 0.12,
+                    ease: 'power2.out'
+                  });
+                },
+                onLeaveBack: function () {
+                  if (idx > 0) {
+                    gsap.to(items, { opacity: 0, y: 30, duration: 0.3 });
+                  }
+                }
+              });
+            });
+
+            /* [Phase 4] 전체 PIN */
+            ScrollTrigger.create({
+              trigger: $benefits,
+              pin: $pinWrapper,
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: 0.5,
+              pinSpacing: false
+            });
+          },
+
+          "(max-width: 1023px)": function () {
+            blocks.forEach(function (block) {
+              setupMobileFocusEffect(block);
+            });
+          }
+        });
+
+        ScrollTrigger.refresh();
+      });
+    })();
+  </script>
+</section>
+
+<!-- SEC02: BENEFITS COPY -->
+<section id="section-benefits-copy" aria-label="Benefits Section Copy">
+  <style>
+    /* ===== SECTION SCOPE RESET ===== */
+    #section-benefits-copy,
+    #section-benefits-copy *,
+    #section-benefits-copy *::before,
+    #section-benefits-copy *::after {
+      box-sizing: border-box;
+    }
+
+    #section-benefits-copy {
+      position: relative;
+      transition: background-color 0.6s ease;
+      font-size: 16px;
+      font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
+      color: #000;
+      font-weight: 400;
+      line-height: 1;
+      -webkit-text-size-adjust: none;
+      overflow-x: hidden;
+    }
+
+    #section-benefits-copy ul,
+    #section-benefits-copy ol,
+    #section-benefits-copy li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #section-benefits-copy a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    #section-benefits-copy img {
+      display: block;
+      max-width: 100%;
+      border: 0;
+    }
+
+    #section-benefits-copy h1,
+    #section-benefits-copy h2,
+    #section-benefits-copy h3,
+    #section-benefits-copy h4,
+    #section-benefits-copy h5,
+    #section-benefits-copy h6 {
+      font-size: 100%;
+      font-weight: inherit;
+      line-height: 1;
+      margin: 0;
+    }
+
+    #section-benefits-copy dl,
+    #section-benefits-copy dt,
+    #section-benefits-copy dd,
+    #section-benefits-copy p {
+      margin: 0;
+      padding: 0;
+    }
+
+    #section-benefits-copy .blind {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      white-space: nowrap;
+    }
+
+    /* ===== LAYOUT ===== */
+    #section-benefits-copy .inner {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #section-benefits-copy .inner::after {
+      content: "";
+      display: block;
+      clear: both;
+      height: 0;
+      visibility: hidden;
+    }
+
+    @media (max-width: 1200px) {
+      #section-benefits-copy .inner {
+        padding: 0 24px;
+      }
+    }
+
+    @media (max-width: 766px) {
+      #section-benefits-copy .inner {
+        padding: 0 16px;
+      }
+    }
+
+    /* ===== BENEFITS MAIN SECTION ===== */
+    #section-benefits-copy .pin-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+
+    #section-benefits-copy .visual-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 0;
+    }
+
+    #section-benefits-copy .image-stack {
+      width: 100%;
+      height: 300%;
+      will-change: transform;
+    }
+
+    #section-benefits-copy .image-stack .slide {
+      width: 100%;
+      height: 33.3333%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #section-benefits-copy .image-stack .slide-work {
+      background-image: url('./img/beauty.jpg');
+    }
+
+    #section-benefits-copy .image-stack .slide-life {
+      background-image: url('./img/healthy.jpg');
+    }
+
+    #section-benefits-copy .image-stack .slide-family {
+      background-image: url('./img/lab1.jpg');
+    }
+
+    #section-benefits-copy .dim-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+
+    #section-benefits-copy .keyword-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      white-space: nowrap;
+    }
+
+    #section-benefits-copy .keyword-text p {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 800;
+      font-size: 4.5rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    #section-benefits-copy .keyword-text .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 1023px) {
+      #section-benefits-copy .keyword-text p {
+        font-size: 3rem;
+      }
+
+      #section-benefits-copy .keyword-text .dot {
+        display: none;
+      }
+
+      #section-benefits-copy .keyword-text {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      #section-benefits-copy .image-stack .slide {
+        filter: brightness(0.5);
+      }
+
+      #section-benefits-copy .image-stack .slide:first-child {
+        filter: brightness(0.7);
+      }
+    }
+
+    @media (max-width: 766px) {
+      #section-benefits-copy .keyword-text p {
+        font-size: 2.25rem;
+      }
+
+      #section-benefits-copy .keyword-text {
+        gap: 14px;
+      }
+    }
+
+    #section-benefits-copy .fixed-category-title {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      right: 0;
+      z-index: 3;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      pointer-events: none;
+    }
+
+    #section-benefits-copy .fixed-category-title h3 {
       font-family: 'Nunito Sans', sans-serif;
       font-weight: 900;
       font-size: 7rem;
@@ -420,24 +1370,23 @@
     }
 
     @media (max-width: 1200px) {
-      .fixed-category-title {
+      #section-benefits-copy .fixed-category-title {
         padding: 0 24px;
       }
 
-      .fixed-category-title h3 {
+      #section-benefits-copy .fixed-category-title h3 {
         left: 24px;
       }
     }
 
     @media (max-width: 1023px) {
-      .fixed-category-title {
+      #section-benefits-copy .fixed-category-title {
         top: 17.5vh;
-        /* Center of the 35vh banner */
         z-index: 20;
         text-align: center;
       }
 
-      .fixed-category-title h3 {
+      #section-benefits-copy .fixed-category-title h3 {
         font-size: 3.5rem;
         left: 0;
         right: 0;
@@ -447,63 +1396,57 @@
     }
 
     @media (max-width: 766px) {
-      .fixed-category-title {
+      #section-benefits-copy .fixed-category-title {
         padding: 0 16px;
       }
 
-      .fixed-category-title h3 {
+      #section-benefits-copy .fixed-category-title h3 {
         left: 16px;
         font-size: 3rem;
       }
     }
 
     /* ===== DETAIL CONTENT SECTIONS ===== */
-    .detail-sections {
+    #section-benefits-copy .detail-sections {
       position: relative;
       z-index: 5;
       pointer-events: none;
-      /* 클릭 방해 방지 */
     }
 
-    .category-block {
+    #section-benefits-copy .category-block {
       min-height: 100vh;
       display: flex;
       align-items: center;
       pointer-events: auto;
-      /* 텍스트는 클릭 가능하도록 복구 */
     }
 
-    /* Layout: Title | Image(pill) | Benefits */
-    .category-block .layout {
+    #section-benefits-copy .category-block .layout {
       width: 100%;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       max-width: 1400px;
-      /* 늘려서 더 우측으로 가도록 */
       margin: 0 auto;
       padding-right: 120px;
-      /* 우측 여백 확보 */
     }
 
     @media (max-width: 1200px) {
-      .category-block .layout {
+      #section-benefits-copy .category-block .layout {
         padding: 0 24px;
       }
     }
 
     @media (max-width: 766px) {
-      .category-block .layout {
+      #section-benefits-copy .category-block .layout {
         padding: 0 16px;
       }
     }
 
-    /* Category Title Column */
-    .category-block .cat-title {
+    #section-benefits-copy .category-block .cat-title {
       display: none;
     }
 
-    .category-block .cat-title h3 {
+    #section-benefits-copy .category-block .cat-title h3 {
       font-family: 'Nunito Sans', sans-serif;
       font-weight: 900;
       font-size: 3.5rem;
@@ -512,28 +1455,24 @@
       line-height: 1;
     }
 
-    /* Image Column (pill shape visible during detail phase) */
-    .category-block .cat-image {
+    #section-benefits-copy .category-block .cat-image {
       display: none;
-      /* hidden in desktop pin mode, shown only below pin */
     }
 
-    /* Benefits Column */
-    .category-block .cat-benefits {
+    #section-benefits-copy .category-block .cat-benefits {
       width: 320px;
-      /* 명확한 너비 고정 */
       display: flex;
       flex-direction: column;
       gap: 40px;
     }
 
-    .benefit-item {
+    #section-benefits-copy .benefit-item {
       display: flex;
       align-items: flex-start;
       gap: 20px;
     }
 
-    .benefit-item .icon {
+    #section-benefits-copy .benefit-item .icon {
       flex-shrink: 0;
       width: 48px;
       height: 48px;
@@ -542,13 +1481,13 @@
       justify-content: center;
     }
 
-    .benefit-item .icon svg {
+    #section-benefits-copy .benefit-item .icon svg {
       width: 40px;
       height: 40px;
       color: #70d44b;
     }
 
-    .benefit-item .text dt {
+    #section-benefits-copy .benefit-item .text dt {
       font-size: 1.125rem;
       font-weight: 700;
       color: #000;
@@ -556,38 +1495,35 @@
       letter-spacing: -0.02em;
     }
 
-    .benefit-item .text dd {
+    #section-benefits-copy .benefit-item .text dd {
       font-size: 0.9375rem;
       line-height: 1.65;
       color: #666;
       letter-spacing: -0.02em;
     }
 
-    .benefit-item .text dd span {
+    #section-benefits-copy .benefit-item .text dd span {
       color: #999;
       font-size: 0.875rem;
     }
 
     @media (max-width: 1023px) {
-      .pin-wrapper {
+      #section-benefits-copy .pin-wrapper {
         z-index: 10;
         pointer-events: none;
-        /* Let clicks pass to cards */
       }
 
-      .detail-sections {
+      #section-benefits-copy .detail-sections {
         z-index: 1;
-        /* Slide behind pin wrapper */
       }
 
-      .category-block {
+      #section-benefits-copy .category-block {
         min-height: auto;
         padding: 120px 0;
-        /* Increase scroll distance */
         display: block;
       }
 
-      .category-block .layout {
+      #section-benefits-copy .category-block .layout {
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -596,18 +1532,17 @@
         text-align: center;
       }
 
-      .category-block .cat-title {
+      #section-benefits-copy .category-block .cat-title {
         display: none;
-        /* Let the fixed title stay, wait do they want title here? Let's hide it to match design */
       }
 
-      .category-block .cat-benefits {
+      #section-benefits-copy .category-block .cat-benefits {
         width: 100%;
         max-width: 400px;
         gap: 30px;
       }
 
-      .benefit-item {
+      #section-benefits-copy .benefit-item {
         align-items: center;
         text-align: center;
         flex-direction: column;
@@ -620,474 +1555,385 @@
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         width: 100%;
-        box-sizing: border-box;
         transform: translateY(0);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
-      .benefit-item:hover {
+      #section-benefits-copy .benefit-item:hover {
         transform: translateY(-5px);
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12),
           inset 0 1px 0 rgba(255, 255, 255, 0.6);
       }
 
-      .benefit-item .icon {
+      #section-benefits-copy .benefit-item .icon {
         margin: 0 auto 12px;
       }
     }
 
     @media (max-width: 766px) {
-      .category-block {
+      #section-benefits-copy .category-block {
         padding: 40px 0;
       }
 
-      .category-block .cat-title h3 {
+      #section-benefits-copy .category-block .cat-title h3 {
         font-size: 2rem;
       }
     }
-
-    /* ===== FOOTER ===== */
-    #footer {
-      border-top: 1px solid #ddd;
-      padding: 40px 0;
-      text-align: center;
-    }
-
-    #footer p {
-      font-size: .875rem;
-      color: #999;
-      line-height: 1.5;
-    }
-
-    #footer .links {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    #footer .links a {
-      font-size: .875rem;
-      color: #666;
-      font-weight: 500;
-    }
   </style>
 
-      <!-- PIN WRAPPER (sticky visual area) -->
-      <div class="pin-wrapper" id="pinWrapper">
-
-        <!-- VISUAL CONTAINER (이미지 영역 - 전체화면 → pill 축소) -->
-        <div class="visual-container" id="visualContainer">
-          <div class="image-stack" id="imageStack">
-            <div class="slide slide-work"></div>
-            <div class="slide slide-life"></div>
-            <div class="slide slide-family"></div>
-          </div>
-          <div class="dim-overlay" id="dimOverlay"></div>
-        </div>
-
-        <!-- 키워드 텍스트: Work · Life · Family -->
-        <div class="keyword-text" id="keywordText">
-          <p>Beauty</p>
-          <span class="dot"></span>
-          <p>Healthy</p>
-          <span class="dot"></span>
-          <p>Opportunity</p>
-        </div>
-
-        <!-- 고정 카테고리 제목 (pill 축소 후 왼쪽에 표시) -->
-        <div class="fixed-category-title" id="fixedCatTitle">
-          <h3 id="fixTitle-work">Beauty</h3>
-          <h3 id="fixTitle-life">Healthy</h3>
-          <h3 id="fixTitle-family">Opportunity</h3>
-        </div>
-
+  <div class="pin-wrapper" id="pinWrapper-copy">
+    <div class="visual-container" id="visualContainer-copy">
+      <div class="image-stack" id="imageStack-copy">
+        <div class="slide slide-work"></div>
+        <div class="slide slide-life"></div>
+        <div class="slide slide-family"></div>
       </div>
-
-      <!-- DETAIL SECTIONS (스크롤 시 나타나는 복리후생 상세) -->
-      <div class="detail-sections" id="detailSections">
-
-        <!-- WORK -->
-        <!-- BEAUTY -->
-        <div class="category-block" id="block-work" data-bg="#ffffff">
-          <div class="layout">
-            <div class="cat-title">
-              <h3>Beauty</h3>
-            </div>
-            <div class="cat-image"></div>
-            <div class="cat-benefits">
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M14 34l-6-6 2-2 4 4 10-10 2 2-12 12z" />
-                    <path d="M24 6c-2 0-4 1.5-4 4s2 4 4 4 4-1.5 4-4-2-4-4-4z" />
-                    <path d="M34 18c0 0-4-4-10-4s-10 4-10 4" />
-                    <circle cx="24" cy="24" r="20" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>아름다움의 새로운 기준</dt>
-                  <dd>HTU는 보여지는 아름다움을 넘어<br>건강과 품격이 연결된 진짜 아름다움을 제안합니다.</dd>
-                </dl>
-              </div>
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="24" cy="16" r="8" />
-                    <path d="M24 24v12" />
-                    <path d="M18 30h12" />
-                    <path d="M20 42h8" />
-                    <circle cx="24" cy="8" r="2" fill="currentColor" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>자신감을 만드는 가치</dt>
-                  <dd>아름다움은 외형의 변화에 그치지 않고<br>삶의 태도와 자신감을 바꾸는 힘이 됩니다.</dd>
-                </dl>
-              </div>
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M12 28c0-4 4-8 12-8s12 4 12 8" />
-                    <circle cx="24" cy="14" r="6" />
-                    <path d="M8 20l-4 4m40-4l4 4" />
-                    <path d="M16 38h16M20 42h8" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>세대를 잇는 아름다움</dt>
-                  <dd>HTU는 다양한 세대와 문화를 연결하며<br>더 넓은 아름다움의 가능성을 만들어갑니다.</dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- HEALTHY -->
-        <div class="category-block" id="block-life" data-bg="#EDF6FD">
-          <div class="layout">
-            <div class="cat-title">
-              <h3>Healthy</h3>
-            </div>
-            <div class="cat-image"></div>
-            <div class="cat-benefits">
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="8" y="10" width="32" height="28" rx="4" />
-                    <path d="M16 18h16M16 26h10M16 34h6" />
-                    <path d="M24 4v6" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>건강한 삶의 기반</dt>
-                  <dd>건강은 더 나은 삶을 위한 선택이 아니라<br>지속 가능한 미래를 위한 가장 중요한 기반입니다.</dd>
-                </dl>
-              </div>
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M24 4L24 12M20 8h8" />
-                    <rect x="10" y="14" width="28" height="30" rx="4" />
-                    <path d="M18 24h12M18 32h8" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>지식과 연구의 연결</dt>
-                  <dd>HTU는 올바른 건강 지식과 전문 연구를 바탕으로<br>신뢰할 수 있는 기준을 만들어갑니다.</dd>
-                </dl>
-              </div>
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="6" y="16" width="36" height="24" rx="3" />
-                    <path d="M6 22h36" />
-                    <path d="M18 10v6M30 10v6" />
-                    <circle cx="16" cy="32" r="2" />
-                    <circle cx="24" cy="32" r="2" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>건강한 에이징의 실천</dt>
-                  <dd>시간의 흐름을 두려움이 아닌 성장으로 바꾸는 것,<br>그것이 HTU가 생각하는 건강한 에이징입니다.</dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- OPPORTUNITY -->
-        <div class="category-block" id="block-family" data-bg="#F0FDED">
-          <div class="layout">
-            <div class="cat-title">
-              <h3>Opportunity</h3>
-            </div>
-            <div class="cat-image"></div>
-            <div class="cat-benefits">
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M8 40V18l16-12 16 12v22H8z" />
-                    <rect x="18" y="28" width="12" height="12" />
-                    <path d="M24 28v12" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>배움이 기회가 되는 구조</dt>
-                  <dd>교육과 인증, 실전 경험을 통해<br>누구나 새로운 가능성을 시작할 수 있도록 돕습니다.</dd>
-                </dl>
-              </div>
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M24 4C14 4 8 14 8 20c0 10 16 24 16 24s16-14 16-24c0-6-6-16-16-16z" />
-                    <circle cx="24" cy="20" r="6" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>사람과 산업을 잇는 연결</dt>
-                  <dd>전문가와 기업, 연구기관과 현장을 연결하여<br>더 큰 성장의 기회를 만들어갑니다.</dd>
-                </dl>
-              </div>
-              <div class="benefit-item">
-                <div class="icon">
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="24" cy="24" r="18" />
-                    <path d="M18 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
-                    <path d="M24 26v8" />
-                    <circle cx="24" cy="38" r="2" fill="currentColor" />
-                  </svg>
-                </div>
-                <dl class="text">
-                  <dt>새로운 인생 후반의 성장</dt>
-                  <dd>HTU는 50+ 이후의 시간을 끝이 아닌<br>다시 성장하는 가장 강력한 기회로 바라봅니다.</dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <script>
-      (function () {
-        'use strict';
-
-        gsap.registerPlugin(ScrollTrigger);
-
-        /*
-         * =================================================================
-         *  SCROLL ANIMATION SEQUENCE (Desktop ≥ 1025px)
-         * =================================================================
-         *
-         *  [Phase 1] 초기 상태 → 스크롤 시작
-         *    - 전체화면 이미지 (visual-container: 100vw × 100vh, border-radius: 0)
-         *    - dim-overlay: rgba(0,0,0,0.5) → 이미지 위에 어두운 오버레이
-         *    - image-stack: blur(0) → blur(5px)로 변화
-         *    - keyword-text: "Work · Life · Family" 중앙에 표시
-         *
-         *  [Phase 2] 키워드 페이드아웃 + 이미지 pill shape 축소
-         *    - keyword-text → opacity: 0
-         *    - dim-overlay → rgba(0,0,0,0) 투명하게
-         *    - image-stack → blur(0px) 다시 선명
-         *    - visual-container:
-         *        width: 100% → 45%
-         *        height: 100% → 70vh
-         *        left: 0 → 50% (transform: translateX(-50%))로 중앙 정렬
-         *        border-radius: 0 → 999px (pill shape)
-         *    - fixed-category-title "Work" → opacity: 1 (좌측 하단에 표시)
-         *
-         *  [Phase 3] 카테고리 상세 콘텐츠 등장
-         *    - 각 .category-block이 viewport 50%에 진입할 때:
-         *        - 해당 카테고리의 fix_title opacity: 1, 나머지 0
-         *        - image-stack y: 0% → -100% → -200% (이미지 전환)
-         *        - section-benefits backgroundColor 변경
-         *    - benefit-item들이 순차적으로 페이드인
-         *
-         *  [Phase 4] 전체 pin
-         *    - section-benefits 전체를 기준으로 pin-wrapper가 고정
-         *    - 스크롤하면 뒤의 detail-sections가 올라옴
-         * =================================================================
-         */
-
-        var $visual = document.getElementById('visualContainer');
-        var $imageStack = document.getElementById('imageStack');
-        var $dim = document.getElementById('dimOverlay');
-        var $keywords = document.getElementById('keywordText');
-        var $fixedTitle = document.getElementById('fixedCatTitle');
-        var $pinWrapper = document.getElementById('pinWrapper');
-        var $benefits = document.getElementById('section-benefits');
-        var $details = document.getElementById('detailSections');
-
-        var fixTitles = [
-          document.getElementById('fixTitle-work'),
-          document.getElementById('fixTitle-life'),
-          document.getElementById('fixTitle-family')
-        ];
-
-        var blocks = document.querySelectorAll('.category-block');
-        var bgColors = ['#ffffff', '#EDF6FD', '#F0FDED'];
-
-        window.addEventListener('load', function () {
-
-          ScrollTrigger.matchMedia({
-
-            // ============================================================
-            // ALL SCREENS (DESKTOP & MOBILE)
-            // ============================================================
-            'all': function () {
-
-              // [Phase 1] Hero 지나면서 dim 강화 + blur
-              var tl1 = gsap.timeline({
-                scrollTrigger: {
-                  trigger: '#section-hero',
-                  scrub: 0.5,
-                  start: 'top top',
-                  endTrigger: $pinWrapper,
-                  end: 'top top',
-                }
-              });
-              tl1.to($dim, { backgroundColor: 'rgba(0,0,0,0.6)' })
-                .to($imageStack, { filter: 'blur(5px)' }, '<');
-
-              // [Phase 2] 키워드 사라지면서 이미지 pill 축소
-              var tl2 = gsap.timeline({
-                scrollTrigger: {
-                  trigger: $benefits,
-                  scrub: 1.5,
-                  start: 'top -30%',
-                  end: 'top -80%',
-                  invalidateOnRefresh: true,
-                  onEnter: function () {
-                    var isMobile = window.innerWidth <= 1023;
-                    var tTop = isMobile ? '17.5vh' : '50%'; // 17.5vh is center of 35vh height
-                    var tWidth = isMobile ? '100vw' : '380px';
-                    var tHeight = isMobile ? '35vh' : '520px';
-                    var tRadius = isMobile ? '0px' : '999px';
-
-                    // 키워드 사라짐
-                    gsap.to($keywords, { opacity: 0, duration: 0.4 });
-                    // dim 해제 + blur 해제
-                    gsap.to($dim, { backgroundColor: 'rgba(0,0,0,0)', duration: 0.6 });
-                    gsap.to($imageStack, { filter: 'blur(0px)', duration: 0.6 });
-                    // 축소
-                    gsap.to($visual, {
-                      width: tWidth,
-                      height: tHeight,
-                      borderRadius: tRadius,
-                      top: tTop,
-                      left: '50%',
-                      xPercent: -50,
-                      yPercent: -50,
-                      duration: 0.8,
-                      ease: 'power2.out'
-                    });
-                    // 카테고리 타이틀 표시
-                    gsap.to(fixTitles[0], { opacity: 1, duration: 0.5 });
-                  },
-                  onLeaveBack: function () {
-                    // 키워드 복귀
-                    gsap.to($keywords, { opacity: 1, duration: 0.4 });
-                    // dim + blur 복귀
-                    gsap.to($dim, { backgroundColor: 'rgba(0,0,0,0.6)', duration: 0.6 });
-                    gsap.to($imageStack, { filter: 'blur(0px)', duration: 0.6 });
-                    // 전체화면 복귀
-                    gsap.to($visual, {
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: (window.innerWidth <= 1023) ? '0px' : '0px',
-                      top: '0%',
-                      left: '0%',
-                      xPercent: 0,
-                      yPercent: 0,
-                      duration: 0.8,
-                      ease: 'power2.out'
-                    });
-                    // 타이틀 숨김
-                    gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
-                  },
-                  onEnterBack: function () {
-                    gsap.to(fixTitles[0], { opacity: 1, duration: 0.3 });
-                  }
-                }
-              });
-
-              // [Phase 3] 각 카테고리 블록 진입 시 이미지 전환 + 타이틀 전환 + 배경색
-              blocks.forEach(function (block, idx) {
-                // benefit-item 초기 숨김
-                var items = block.querySelectorAll('.benefit-item');
-                gsap.set(items, { opacity: 0, y: 30 });
-
-                ScrollTrigger.create({
-                  trigger: block,
-                  start: 'top 55%',
-                  end: 'bottom 50%',
-                  invalidateOnRefresh: true,
-                  onEnter: function () {
-                    // 타이틀 전환
-                    gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
-                    gsap.to(fixTitles[idx], { opacity: 1, duration: 0.3 });
-                    // 이미지 슬라이드
-                    gsap.to($imageStack, { y: -(100 / 3 * idx) + '%', duration: 1.2, ease: 'power2.inOut' });
-                    // 배경색
-                    gsap.to($benefits, { backgroundColor: bgColors[idx], duration: 0.8 });
-                    // benefit-item 순차 등장
-                    gsap.to(items, {
-                      opacity: 1, y: 0,
-                      duration: 0.5,
-                      stagger: 0.12,
-                      ease: 'power2.out'
-                    });
-                  },
-                  onEnterBack: function () {
-                    gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
-                    gsap.to(fixTitles[idx], { opacity: 1, duration: 0.3 });
-                    gsap.to($imageStack, { y: -(100 / 3 * idx) + '%', duration: 1.2, ease: 'power2.inOut' });
-                    gsap.to($benefits, { backgroundColor: bgColors[idx], duration: 0.8 });
-                    gsap.to(items, {
-                      opacity: 1, y: 0,
-                      duration: 0.5,
-                      stagger: 0.12,
-                      ease: 'power2.out'
-                    });
-                  },
-                  onLeave: function () {
-                    // 다음 블록으로 넘어갈 때 현재 블록 아이템 유지
-                  },
-                  onLeaveBack: function () {
-                    if (idx > 0) {
-                      gsap.to(items, { opacity: 0, y: 30, duration: 0.3 });
-                    }
-                  }
-                });
-              });
-
-              // [Phase 4] 전체 PIN
-              ScrollTrigger.create({
-                trigger: $benefits,
-                pin: $pinWrapper,
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 0.5,
-                pinSpacing: false
-              });
-
-              gsap.to(h3, { opacity: 1, y: 0, duration: 0.5 });
-            }
-
-          }); // matchMedia End
-        });
-
-      })();
-    </script>
+      <div class="dim-overlay" id="dimOverlay-copy"></div>
     </div>
 
+    <div class="keyword-text" id="keywordText-copy">
+      <p>Beauty</p>
+      <span class="dot"></span>
+      <p>Healthy</p>
+      <span class="dot"></span>
+      <p>Opportunity</p>
+    </div>
 
+    <div class="fixed-category-title" id="fixedCatTitle-copy">
+      <h3 id="fixTitle-work-copy">Beauty</h3>
+      <h3 id="fixTitle-life-copy">Healthy</h3>
+      <h3 id="fixTitle-family-copy">Opportunity</h3>
+    </div>
+  </div>
 
+  <div class="detail-sections" id="detailSections-copy">
+    <div class="category-block" id="block-work-copy" data-bg="#ffffff">
+      <div class="layout">
+        <div class="cat-title">
+          <h3>Beauty</h3>
+        </div>
+        <div class="cat-image"></div>
+        <div class="cat-benefits">
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M14 34l-6-6 2-2 4 4 10-10 2 2-12 12z" />
+                <path d="M24 6c-2 0-4 1.5-4 4s2 4 4 4 4-1.5 4-4-2-4-4-4z" />
+                <path d="M34 18c0 0-4-4-10-4s-10 4-10 4" />
+                <circle cx="24" cy="24" r="20" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>아름다움의 새로운 기준</dt>
+              <dd>HTU는 보여지는 아름다움을 넘어<br>건강과 품격이 연결된 진짜 아름다움을 제안합니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="24" cy="16" r="8" />
+                <path d="M24 24v12" />
+                <path d="M18 30h12" />
+                <path d="M20 42h8" />
+                <circle cx="24" cy="8" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>자신감을 만드는 가치</dt>
+              <dd>아름다움은 외형의 변화에 그치지 않고<br>삶의 태도와 자신감을 바꾸는 힘이 됩니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 28c0-4 4-8 12-8s12 4 12 8" />
+                <circle cx="24" cy="14" r="6" />
+                <path d="M8 20l-4 4m40-4l4 4" />
+                <path d="M16 38h16M20 42h8" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>세대를 잇는 아름다움</dt>
+              <dd>HTU는 다양한 세대와 문화를 연결하며<br>더 넓은 아름다움의 가능성을 만들어갑니다.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" id="block-life-copy" data-bg="#EDF6FD">
+      <div class="layout">
+        <div class="cat-title">
+          <h3>Healthy</h3>
+        </div>
+        <div class="cat-image"></div>
+        <div class="cat-benefits">
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="8" y="10" width="32" height="28" rx="4" />
+                <path d="M16 18h16M16 26h10M16 34h6" />
+                <path d="M24 4v6" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>건강한 삶의 기반</dt>
+              <dd>건강은 더 나은 삶을 위한 선택이 아니라<br>지속 가능한 미래를 위한 가장 중요한 기반입니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M24 4L24 12M20 8h8" />
+                <rect x="10" y="14" width="28" height="30" rx="4" />
+                <path d="M18 24h12M18 32h8" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>지식과 연구의 연결</dt>
+              <dd>HTU는 올바른 건강 지식과 전문 연구를 바탕으로<br>신뢰할 수 있는 기준을 만들어갑니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="6" y="16" width="36" height="24" rx="3" />
+                <path d="M6 22h36" />
+                <path d="M18 10v6M30 10v6" />
+                <circle cx="16" cy="32" r="2" />
+                <circle cx="24" cy="32" r="2" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>건강한 에이징의 실천</dt>
+              <dd>시간의 흐름을 두려움이 아닌 성장으로 바꾸는 것,<br>그것이 HTU가 생각하는 건강한 에이징입니다.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" id="block-family-copy" data-bg="#F0FDED">
+      <div class="layout">
+        <div class="cat-title">
+          <h3>Opportunity</h3>
+        </div>
+        <div class="cat-image"></div>
+        <div class="cat-benefits">
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M8 40V18l16-12 16 12v22H8z" />
+                <rect x="18" y="28" width="12" height="12" />
+                <path d="M24 28v12" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>배움이 기회가 되는 구조</dt>
+              <dd>교육과 인증, 실전 경험을 통해<br>누구나 새로운 가능성을 시작할 수 있도록 돕습니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M24 4C14 4 8 14 8 20c0 10 16 24 16 24s16-14 16-24c0-6-6-16-16-16z" />
+                <circle cx="24" cy="20" r="6" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>사람과 산업을 잇는 연결</dt>
+              <dd>전문가와 기업, 연구기관과 현장을 연결하여<br>더 큰 성장의 기회를 만들어갑니다.</dd>
+            </dl>
+          </div>
+          <div class="benefit-item">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="24" cy="24" r="18" />
+                <path d="M18 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+                <path d="M24 26v8" />
+                <circle cx="24" cy="38" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <dl class="text">
+              <dt>새로운 인생 후반의 성장</dt>
+              <dd>HTU는 50+ 이후의 시간을 끝이 아닌<br>다시 성장하는 가장 강력한 기회로 바라봅니다.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      var $benefits = document.getElementById('section-benefits-copy');
+      if (!$benefits) return;
+
+      var $visual = $benefits.querySelector('#visualContainer-copy');
+      var $imageStack = $benefits.querySelector('#imageStack-copy');
+      var $dim = $benefits.querySelector('#dimOverlay-copy');
+      var $keywords = $benefits.querySelector('#keywordText-copy');
+      var $pinWrapper = $benefits.querySelector('#pinWrapper-copy');
+
+      var fixTitles = [
+        $benefits.querySelector('#fixTitle-work-copy'),
+        $benefits.querySelector('#fixTitle-life-copy'),
+        $benefits.querySelector('#fixTitle-family-copy')
+      ];
+
+      var blocks = $benefits.querySelectorAll('.category-block');
+      var bgColors = ['#ffffff', '#EDF6FD', '#F0FDED'];
+
+      window.addEventListener('load', function () {
+        var heroTrigger = document.getElementById('section-hero') || $benefits.previousElementSibling || $benefits;
+
+        ScrollTrigger.matchMedia({
+          all: function () {
+            gsap.timeline({
+              scrollTrigger: {
+                trigger: heroTrigger,
+                scrub: 0.5,
+                start: 'top top',
+                endTrigger: $pinWrapper,
+                end: 'top top'
+              }
+            })
+            .to($dim, { backgroundColor: 'rgba(0,0,0,0.6)' })
+            .to($imageStack, { filter: 'blur(5px)' }, '<');
+
+            gsap.timeline({
+              scrollTrigger: {
+                trigger: $benefits,
+                scrub: 1.5,
+                start: 'top -30%',
+                end: 'top -80%',
+                invalidateOnRefresh: true,
+                onEnter: function () {
+                  var isMobile = window.innerWidth <= 1023;
+                  var tTop = isMobile ? '17.5vh' : '50%';
+                  var tWidth = isMobile ? '100vw' : '380px';
+                  var tHeight = isMobile ? '35vh' : '520px';
+                  var tRadius = isMobile ? '0px' : '999px';
+
+                  gsap.to($keywords, { opacity: 0, duration: 0.4 });
+                  gsap.to($dim, { backgroundColor: 'rgba(0,0,0,0)', duration: 0.6 });
+                  gsap.to($imageStack, { filter: 'blur(0px)', duration: 0.6 });
+
+                  gsap.to($visual, {
+                    width: tWidth,
+                    height: tHeight,
+                    borderRadius: tRadius,
+                    top: tTop,
+                    left: '50%',
+                    xPercent: -50,
+                    yPercent: -50,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                  });
+
+                  gsap.to(fixTitles[0], { opacity: 1, duration: 0.5 });
+                },
+                onLeaveBack: function () {
+                  gsap.to($keywords, { opacity: 1, duration: 0.4 });
+                  gsap.to($dim, { backgroundColor: 'rgba(0,0,0,0.6)', duration: 0.6 });
+                  gsap.to($imageStack, { filter: 'blur(0px)', duration: 0.6 });
+
+                  gsap.to($visual, {
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '0px',
+                    top: '0%',
+                    left: '0%',
+                    xPercent: 0,
+                    yPercent: 0,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                  });
+
+                  gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
+                },
+                onEnterBack: function () {
+                  gsap.to(fixTitles[0], { opacity: 1, duration: 0.3 });
+                }
+              }
+            });
+
+            blocks.forEach(function (block, idx) {
+              var items = block.querySelectorAll('.benefit-item');
+              gsap.set(items, { opacity: 0, y: 30 });
+
+              ScrollTrigger.create({
+                trigger: block,
+                start: 'top 55%',
+                end: 'bottom 50%',
+                invalidateOnRefresh: true,
+                onEnter: function () {
+                  gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
+                  gsap.to(fixTitles[idx], { opacity: 1, duration: 0.3 });
+                  gsap.to($imageStack, {
+                    y: -(100 / 3 * idx) + '%',
+                    duration: 1.2,
+                    ease: 'power2.inOut'
+                  });
+                  gsap.to($benefits, {
+                    backgroundColor: bgColors[idx],
+                    duration: 0.8
+                  });
+                  gsap.to(items, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    stagger: 0.12,
+                    ease: 'power2.out'
+                  });
+                },
+                onEnterBack: function () {
+                  gsap.to(fixTitles, { opacity: 0, duration: 0.3 });
+                  gsap.to(fixTitles[idx], { opacity: 1, duration: 0.3 });
+                  gsap.to($imageStack, {
+                    y: -(100 / 3 * idx) + '%',
+                    duration: 1.2,
+                    ease: 'power2.inOut'
+                  });
+                  gsap.to($benefits, {
+                    backgroundColor: bgColors[idx],
+                    duration: 0.8
+                  });
+                  gsap.to(items, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    stagger: 0.12,
+                    ease: 'power2.out'
+                  });
+                },
+                onLeaveBack: function () {
+                  if (idx > 0) {
+                    gsap.to(items, { opacity: 0, y: 30, duration: 0.3 });
+                  }
+                }
+              });
+            });
+
+            ScrollTrigger.create({
+              trigger: $benefits,
+              pin: $pinWrapper,
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: 0.5,
+              pinSpacing: false
+            });
+          }
+        });
+      });
+    })();
+  </script>
+</section>
 
 
 
