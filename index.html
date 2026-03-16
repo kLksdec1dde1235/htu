@@ -3330,10 +3330,10 @@
 }
 
 #youtubeVideoSection .yvs-title{
-   font-size: 34px;
-    font-weight: 800;
-    color: #000;
-    margin-bottom: 30px;
+    font-size:34px;
+    font-weight:800;
+    color:#000;
+    margin-bottom:30px;
 }
 
 #youtubeVideoSection .yvs-grid{
@@ -3371,13 +3371,18 @@
 
 #youtubeVideoSection .fadeItem{
     opacity:0;
-    transform:translateY(40px);
-    transition:all .9s cubic-bezier(.22,.61,.36,1);
+    transform:translate3d(0,40px,0);
+    transition:
+        opacity .9s cubic-bezier(.22,.61,.36,1),
+        transform .9s cubic-bezier(.22,.61,.36,1);
+    will-change:opacity, transform;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
 }
 
 #youtubeVideoSection .fadeItem.active{
     opacity:1;
-    transform:translateY(0);
+    transform:translate3d(0,0,0);
 }
 
 @media (max-width:900px){
@@ -3405,59 +3410,86 @@
 
 <div class="yvs-inner">
 
-<div class="yvs-title fadeItem">
-정기 출간물
-</div>
+    <div class="yvs-title fadeItem">
+        정기 출간물
+    </div>
 
-<div class="yvs-grid">
+    <div class="yvs-grid">
 
-<div class="yvs-card fadeItem">
-<div class="yvs-image">
-<img src="https://cdn.mdjournal.kr/news/photo/202002/32560_15948_2055.png">
-</div>
-<div class="yvs-caption">MD 저널</div>
-</div>
+        <div class="yvs-card fadeItem">
+            <div class="yvs-image">
+                <img src="https://cdn.mdjournal.kr/news/photo/202002/32560_15948_2055.png">
+            </div>
+            <div class="yvs-caption">MD 저널</div>
+        </div>
 
-<div class="yvs-card fadeItem">
-<div class="yvs-image">
-<img src="https://image.aladin.co.kr/product/29098/48/cover500/k612837069_1.jpg">
-</div>
-<div class="yvs-caption">MAXQ</div>
-</div>
+        <div class="yvs-card fadeItem">
+            <div class="yvs-image">
+                <img src="https://image.aladin.co.kr/product/29098/48/cover500/k612837069_1.jpg">
+            </div>
+            <div class="yvs-caption">MAXQ</div>
+        </div>
 
-<div class="yvs-card fadeItem" >
-<div class="yvs-image">
-<img src="https://data.endo365.kr/images/202512/1766408721_8684e53c28d74067f0e9.png" style="border:1px solid #ffffff20;">
-</div>
-<div class="yvs-caption">ENDO 저널</div>
-</div>
+        <div class="yvs-card fadeItem">
+            <div class="yvs-image">
+                <img src="https://data.endo365.kr/images/202512/1766408721_8684e53c28d74067f0e9.png" style="border:1px solid #ffffff20;">
+            </div>
+            <div class="yvs-caption">ENDO 저널</div>
+        </div>
 
-
-
-</div>
+    </div>
 
 </div>
 
 <script>
 (function(){
+    const section = document.querySelector("#youtubeVideoSection");
+    if(!section) return;
 
-const section = document.querySelector("#youtubeVideoSection");
-const items = section.querySelectorAll(".fadeItem");
+    const items = section.querySelectorAll(".fadeItem");
+    let isActive = false;
+    let rafId = null;
 
-const observer = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("active");
-}else{
-entry.target.classList.remove("active");
-}
-});
-},{threshold:0.2});
+    function setActive(nextState){
+        if(isActive === nextState) return;
+        isActive = nextState;
 
-items.forEach(el=>{
-observer.observe(el);
-});
+        if(rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+            items.forEach(el => {
+                el.classList.toggle("active", isActive);
+            });
+        });
+    }
 
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            const rect = entry.boundingClientRect;
+
+            const visibleEnough =
+                entry.isIntersecting &&
+                rect.top < vh * 0.88 &&
+                rect.bottom > vh * 0.12;
+
+            setActive(visibleEnough);
+        });
+    }, {
+        threshold: [0, 0.08, 0.18, 0.28],
+        root: null,
+        rootMargin: "0px 0px 0px 0px"
+    });
+
+    observer.observe(section);
+
+    window.addEventListener("pageshow", function(){
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const visibleEnough =
+            rect.top < vh * 0.88 &&
+            rect.bottom > vh * 0.12;
+        setActive(visibleEnough);
+    });
 })();
 </script>
 
