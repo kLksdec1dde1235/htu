@@ -2742,9 +2742,13 @@
 
     #partner-logo-slider-section .pls-modal {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100dvh;
+      min-height: -webkit-fill-available;
       z-index: 99999;
-      display: none;
+      display: flex;
       align-items: flex-start;
       justify-content: center;
       padding:
@@ -2757,10 +2761,17 @@
       overflow-y: auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .18s ease, visibility .18s ease;
     }
 
     #partner-logo-slider-section .pls-modal.is-open {
-      display: flex;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
       animation: plsModalFadeIn .18s ease-out both;
     }
 
@@ -2778,7 +2789,6 @@
       from {
         opacity: 0;
       }
-
       to {
         opacity: 1;
       }
@@ -2791,19 +2801,31 @@
       border-radius: 24px;
       overflow: hidden;
       position: relative;
+      z-index: 1;
       box-shadow: var(--pop-shadow);
       background: var(--pop-card);
       border: 1px solid rgba(255, 255, 255, .60);
-      transform: translateY(10px) scale(.99);
-      opacity: 0;
-      animation: plsPanelIn .22s ease-out .02s both;
       display: flex;
       flex-direction: column;
       margin: auto 0;
       isolation: isolate;
+      align-self: flex-start;
+
+      /* 모바일 Safari에서 패널이 안 보이는 문제 방지 */
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      will-change: transform, opacity;
+    }
+
+    #partner-logo-slider-section .pls-modal.is-open .pls-panel {
+      animation: plsPanelIn .22s ease-out .02s both;
     }
 
     @keyframes plsPanelIn {
+      from {
+        transform: translateY(10px) scale(.99);
+        opacity: 0.001;
+      }
       to {
         transform: translateY(0) scale(1);
         opacity: 1;
@@ -3034,6 +3056,7 @@
         width: 100%;
         max-height: calc(100dvh - max(20px, env(safe-area-inset-top)) - max(22px, env(safe-area-inset-bottom)));
         border-radius: 20px;
+        align-self: flex-start;
       }
 
       #partner-logo-slider-section .pls-panel-hero {
@@ -3131,8 +3154,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       #partner-logo-slider-section .pls-panel,
-      #partner-logo-slider-section .pls-modal.is-open {
+      #partner-logo-slider-section .pls-modal.is-open,
+      #partner-logo-slider-section .pls-modal.is-open .pls-panel {
         animation: none !important;
+        transition: none !important;
       }
     }
   </style>
@@ -3190,31 +3215,30 @@
       const modalBody = modal.querySelector('#plsModalBody');
 
       let lastFocus = null;
-      let lastScrollY = 0;
+      let scrollY = 0;
 
       function lockScroll() {
-        lastScrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
-
-        document.documentElement.style.overflow = 'hidden';
-        document.documentElement.style.overscrollBehavior = 'none';
-
+        scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        document.body.dataset.plsScrollY = String(scrollY);
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.width = '100%';
         document.body.style.overflow = 'hidden';
-        document.body.style.touchAction = 'none';
-        document.body.style.overscrollBehavior = 'none';
-        document.body.dataset.plsScrollY = String(lastScrollY);
+        document.documentElement.style.overflow = 'hidden';
       }
 
       function unlockScroll() {
-        const y = parseInt(document.body.dataset.plsScrollY || String(lastScrollY || 0), 10) || 0;
-
-        document.documentElement.style.overflow = '';
-        document.documentElement.style.overscrollBehavior = '';
-
+        const y = parseInt(document.body.dataset.plsScrollY || '0', 10) || 0;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.width = '';
         document.body.style.overflow = '';
-        document.body.style.touchAction = '';
-        document.body.style.overscrollBehavior = '';
+        document.documentElement.style.overflow = '';
         delete document.body.dataset.plsScrollY;
-
         window.scrollTo(0, y);
       }
 
@@ -3222,6 +3246,13 @@
         modal.scrollTop = 0;
         panel.scrollTop = 0;
         if (modalBody) modalBody.scrollTop = 0;
+      }
+
+      function forcePanelPaint() {
+        panel.style.display = 'flex';
+        panel.style.opacity = '1';
+        panel.style.transform = 'translateY(0) scale(1)';
+        panel.getBoundingClientRect();
       }
 
       function openModalFromCard(card) {
@@ -3256,6 +3287,7 @@
         modal.setAttribute('aria-hidden', 'false');
         lockScroll();
         resetModalScroll();
+        forcePanelPaint();
 
         const closeBtn = modal.querySelector('[data-pls-close]');
         if (closeBtn) {
@@ -3306,6 +3338,7 @@
       window.addEventListener('resize', () => {
         if (modal.classList.contains('is-open')) {
           resetModalScroll();
+          forcePanelPaint();
         }
       });
     })();
@@ -3417,10 +3450,12 @@
     <div class="yvs-grid">
 
         <div class="yvs-card fadeItem">
+          <a href="https://mdjournal.kr" style="text-decoration: none;">
             <div class="yvs-image">
                 <img src="https://cdn.mdjournal.kr/news/photo/202002/32560_15948_2055.png">
             </div>
             <div class="yvs-caption">MD 저널</div>
+            </a>
         </div>
 
         <div class="yvs-card fadeItem">
