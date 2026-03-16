@@ -58,819 +58,846 @@
 
   <script src="./menu3.js"></script>
 
-  <section id="nwHero" aria-label="Norwegian Wood Hero" data-video-pos="center">
-    <style>
-      /* ================= Scope: #nwHero only ================= */
-      #nwHero {
-        --ink: #ffffff;
-        --muted: rgba(255, 255, 255, .88);
-        --slideDur: 8000ms;
-        font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        position: relative;
-        overflow: hidden;
-        color: #fff;
-        background: #000;
-      }
+<section id="nwHero" aria-label="Norwegian Wood Hero" data-video-pos="center">
+  <style>
+    /* ================= Scope: #nwHero only ================= */
+    #nwHero {
+      --ink: #ffffff;
+      --muted: rgba(255, 255, 255, .88);
+      --slideDur: 8000ms;
+      font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background: #000;
+    }
 
-      /* ✅ Slides */
-      #nwHero .slides {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        z-index: 1;
-      }
+    /* ✅ Slides */
+    #nwHero .slides {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      z-index: 1;
+    }
 
-      #nwHero .slide {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transition: opacity 900ms ease;
-        overflow: hidden;
-        background: #000;
-        z-index: 1;
-      }
+    #nwHero .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 900ms ease;
+      overflow: hidden;
+      background: #000;
+      z-index: 1;
+    }
 
-      #nwHero .slide.active {
-        opacity: 1;
-        z-index: 2;
-      }
+    #nwHero .slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
 
-      /* ✅ Media */
-      #nwHero .media {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 1;
-      }
+    /* ✅ Media */
+    #nwHero .media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
 
-      /* Images */
-      #nwHero .slide img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        animation: none;
-        transform-origin: center;
-      }
+    /* Images */
+    #nwHero .slide img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: none;
+      transform-origin: center;
+    }
 
-      /* ===== Cover (Vimeo + Local Video 공용) ===== */
-      #nwHero .vimeoCover {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background: #000;
-      }
+    /* ===== Cover (Vimeo + Local Video 공용) ===== */
+    #nwHero .vimeoCover {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
 
-      #nwHero .vimeoPoster {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        opacity: 1;
+    #nwHero .vimeoPoster {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      opacity: 1;
+      transform: scale(1.05);
+      transition: opacity 140ms ease;
+      will-change: opacity, transform;
+      z-index: 3;
+    }
+
+    #nwHero .slide.active .vimeoPoster {
+      animation: nwPosterZoom 3.5s ease-out forwards;
+    }
+
+    @keyframes nwPosterZoom {
+      from {
         transform: scale(1.05);
-        transition: opacity 140ms ease;
-        will-change: opacity, transform;
-        z-index: 3;
       }
 
-      #nwHero .slide.active .vimeoPoster {
-        animation: nwPosterZoom 3.5s ease-out forwards;
+      to {
+        transform: scale(1.18);
       }
+    }
 
-      @keyframes nwPosterZoom {
-        from {
-          transform: scale(1.05);
-        }
+    #nwHero .vimeoFrame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 160ms ease;
+      will-change: opacity;
+      background: #000;
+    }
 
-        to {
-          transform: scale(1.18);
-        }
-      }
+    /* ✅ Vimeo iframe */
+    #nwHero .vimeoFrame iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 56.25vw;
+      min-width: 177.78vh;
+      min-height: 100vh;
+      border: 0;
+      pointer-events: none;
+    }
 
-      #nwHero .vimeoFrame {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 2;
-        opacity: 0;
-        transition: opacity 160ms ease;
-        will-change: opacity;
-        background: #000;
-      }
+    /* ✅ Local video */
+    #nwHero .vimeoFrame video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+      transform: translateZ(0);
+      will-change: transform;
+    }
 
-      /* ✅ Vimeo iframe */
-      #nwHero .vimeoFrame iframe {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100vw;
-        height: 56.25vw;
-        min-width: 177.78vh;
-        min-height: 100vh;
-        border: 0;
-        pointer-events: none;
-      }
+    /* pos */
+    #nwHero[data-video-pos="left"] .vimeoFrame iframe {
+      left: 35%;
+    }
 
-      /* ✅ Local video */
-      #nwHero .vimeoFrame video {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        background: #000;
-        transform: translateZ(0);
-        will-change: transform;
-      }
+    #nwHero[data-video-pos="center"] .vimeoFrame iframe {
+      left: 50%;
+    }
 
-      /* pos */
-      #nwHero[data-video-pos="left"] .vimeoFrame iframe {
-        left: 35%;
-      }
+    #nwHero[data-video-pos="right"] .vimeoFrame iframe {
+      left: 65%;
+    }
 
-      #nwHero[data-video-pos="center"] .vimeoFrame iframe {
-        left: 50%;
-      }
+    #nwHero[data-video-pos="left"] .vimeoPoster {
+      background-position: 20% 50%;
+    }
 
-      #nwHero[data-video-pos="right"] .vimeoFrame iframe {
-        left: 65%;
-      }
+    #nwHero[data-video-pos="center"] .vimeoPoster {
+      background-position: 50% 50%;
+    }
 
-      #nwHero[data-video-pos="left"] .vimeoPoster {
-        background-position: 20% 50%;
-      }
+    #nwHero[data-video-pos="right"] .vimeoPoster {
+      background-position: 80% 50%;
+    }
 
-      #nwHero[data-video-pos="center"] .vimeoPoster {
-        background-position: 50% 50%;
-      }
+    /* ✅ ready */
+    #nwHero .slide.video-ready .vimeoPoster {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-      #nwHero[data-video-pos="right"] .vimeoPoster {
-        background-position: 80% 50%;
-      }
+    #nwHero .slide.video-ready .vimeoFrame {
+      opacity: 1;
+    }
 
-      /* ✅ ready */
-      #nwHero .slide.video-ready .vimeoPoster {
-        opacity: 0;
-        pointer-events: none;
-      }
+    /* ===== Vignette ===== */
+    #nwHero .vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+    }
 
-      #nwHero .slide.video-ready .vimeoFrame {
-        opacity: 1;
-      }
+    #nwHero .vignette::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(120% 100% at 20% 60%,
+          rgba(0, 0, 0, .45) 0%,
+          rgba(0, 0, 0, .25) 45%,
+          rgba(0, 0, 0, .08) 70%,
+          rgba(0, 0, 0, 0) 100%);
+    }
 
-      /* ===== Vignette ===== */
-      #nwHero .vignette {
-        position: absolute;
-        inset: 0;
-        z-index: 6;
-        pointer-events: none;
-      }
+    /* ===== Text ===== */
+    #nwHero .content {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      max-width: min(820px, 78vw);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
 
-      #nwHero .vignette::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(120% 100% at 20% 60%,
-            rgba(0, 0, 0, .45) 0%,
-            rgba(0, 0, 0, .25) 45%,
-            rgba(0, 0, 0, .08) 70%,
-            rgba(0, 0, 0, 0) 100%);
-      }
+    #nwHero .eyebrow,
+    #nwHero .title {
+      opacity: 0;
+      transform: translateY(30px);
+      will-change: opacity, transform;
+    }
 
-      /* ===== Text ===== */
-      #nwHero .content {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10;
-        max-width: min(820px, 78vw);
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-      }
+    #nwHero .title {
+      transform: translateY(40px);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, .3);
+    }
 
-      #nwHero .eyebrow,
-      #nwHero .title {
+    #nwHero .eyebrow {
+      font-family: 'Presentation-5';
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    #nwHero .title {
+      font-size: 3.3rem;
+      font-weight: 800;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    #nwHero .content.text-in .eyebrow {
+      animation: textFadeEyebrow 1s ease forwards;
+    }
+
+    #nwHero .content.text-in .title {
+      animation: textFadeTitle 1.2s ease forwards;
+    }
+
+    @keyframes textFadeEyebrow {
+      from {
         opacity: 0;
         transform: translateY(30px);
-        will-change: opacity, transform;
       }
 
-      #nwHero .title {
-        transform: translateY(40px);
-        text-shadow: 0 2px 6px rgba(0, 0, 0, .3);
-      }
-
-      #nwHero .eyebrow {
-        font-family: 'Presentation-5';
-        font-size: 1rem;
-        color: var(--muted);
-        margin-bottom: 10px;
-        display: block;
-      }
-
-      #nwHero .title {
-        font-size: 3.3rem;
-        font-weight: 800;
-        line-height: 1.35;
-        margin: 0;
-      }
-
-      #nwHero .content.text-in .eyebrow {
-        animation: textFadeEyebrow 1s ease forwards;
-      }
-
-      #nwHero .content.text-in .title {
-        animation: textFadeTitle 1.2s ease forwards;
-      }
-
-      @keyframes textFadeEyebrow {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes textFadeTitle {
-        from {
-          opacity: 0;
-          transform: translateY(40px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* ✅ Dock 비활성화 */
-      #nwHero .dock {
-        display: none !important;
-      }
-
-      /* ✅ Scroll Indicator */
-      #nwHero .scrollHint {
-        position: absolute;
-        left: 50%;
-        bottom: 26px;
-        transform: translateX(-50%);
-        z-index: 12;
-        width: 48px;
-        height: 64px;
-        display: grid;
-        place-items: center;
-        cursor: pointer;
-        user-select: none;
-        background: transparent;
-        border: 0;
-        padding: 0;
+      to {
         opacity: 1;
-        transition: opacity .35s ease, transform .35s ease;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes textFadeTitle {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
       }
 
-      #nwHero .scrollHint .mouse {
-        width: 26px;
-        height: 40px;
-        border-radius: 18px;
-        border: 1.5px solid rgba(255, 255, 255, .62);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, .28);
-        position: relative;
-        backdrop-filter: blur(6px);
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ✅ Dock 비활성화 */
+    #nwHero .dock {
+      display: none !important;
+    }
+
+    /* ✅ Scroll Indicator - 3 arrows only */
+    #nwHero .scrollHint {
+      position: absolute;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%);
+      z-index: 12;
+      width: 44px;
+      height: 78px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+      opacity: 1;
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    #nwHero .scrollHint:hover {
+      transform: translateX(-50%) translateY(2px);
+    }
+
+    #nwHero .scrollHint .arrow {
+      width: 24px;
+      height: 14px;
+      display: block;
+      opacity: .28;
+      animation: nwChevronCascade 1.8s ease-in-out infinite;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .28));
+    }
+
+    #nwHero .scrollHint .arrow svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      stroke: rgba(255, 255, 255, .96);
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #nwHero .scrollHint .arrow:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    #nwHero .scrollHint .arrow:nth-child(2) {
+      animation-delay: .18s;
+    }
+
+    #nwHero .scrollHint .arrow:nth-child(3) {
+      animation-delay: .36s;
+    }
+
+    @keyframes nwChevronCascade {
+      0% {
+        opacity: .12;
+        transform: translateY(-4px);
       }
 
-      #nwHero .scrollHint .mouse::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 10px;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, .92);
-        transform: translateX(-50%);
-        animation: nwScrollDot 1.35s ease-in-out infinite;
+      25% {
+        opacity: .95;
+        transform: translateY(0);
       }
 
-      @keyframes nwScrollDot {
-        0% {
-          opacity: .15;
-          transform: translateX(-50%) translateY(0);
-        }
-
-        35% {
-          opacity: 1;
-        }
-
-        100% {
-          opacity: .15;
-          transform: translateX(-50%) translateY(14px);
-        }
+      50% {
+        opacity: .45;
+        transform: translateY(4px);
       }
 
-      /* ===== Mobile ===== */
-      @media (max-width:768px) {
-        #nwHero .title {
-          font-size: 1.55rem;
-          padding-top: 20px;
-        }
+      100% {
+        opacity: .12;
+        transform: translateY(8px);
       }
-    </style>
+    }
 
-    <div class="slides">
-      <!-- ✅ 1번 슬라이드: 로컬 mp4 -->
-      <div class="slide" data-eyebrow="HTU GLOBAL HOLDINGS" data-title="건강한 아름다움<br>새로운 기회의 시작" data-type="local-video"
-        data-poster="./img/htu-1.jpg" data-local-src="./video/htu-001.mp4">
-        <div class="media">
-          <div class="vimeoCover">
-            <div class="vimeoPoster" aria-hidden="true"></div>
-            <div class="vimeoFrame" aria-hidden="true">
-              <!-- ✅ src는 JS에서 세팅 -->
-              <video muted playsinline webkit-playsinline autoplay loop preload="auto"
-                style="width:100%;height:100%;object-fit: cover;"></video>
-            </div>
-          </div>
-        </div>
-      </div>
+    /* ===== Mobile ===== */
+    @media (max-width:768px) {
+      #nwHero .title {
+        font-size: 1.55rem;
+        padding-top: 20px;
+      }
 
-      <!-- 2번: Vimeo -->
-      <div class="slide" data-eyebrow="HTU GLOBAL HOLDINGS" data-title="올바른 건강 정보와<br>소비의 기준을 만들고" data-type="video"
-        data-poster="./img/forum1.jpg">
-        <div class="media">
-          <div class="vimeoCover">
-            <div class="vimeoPoster" aria-hidden="true"></div>
-            <div class="vimeoFrame" aria-hidden="true">
-              <iframe
-                src="https://player.vimeo.com/video/1172820402?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
-                allow="autoplay; fullscreen" title="HTU GLOBAL HOLDINGS 2"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
+      #nwHero .scrollHint {
+        bottom: 20px;
+        width: 40px;
+        height: 70px;
+      }
 
-      <!-- 3번: Vimeo -->
-      <div class="slide" data-eyebrow="HTU GLOBAL HOLDINGS" data-title="건강한 기업의 성장을 도와<br>혁신과 일자리를 창출하는"
-        data-type="video" data-poster="./img/intro3-3.jpg">
-        <div class="media">
-          <div class="vimeoCover">
-            <div class="vimeoPoster" aria-hidden="true"></div>
-            <div class="vimeoFrame" aria-hidden="true">
-              <iframe
-                src="https://player.vimeo.com/video/1167068855?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
-                allow="autoplay; fullscreen" title="HTU GLOBAL HOLDINGS 3"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
+      #nwHero .scrollHint .arrow {
+        width: 22px;
+        height: 12px;
+      }
+    }
+  </style>
 
-      <div class="slide" data-eyebrow="HTU GLOBAL HOLDINGS" data-title="글로벌 뷰티·헬스<br>비즈니스 파트너" data-type="video"
-        data-poster="./img/program1.jpg">
-        <div class="media">
-          <div class="vimeoCover">
-            <div class="vimeoPoster" aria-hidden="true"></div>
-            <div class="vimeoFrame" aria-hidden="true">
-              <iframe
-                src="https://player.vimeo.com/video/1167074197?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
-                allow="autoplay; fullscreen" title="HTU GLOBAL HOLDINGS 4"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4번: Vimeo -->
-      <div class="slide" data-eyebrow="에이치티유 글로벌 홀딩스" data-title="HTU GLOBAL HOLDINGS" data-type="video"
-        data-poster="./img/earth.jpg">
-        <div class="media">
-          <div class="vimeoCover">
-            <div class="vimeoPoster" aria-hidden="true"></div>
-            <div class="vimeoFrame" aria-hidden="true">
-              <iframe
-                src="https://player.vimeo.com/video/1167069196?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
-                allow="autoplay; fullscreen" title="HTU GLOBAL HOLDINGS 4"></iframe>
-            </div>
+  <div class="slides">
+    <!-- ✅ 1번 슬라이드: 로컬 mp4 -->
+    <div class="slide" data-eyebrow="HTU GLOBAL HOLDINGS" data-title="건강한 아름다움<br>새로운 기회의 시작" data-type="local-video"
+      data-poster="./img/htu-1.jpg" data-local-src="./video/htu-001.mp4">
+      <div class="media">
+        <div class="vimeoCover">
+          <div class="vimeoPoster" aria-hidden="true"></div>
+          <div class="vimeoFrame" aria-hidden="true">
+            <video muted playsinline webkit-playsinline autoplay loop preload="auto"
+              style="width:100%;height:100%;object-fit: cover;"></video>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="vignette"></div>
-    <div class="content">
-      <span class="eyebrow"></span>
-      <h2 class="title"></h2>
+    <!-- 2번: Vimeo -->
+    <div class="slide" data-eyebrow="HTU GLOBAL HOLDINGS" data-title="올바른 건강 정보와<br>소비의 기준을 만들고" data-type="video"
+      data-poster="./img/forum1.jpg">
+      <div class="media">
+        <div class="vimeoCover">
+          <div class="vimeoPoster" aria-hidden="true"></div>
+          <div class="vimeoFrame" aria-hidden="true">
+            <iframe
+              src="https://player.vimeo.com/video/1172820402?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
+              allow="autoplay; fullscreen" title="HTU GLOBAL HOLDINGS 2"></iframe>
+          </div>
+        </div>
+      </div>
     </div>
-    <button class="scrollHint" type="button" aria-label="아래로 스크롤">
-      <span class="mouse" aria-hidden="true"></span>
-    </button>
 
-    <script src="https://player.vimeo.com/api/player.js"></script>
+    <!-- 3번: Vimeo -->
+    <div class="slide" data-eyebrow="HTU GLOBAL HOLDINGS" data-title="건강한 기업의 성장을 도와<br>혁신과 일자리를 창출하는"
+      data-type="video" data-poster="./img/intro3-3.jpg">
+      <div class="media">
+        <div class="vimeoCover">
+          <div class="vimeoPoster" aria-hidden="true"></div>
+          <div class="vimeoFrame" aria-hidden="true">
+            <iframe
+              src="https://player.vimeo.com/video/1167068855?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
+              allow="autoplay; fullscreen" title="HTU GLOBAL HOLDINGS 3"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <script>
-      (function () {
-        const root = document.querySelector('#nwHero');
-        if (!root) return;
+    <div class="slide" data-eyebrow="HTU GLOBAL HOLDINGS" data-title="글로벌 뷰티·헬스<br>비즈니스 파트너" data-type="video"
+      data-poster="./img/program1.jpg">
+      <div class="media">
+        <div class="vimeoCover">
+          <div class="vimeoPoster" aria-hidden="true"></div>
+          <div class="vimeoFrame" aria-hidden="true">
+            <iframe
+              src="https://player.vimeo.com/video/1167074197?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
+              allow="autoplay; fullscreen" title="HTU GLOBAL HOLDINGS 4"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        const slides = Array.from(root.querySelectorAll('.slide'));
-        const content = root.querySelector('.content');
-        const eyebrow = root.querySelector('.eyebrow');
-        const title = root.querySelector('.title');
+    <!-- 4번: Vimeo -->
+    <div class="slide" data-eyebrow="에이치티유 글로벌 홀딩스" data-title="HTU GLOBAL HOLDINGS" data-type="video"
+      data-poster="./img/earth.jpg">
+      <div class="media">
+        <div class="vimeoCover">
+          <div class="vimeoPoster" aria-hidden="true"></div>
+          <div class="vimeoFrame" aria-hidden="true">
+            <iframe
+              src="https://player.vimeo.com/video/1167069196?background=1&mute=1&muted=1&autoplay=1&loop=1&playsinline=1&autopause=0"
+              allow="autoplay; fullscreen" title="HTU GLOBAL HOLDINGS 4"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        const DUR = 6000;
-        let i = 0;
-        let timer = null;
+  <div class="vignette"></div>
+  <div class="content">
+    <span class="eyebrow"></span>
+    <h2 class="title"></h2>
+  </div>
 
-        // Vimeo
-        const playerMap = new Map();
+  <button class="scrollHint" type="button" aria-label="아래로 스크롤">
+    <span class="arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 12">
+        <path d="M3 2l9 8 9-8"></path>
+      </svg>
+    </span>
+    <span class="arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 12">
+        <path d="M3 2l9 8 9-8"></path>
+      </svg>
+    </span>
+    <span class="arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 12">
+        <path d="M3 2l9 8 9-8"></path>
+      </svg>
+    </span>
+  </button>
 
-        // Local video
-        const localVideoMap = new Map();
+  <script src="https://player.vimeo.com/api/player.js"></script>
 
-        let userUnlocked = false;
+  <script>
+    (function () {
+      const root = document.querySelector('#nwHero');
+      if (!root) return;
 
-        // ✅ “멈춤 방지” 재생 감시(Watchdog)
-        let watchdog = null;
-        let lastKick = 0;
+      const slides = Array.from(root.querySelectorAll('.slide'));
+      const content = root.querySelector('.content');
+      const eyebrow = root.querySelector('.eyebrow');
+      const title = root.querySelector('.title');
 
-        function isVisible() {
-          return document.visibilityState === 'visible' && !document.hidden;
+      const DUR = 6000;
+      let i = 0;
+      let timer = null;
+
+      // Vimeo
+      const playerMap = new Map();
+
+      // Local video
+      const localVideoMap = new Map();
+
+      let userUnlocked = false;
+
+      // ✅ “멈춤 방지” 재생 감시(Watchdog)
+      let watchdog = null;
+      let lastKick = 0;
+
+      function isVisible() {
+        return document.visibilityState === 'visible' && !document.hidden;
+      }
+
+      function injectPreloadVideoOnce(href) {
+        try {
+          if (!href) return;
+          const head = document.head || document.getElementsByTagName('head')[0];
+          if (!head) return;
+
+          const key = 'nw-preload-' + href;
+          if (document.getElementById(key)) return;
+
+          const link = document.createElement('link');
+          link.id = key;
+          link.rel = 'preload';
+          link.as = 'video';
+          link.href = href;
+          link.type = 'video/mp4';
+          link.setAttribute('fetchpriority', 'high');
+          head.appendChild(link);
+        } catch (e) { }
+      }
+
+      function updateText(slide) {
+        eyebrow.innerHTML = slide.dataset.eyebrow || '';
+        title.innerHTML = slide.dataset.title || '';
+        content.classList.remove('text-in');
+        void content.offsetWidth;
+        content.classList.add('text-in');
+      }
+
+      function setPoster(slide) {
+        const posterUrl = slide.dataset.poster || '';
+        const posterEl = slide.querySelector('.vimeoPoster');
+        if (posterEl && posterUrl && !posterEl.style.backgroundImage) {
+          posterEl.style.backgroundImage = `url("${posterUrl}")`;
+        }
+      }
+
+      function markVideoReadyOnce(slide) {
+        slide.dataset.videoReadyOnce = '1';
+        slide.classList.add('video-ready');
+      }
+
+      /* =========================
+         ✅ Local Video (mp4)
+         - pause 이벤트에서 즉시 복구
+         - watchdog로 “잠깐 재생 후 멈춤” 복구
+         ========================= */
+      function ensureLocalVideo(slide) {
+        if (localVideoMap.has(slide)) return localVideoMap.get(slide);
+
+        const video = slide.querySelector('video');
+        if (!video) return null;
+
+        // 강제 속성/프로퍼티
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.loop = true;
+        video.autoplay = true;
+        video.preload = 'auto';
+
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('autoplay', '');
+        video.setAttribute('loop', '');
+        video.setAttribute('preload', 'auto');
+        video.setAttribute('fetchpriority', 'high');
+        video.setAttribute('x5-playsinline', '');
+        video.setAttribute('x-webkit-airplay', 'deny');
+
+        try { video.disablePictureInPicture = true; } catch (e) { }
+
+        const src = slide.dataset.localSrc || slide.getAttribute('data-local-src') || '';
+        if (src && !video.getAttribute('src')) {
+          video.setAttribute('src', src);
         }
 
-        function injectPreloadVideoOnce(href) {
-          try {
-            if (!href) return;
-            const head = document.head || document.getElementsByTagName('head')[0];
-            if (!head) return;
+        const onReady = () => markVideoReadyOnce(slide);
 
-            const key = 'nw-preload-' + href;
-            if (document.getElementById(key)) return;
-
-            const link = document.createElement('link');
-            link.id = key;
-            link.rel = 'preload';
-            link.as = 'video';
-            link.href = href;
-            link.type = 'video/mp4';
-            link.setAttribute('fetchpriority', 'high');
-            head.appendChild(link);
-          } catch (e) { }
-        }
-
-        function updateText(slide) {
-          eyebrow.innerHTML = slide.dataset.eyebrow || '';
-          title.innerHTML = slide.dataset.title || '';
-          content.classList.remove('text-in');
-          void content.offsetWidth;
-          content.classList.add('text-in');
-        }
-
-        function setPoster(slide) {
-          const posterUrl = slide.dataset.poster || '';
-          const posterEl = slide.querySelector('.vimeoPoster');
-          if (posterEl && posterUrl && !posterEl.style.backgroundImage) {
-            posterEl.style.backgroundImage = `url("${posterUrl}")`;
+        try {
+          if (typeof video.requestVideoFrameCallback === 'function') {
+            video.requestVideoFrameCallback(() => markVideoReadyOnce(slide));
           }
-        }
+        } catch (e) { }
 
-        function markVideoReadyOnce(slide) {
-          slide.dataset.videoReadyOnce = '1';
+        video.addEventListener('loadeddata', onReady, { once: true });
+        video.addEventListener('canplay', onReady, { once: true });
+        video.addEventListener('playing', onReady, { once: true });
+
+        video.addEventListener('pause', () => {
+          if (!slide.classList.contains('active')) return;
+          if (!isVisible()) return;
+
+          const now = Date.now();
+          if (now - lastKick < 600) return;
+          lastKick = now;
+
+          tryPlayLocal({ video }).catch(() => { });
+        });
+
+        try { video.load(); } catch (e) { }
+
+        const entry = { video };
+        localVideoMap.set(slide, entry);
+        return entry;
+      }
+
+      async function tryPlayLocal(entry) {
+        try {
+          if (entry.video && entry.video.readyState < 2) {
+            try { entry.video.load(); } catch (e) { }
+          }
+          const p = entry.video.play();
+          if (p && typeof p.then === 'function') await p;
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      async function playLocalVideo(slide) {
+        if (slide.dataset.videoReadyOnce === '1') {
           slide.classList.add('video-ready');
+        } else {
+          setPoster(slide);
         }
 
-        /* =========================
-           ✅ Local Video (mp4)
-           - pause 이벤트에서 즉시 복구
-           - watchdog로 “잠깐 재생 후 멈춤” 복구
-           ========================= */
-        function ensureLocalVideo(slide) {
-          if (localVideoMap.has(slide)) return localVideoMap.get(slide);
+        const src = slide.dataset.localSrc || slide.getAttribute('data-local-src') || '';
+        if (src) injectPreloadVideoOnce(src);
 
-          const video = slide.querySelector('video');
-          if (!video) return null;
+        const entry = ensureLocalVideo(slide);
+        if (!entry) return;
 
-          // 강제 속성/프로퍼티
-          video.muted = true;
-          video.defaultMuted = true;
-          video.playsInline = true;
-          video.loop = true;
-          video.autoplay = true;
-          video.preload = 'auto';
+        const ok = await tryPlayLocal(entry);
 
-          video.setAttribute('playsinline', '');
-          video.setAttribute('webkit-playsinline', '');
-          video.setAttribute('muted', '');
-          video.setAttribute('autoplay', '');
-          video.setAttribute('loop', '');
-          video.setAttribute('preload', 'auto');
-          video.setAttribute('fetchpriority', 'high');
-          // 일부 안드로이드/웹뷰 힌트(무해)
-          video.setAttribute('x5-playsinline', '');
-          video.setAttribute('x-webkit-airplay', 'deny');
+        if (!ok && !userUnlocked) {
+        }
+      }
 
-          // PiP 금지(가능하면)
-          try { video.disablePictureInPicture = true; } catch (e) { }
+      function pauseLocalVideo(slide) {
+        const entry = localVideoMap.get(slide);
+        if (entry && entry.video) {
+          try { entry.video.pause(); } catch (e) { }
+        }
+        if (slide.dataset.videoReadyOnce !== '1') slide.classList.remove('video-ready');
+      }
 
-          // src를 JS에서 세팅
-          const src = slide.dataset.localSrc || slide.getAttribute('data-local-src') || '';
-          if (src && !video.getAttribute('src')) {
-            video.setAttribute('src', src);
-          }
+      /* =========================
+         ✅ Vimeo
+         ========================= */
+      function ensureVimeoPlayer(slide) {
+        if (playerMap.has(slide)) return playerMap.get(slide);
+        const iframe = slide.querySelector('iframe');
+        if (!iframe || !window.Vimeo) return null;
 
-          const onReady = () => markVideoReadyOnce(slide);
+        const player = new Vimeo.Player(iframe);
+        player.setVolume(0).catch(() => { });
+        player.on('playing', () => markVideoReadyOnce(slide));
 
-          // 첫 프레임 감지(가능하면 더 빠르게)
-          try {
-            if (typeof video.requestVideoFrameCallback === 'function') {
-              video.requestVideoFrameCallback(() => markVideoReadyOnce(slide));
+        const entry = { player, readyPromise: player.ready().catch(() => null) };
+        playerMap.set(slide, entry);
+        return entry;
+      }
+
+      async function tryPlayVimeo(entry, slide) {
+        try {
+          await entry.player.play();
+          entry.player.getPaused().then(paused => { if (!paused) markVideoReadyOnce(slide); });
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      async function playVimeo(slide) {
+        if (slide.dataset.videoReadyOnce === '1') {
+          slide.classList.add('video-ready');
+        } else {
+          setPoster(slide);
+        }
+
+        const entry = ensureVimeoPlayer(slide);
+        if (!entry) return;
+
+        await entry.readyPromise;
+        const ok = await tryPlayVimeo(entry, slide);
+
+        if (!ok && !userUnlocked) {
+        }
+      }
+
+      function pauseVimeo(slide) {
+        const entry = playerMap.get(slide);
+        if (entry) entry.player.pause().catch(() => { });
+        if (slide.dataset.videoReadyOnce !== '1') slide.classList.remove('video-ready');
+      }
+
+      /* =========================
+         ✅ Slide show
+         ========================= */
+      function show(n) {
+        i = (n + slides.length) % slides.length;
+
+        slides.forEach((s, idx) => {
+          const active = (idx === i);
+          s.classList.toggle('active', active);
+
+          if (active) {
+            updateText(s);
+
+            if (s.dataset.type === 'local-video') {
+              playLocalVideo(s);
+            } else if (s.dataset.type === 'video') {
+              playVimeo(s);
             }
-          } catch (e) { }
-
-          video.addEventListener('loadeddata', onReady, { once: true });
-          video.addEventListener('canplay', onReady, { once: true });
-          video.addEventListener('playing', onReady, { once: true });
-
-          // ✅ “잠깐 재생 후 pause”가 떨어질 때 즉시 복구
-          video.addEventListener('pause', () => {
-            // 사용자 의도 pause가 아니라면(현재 슬라이드 active + 화면 visible) 즉시 재시도
-            if (!slide.classList.contains('active')) return;
-            if (!isVisible()) return;
-
-            // 너무 잦은 반복 방지(쿨다운)
-            const now = Date.now();
-            if (now - lastKick < 600) return;
-            lastKick = now;
-
-            // 재시도
-            tryPlayLocal({ video }).catch(() => { });
-          });
-
-          // 네트워크 스타트
-          try { video.load(); } catch (e) { }
-
-          const entry = { video };
-          localVideoMap.set(slide, entry);
-          return entry;
-        }
-
-        async function tryPlayLocal(entry) {
-          try {
-            if (entry.video && entry.video.readyState < 2) {
-              try { entry.video.load(); } catch (e) { }
-            }
-            const p = entry.video.play();
-            if (p && typeof p.then === 'function') await p;
-            return true;
-          } catch (e) {
-            return false;
-          }
-        }
-
-        async function playLocalVideo(slide) {
-          if (slide.dataset.videoReadyOnce === '1') {
-            slide.classList.add('video-ready');
           } else {
-            setPoster(slide);
-          }
-
-          const src = slide.dataset.localSrc || slide.getAttribute('data-local-src') || '';
-          if (src) injectPreloadVideoOnce(src);
-
-          const entry = ensureLocalVideo(slide);
-          if (!entry) return;
-
-          const ok = await tryPlayLocal(entry);
-
-          // autoplay 막히면 언락 대기
-          if (!ok && !userUnlocked) {
-            // 포스터 유지
-          }
-        }
-
-        function pauseLocalVideo(slide) {
-          const entry = localVideoMap.get(slide);
-          if (entry && entry.video) {
-            try { entry.video.pause(); } catch (e) { }
-          }
-          if (slide.dataset.videoReadyOnce !== '1') slide.classList.remove('video-ready');
-        }
-
-        /* =========================
-           ✅ Vimeo
-           ========================= */
-        function ensureVimeoPlayer(slide) {
-          if (playerMap.has(slide)) return playerMap.get(slide);
-          const iframe = slide.querySelector('iframe');
-          if (!iframe || !window.Vimeo) return null;
-
-          const player = new Vimeo.Player(iframe);
-          player.setVolume(0).catch(() => { });
-          player.on('playing', () => markVideoReadyOnce(slide));
-
-          const entry = { player, readyPromise: player.ready().catch(() => null) };
-          playerMap.set(slide, entry);
-          return entry;
-        }
-
-        async function tryPlayVimeo(entry, slide) {
-          try {
-            await entry.player.play();
-            entry.player.getPaused().then(paused => { if (!paused) markVideoReadyOnce(slide); });
-            return true;
-          } catch (e) {
-            return false;
-          }
-        }
-
-        async function playVimeo(slide) {
-          if (slide.dataset.videoReadyOnce === '1') {
-            slide.classList.add('video-ready');
-          } else {
-            setPoster(slide);
-          }
-
-          const entry = ensureVimeoPlayer(slide);
-          if (!entry) return;
-
-          await entry.readyPromise;
-          const ok = await tryPlayVimeo(entry, slide);
-
-          if (!ok && !userUnlocked) {
-            // 포스터 유지
-          }
-        }
-
-        function pauseVimeo(slide) {
-          const entry = playerMap.get(slide);
-          if (entry) entry.player.pause().catch(() => { });
-          if (slide.dataset.videoReadyOnce !== '1') slide.classList.remove('video-ready');
-        }
-
-        /* =========================
-           ✅ Slide show
-           ========================= */
-        function show(n) {
-          i = (n + slides.length) % slides.length;
-
-          slides.forEach((s, idx) => {
-            const active = (idx === i);
-            s.classList.toggle('active', active);
-
-            if (active) {
-              updateText(s);
-
-              if (s.dataset.type === 'local-video') {
-                playLocalVideo(s);
-              } else if (s.dataset.type === 'video') {
-                playVimeo(s);
-              }
-            } else {
-              if (s.dataset.type === 'local-video') {
-                pauseLocalVideo(s);
-              } else if (s.dataset.type === 'video') {
-                pauseVimeo(s);
-              }
+            if (s.dataset.type === 'local-video') {
+              pauseLocalVideo(s);
+            } else if (s.dataset.type === 'video') {
+              pauseVimeo(s);
             }
-          });
+          }
+        });
+      }
+
+      function nextSlide() { show(i + 1); }
+
+      function unlockAndPlay() {
+        if (userUnlocked) return;
+        userUnlocked = true;
+
+        const active = slides[i];
+        if (!active) return;
+
+        if (active.dataset.type === 'local-video') {
+          const entry = ensureLocalVideo(active);
+          if (entry) tryPlayLocal(entry);
+          else playLocalVideo(active);
+        } else if (active.dataset.type === 'video') {
+          const entry = ensureVimeoPlayer(active);
+          if (entry) {
+            entry.readyPromise.then(() => tryPlayVimeo(entry, active));
+          } else {
+            playVimeo(active);
+          }
         }
+      }
 
-        function nextSlide() { show(i + 1); }
-
-        // ✅ iOS/모바일 언락
-        function unlockAndPlay() {
-          if (userUnlocked) return;
-          userUnlocked = true;
-
+      function startWatchdog() {
+        if (watchdog) clearInterval(watchdog);
+        watchdog = setInterval(() => {
+          if (!isVisible()) return;
           const active = slides[i];
           if (!active) return;
+          if (!active.classList.contains('active')) return;
 
           if (active.dataset.type === 'local-video') {
-            const entry = ensureLocalVideo(active);
-            if (entry) tryPlayLocal(entry);
-            else playLocalVideo(active);
-          } else if (active.dataset.type === 'video') {
-            const entry = ensureVimeoPlayer(active);
-            if (entry) {
-              entry.readyPromise.then(() => tryPlayVimeo(entry, active));
-            } else {
-              playVimeo(active);
+            const entry = localVideoMap.get(active) || ensureLocalVideo(active);
+            if (!entry || !entry.video) return;
+
+            const v = entry.video;
+            const shouldResume =
+              v.paused &&
+              !v.ended &&
+              !v.seeking &&
+              (v.currentTime > 0 || v.readyState >= 2);
+
+            if (shouldResume) {
+              const now = Date.now();
+              if (now - lastKick < 900) return;
+              lastKick = now;
+              tryPlayLocal(entry);
             }
           }
-        }
+        }, 900);
+      }
 
-        // ✅ watchdog: “active인데 paused로 멈춘 상태”를 주기적으로 복구
-        function startWatchdog() {
-          if (watchdog) clearInterval(watchdog);
-          watchdog = setInterval(() => {
-            if (!isVisible()) return;
-            const active = slides[i];
-            if (!active) return;
-            if (!active.classList.contains('active')) return;
+      function init() {
+        slides.forEach((s, idx) => {
+          setPoster(s);
 
-            if (active.dataset.type === 'local-video') {
-              const entry = localVideoMap.get(active) || ensureLocalVideo(active);
-              if (!entry || !entry.video) return;
+          if (s.dataset.type === 'local-video') {
+            const src = s.dataset.localSrc || s.getAttribute('data-local-src') || '';
+            if (src) injectPreloadVideoOnce(src);
 
-              // active인데 멈춰 있으면 재생 재시도
-              const v = entry.video;
-              const shouldResume =
-                v.paused &&
-                !v.ended &&
-                !v.seeking &&
-                // 첫 프레임이라도 진행된 적 있거나(= 잠깐 재생 후 멈춤 케이스)
-                (v.currentTime > 0 || v.readyState >= 2);
-
-              if (shouldResume) {
-                const now = Date.now();
-                if (now - lastKick < 900) return; // 과도 재시도 방지
-                lastKick = now;
+            const entry = ensureLocalVideo(s);
+            if (entry && entry.video) {
+              if (idx === 0) {
+                try { entry.video.load(); } catch (e) { }
                 tryPlayLocal(entry);
               }
             }
-          }, 900);
-        }
-
-        function init() {
-          // 포스터 + 워밍업
-          slides.forEach((s, idx) => {
-            setPoster(s);
-
-            if (s.dataset.type === 'local-video') {
-              const src = s.dataset.localSrc || s.getAttribute('data-local-src') || '';
-              if (src) injectPreloadVideoOnce(src);
-
-              const entry = ensureLocalVideo(s);
-              if (entry && entry.video) {
-                // 첫 슬라이드 강 워밍업
-                if (idx === 0) {
-                  try { entry.video.load(); } catch (e) { }
-                  // 가능한 빨리 play 시도(막혀도 OK)
-                  tryPlayLocal(entry);
-                }
-              }
-            } else if (s.dataset.type === 'video') {
-              ensureVimeoPlayer(s);
-            }
-          });
-
-          show(0);
-          timer = setInterval(nextSlide, DUR);
-
-          startWatchdog();
-
-          root.addEventListener('touchstart', unlockAndPlay, { passive: true, once: true });
-          root.addEventListener('pointerdown', unlockAndPlay, { passive: true, once: true });
-          root.addEventListener('click', unlockAndPlay, { passive: true, once: true });
-        }
-
-        // ✅ DOMContentLoaded만 기다리지 말고, 가능한 즉시 init
-        if (document.readyState === 'loading') {
-          window.addEventListener('DOMContentLoaded', init, { once: true });
-        } else {
-          init();
-        }
-
-        // ✅ iOS 사파리: bfcache 복귀/pageshow에서 멈춘 채로 돌아오는 케이스 복구
-        window.addEventListener('pageshow', () => {
-          const active = slides[i];
-          if (!active) return;
-          if (active.dataset.type === 'local-video') playLocalVideo(active);
-          if (active.dataset.type === 'video') playVimeo(active);
-        });
-
-        window.addEventListener('focus', () => {
-          const active = slides[i];
-          if (!active) return;
-          if (active.dataset.type === 'local-video') playLocalVideo(active);
-          if (active.dataset.type === 'video') playVimeo(active);
-        });
-
-        document.addEventListener('visibilitychange', () => {
-          if (document.visibilityState === 'visible') {
-            const active = slides[i];
-            if (!active) return;
-            if (active.dataset.type === 'local-video') playLocalVideo(active);
-            if (active.dataset.type === 'video') playVimeo(active);
+          } else if (s.dataset.type === 'video') {
+            ensureVimeoPlayer(s);
           }
         });
-      })();
-    </script>
-  </section>
+
+        show(0);
+        timer = setInterval(nextSlide, DUR);
+
+        startWatchdog();
+
+        root.addEventListener('touchstart', unlockAndPlay, { passive: true, once: true });
+        root.addEventListener('pointerdown', unlockAndPlay, { passive: true, once: true });
+        root.addEventListener('click', unlockAndPlay, { passive: true, once: true });
+      }
+
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', init, { once: true });
+      } else {
+        init();
+      }
+
+      window.addEventListener('pageshow', () => {
+        const active = slides[i];
+        if (!active) return;
+        if (active.dataset.type === 'local-video') playLocalVideo(active);
+        if (active.dataset.type === 'video') playVimeo(active);
+      });
+
+      window.addEventListener('focus', () => {
+        const active = slides[i];
+        if (!active) return;
+        if (active.dataset.type === 'local-video') playLocalVideo(active);
+        if (active.dataset.type === 'video') playVimeo(active);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          const active = slides[i];
+          if (!active) return;
+          if (active.dataset.type === 'local-video') playLocalVideo(active);
+          if (active.dataset.type === 'video') playVimeo(active);
+        }
+      });
+    })();
+  </script>
+</section>
 
 <section id="mainSliderPack" aria-label="Main Slider Pack">
   <style>
