@@ -5485,20 +5485,8 @@
   </script>
 </section>
 
-<section id="medicalPopupNoticeSection" aria-label="이미지 팝업 섹션">
-  <!--
-  ╔══════════════════════════════════════════════════════════╗
-  ║  ✅ 팝업 크기 조정 — 아래 숫자만 바꾸면 됩니다          ║
-  ║                                                          ║
-  ║  PC       : 860px 초과 화면                              ║
-  ║  TABLET   : 421px ~ 860px 화면                           ║
-  ║  MOBILE   : 420px 이하 화면                              ║
-  ║                                                          ║
-  ║  maxW     : 팝업 최대 너비 (px)                          ║
-  ║  maxH     : 팝업 최대 전체 높이 (이미지+footer 합계, px) ║
-  ║  footerH  : 하단 바 높이 (px)                            ║
-  ╚══════════════════════════════════════════════════════════╝
-  -->
+<!-- <section id="medicalPopupNoticeSection" aria-label="이미지 팝업 섹션">
+
   <script>
     var MPS_CONFIG = {
       PC:     { maxW: 540, maxH: 720, footerH: 88 },
@@ -5934,7 +5922,7 @@
       if(!S || S.__mpsBound) return;
       S.__mpsBound = true;
 
-      /* ✅ CONFIG 읽기 */
+
       var CFG = window.MPS_CONFIG || {};
       var PC     = CFG.PC     || { maxW:340, maxH:520, footerH:68 };
       var TABLET = CFG.TABLET || { maxW:300, maxH:460, footerH:52 };
@@ -5960,7 +5948,7 @@
       var maxIdx = 0;
       var hideChecked = false;
 
-      /* ✅ 이미지 로드 후 frame 크기를 CONFIG 기반으로 계산 */
+
       function fitFrames(){
         var size    = getSize();
         var maxW    = size.maxW;
@@ -6185,7 +6173,7 @@
       waitImagesAndFit();
     })();
   </script>
-</section>
+</section> -->
   <div id="footer_template"></div>
 
 
