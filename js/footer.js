@@ -16,8 +16,6 @@
       --line:rgba(255,255,255,.08);
       --glass:rgba(255,255,255,.06);
       --max:1280px;
-      --radius:16px;
-      --shadow:0 18px 45px rgba(0,0,0,.32);
       font-family:Pretendard,"Noto Sans KR",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
       background:var(--bg);
       color:var(--muted);
@@ -131,14 +129,14 @@
     #footerElite .familyArea{
       position:relative;
       flex:0 0 auto;
-      min-width:230px;
+      min-width:250px;
       display:flex;
       justify-content:flex-end;
     }
 
     #footerElite .familyDropdown{
       position:relative;
-      width:230px;
+      width:250px;
     }
 
     #footerElite .familyBtn{
@@ -170,10 +168,6 @@
       transform:translateY(-1px);
     }
 
-    #footerElite .familyBtn span{
-      color:#f4f4f5;
-    }
-
     #footerElite .familyIcon{
       width:28px;
       height:28px;
@@ -203,10 +197,12 @@
       position:absolute;
       right:0;
       bottom:58px;
-      width:260px;
+      width:300px;
+      max-height:430px;
+      overflow-y:auto;
       padding:8px;
       border-radius:18px;
-      background:rgba(247,250,247,.96);
+      background:rgba(247,250,247,.97);
       border:1px solid rgba(255,255,255,.55);
       box-shadow:0 24px 55px rgba(0,0,0,.32);
       opacity:0;
@@ -215,6 +211,15 @@
       transform-origin:bottom right;
       transition:opacity .24s ease, visibility .24s ease, transform .24s ease;
       z-index:30;
+    }
+
+    #footerElite .familyMenu::-webkit-scrollbar{
+      width:6px;
+    }
+
+    #footerElite .familyMenu::-webkit-scrollbar-thumb{
+      background:rgba(3,59,30,.28);
+      border-radius:999px;
     }
 
     #footerElite .familyDropdown.is-open .familyMenu{
@@ -230,14 +235,13 @@
       bottom:-7px;
       width:14px;
       height:14px;
-      background:rgba(247,250,247,.96);
+      background:rgba(247,250,247,.97);
       transform:rotate(45deg);
       border-right:1px solid rgba(255,255,255,.55);
       border-bottom:1px solid rgba(255,255,255,.55);
     }
 
     #footerElite .familyMenu a{
-      position:relative;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -245,7 +249,7 @@
       padding:12px 13px;
       border-radius:12px;
       color:#123826;
-      font-size:.91rem;
+      font-size:.9rem;
       font-weight:700;
       letter-spacing:-.02em;
       transition:background .2s ease,color .2s ease,transform .2s ease;
@@ -293,7 +297,7 @@
 
       #footerElite .familyDropdown{
         width:100%;
-        max-width:360px;
+        max-width:380px;
       }
 
       #footerElite .familyMenu{
@@ -328,17 +332,8 @@
         grid-column:span 3;
       }
 
-      #footerElite .footBar{
-        align-items:stretch;
-        text-align:left;
-      }
-
       #footerElite .familyDropdown{
         max-width:none;
-      }
-
-      #footerElite .familyBtn{
-        height:50px;
       }
     }
   </style>
@@ -347,7 +342,7 @@
     <div class="navGrid">
       <div class="brandCol">
         <div class="logoRow">
-          <img src="./img/logo-w.png" alt="비즈니스 혁신 연구소 로고" style="width:200px;">
+          <img src="./img/logo-w.png" alt="HTU GLOBAL HOLDINGS 로고" style="width:200px;">
         </div>
         <p class="slogan">
           세계를 더욱 아름답고 건강하게<br>만들어가는 뷰티, 헬스 글로벌 플랫폼
@@ -417,10 +412,14 @@
           </button>
 
           <div class="familyMenu" id="familyMenu" role="menu">
+            <a href="http://hcn.or.kr/" target="_blank" rel="noopener noreferrer" role="menuitem">건강소비자 연대</a>
             <a href="https://biznovalab.com" target="_blank" rel="noopener noreferrer" role="menuitem">비즈니스 혁신 연구소</a>
             <a href="https://www.maxq.kr/" target="_blank" rel="noopener noreferrer" role="menuitem">MAXQ</a>
-            <a href="http://hcn.or.kr/" target="_blank" rel="noopener noreferrer" role="menuitem">건강소비자연대</a>
-            <a href="https://www.mdjournal.kr/" target="_blank" rel="noopener noreferrer" role="menuitem">MD저널</a>
+            <a href="https://www.mdjournal.kr/" target="_blank" rel="noopener noreferrer" role="menuitem">MD 저널</a>
+            <a href="https://endo365.kr/" target="_blank" rel="noopener noreferrer" role="menuitem">ENDO 저널</a>
+            <a href="https://www.healthumer.com/" target="_blank" rel="noopener noreferrer" role="menuitem">헬스컨슈머</a>
+            <a href="https://kbhga.com/" target="_blank" rel="noopener noreferrer" role="menuitem">한국뷰티헬시에이징국제교류회</a>
+            <a href="https://khealthyaging.com/" target="_blank" rel="noopener noreferrer" role="menuitem">한국헬시에이징학회</a>
             <a href="https://www.sapiensland.io/" target="_blank" rel="noopener noreferrer" role="menuitem">사피엔스 아일랜드</a>
           </div>
         </div>
