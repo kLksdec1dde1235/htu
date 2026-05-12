@@ -161,7 +161,7 @@
         </div> -->
 
         <div class="copy">
-          COPYRIGHT © 2025 BUSINESS INNOVATION LAB<br>
+          COPYRIGHT © 2025 HTU GLOBAL HOLDINGS<br>
           ALL RIGHTS RESERVED
         </div>
       </div>
