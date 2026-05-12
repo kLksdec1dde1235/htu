@@ -119,6 +119,7 @@
               <li><a href="https://www.maxq.kr/">MAXQ</a></li>
               <li><a href="http://hcn.or.kr/">건강소비자연대</a></li>
               <li><a href="https://www.mdjournal.kr/">MD저널</a></li>
+              <li><a href="https://www.sapiensland.io/">사피엔스 아일랜드</a></li>
         </ul>
       </div>
 
