@@ -904,15 +904,18 @@
     #main-slider-root {
       position: relative;
       width: 100%;
-      min-height: 70vh;
+      min-height: calc(var(--stable-vh, 1vh) * 70);
       font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
       overflow-x: hidden;
       background: #fff;
       --slide-count: 4;
+      --stable-vh: 1vh;
+      --section1-height: calc(var(--stable-vh, 1vh) * 70);
+      --screen-height: calc(var(--stable-vh, 1vh) * 100);
     }
 
     #main-slider-root .main-slider-section1 {
-      height: 70vh;
+      height: var(--section1-height);
       min-height: 600px;
       display: flex;
       align-items: center;
@@ -959,7 +962,7 @@
 
     #main-slider-root .main-slider-section2 {
       position: relative;
-      height: calc(var(--slide-count) * 100vh);
+      height: calc(var(--slide-count) * var(--screen-height));
       z-index: 1;
     }
 
@@ -968,7 +971,7 @@
       left: 0;
       top: 0;
       width: 100vw;
-      height: 100vh;
+      height: var(--screen-height);
       z-index: 0;
       pointer-events: none;
       filter: brightness(0.5);
@@ -1006,7 +1009,7 @@
     #main-slider-root .main-slider-bg img {
       position: absolute;
       width: 100vw;
-      height: 100vh;
+      height: var(--screen-height);
       object-fit: cover;
       left: 0;
       top: 0;
@@ -1040,8 +1043,8 @@
 
     #main-slider-root.clip .main-slider-bg {
       position: absolute;
-      height: 120vh;
-      top: -10vh;
+      height: calc(var(--stable-vh, 1vh) * 120);
+      top: calc(var(--stable-vh, 1vh) * -10);
     }
 
     #main-slider-root .main-slider-list {
@@ -1060,7 +1063,7 @@
     }
 
     #main-slider-root .main-slider-list li {
-      min-height: 100vh;
+      min-height: var(--screen-height);
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -1143,7 +1146,7 @@
       left: 0;
       top: 0;
       width: 100vw;
-      height: 100vh;
+      height: var(--screen-height);
       z-index: -1;
       pointer-events: none;
       opacity: 0;
@@ -1159,7 +1162,7 @@
     #permanent-bg-layer img {
       position: absolute;
       width: 100vw;
-      height: 100vh;
+      height: var(--screen-height);
       object-fit: cover;
       left: 0;
       top: 0;
@@ -1730,7 +1733,7 @@
               기업이 성장하고 일자리를 창출하는<br>지속적인 혁신을 돕습니다.
             </p>
             <a href="https://biznovalab.com/">비즈니스혁신연구소 ></a><br>
-            <!-- <button type="button" class="main-slider-link family-site-open" data-family-key="htu">패밀리사이트 ></button> -->
+            <button type="button" class="main-slider-link family-site-open" data-family-key="htu">패밀리사이트 ></button>
           </div>
         </li>
       </ul>
@@ -1786,6 +1789,33 @@
 
       root.style.setProperty('--slide-count', total);
 
+      let lastViewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+      let lastViewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      let resizeTimer = null;
+
+      function setStableViewportHeight(force) {
+        const currentWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+        const currentHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+        const widthChanged = Math.abs(currentWidth - lastViewportWidth) > 2;
+        const heightChanged = Math.abs(currentHeight - lastViewportHeight) > 120;
+        const isDesktop = currentWidth > 800;
+
+        if (force || isDesktop || widthChanged || heightChanged) {
+          lastViewportWidth = currentWidth;
+          lastViewportHeight = currentHeight;
+          root.style.setProperty('--stable-vh', (currentHeight * 0.01) + 'px');
+        }
+      }
+
+      function handleStableResize() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          setStableViewportHeight(false);
+          checkPos();
+          updateStates();
+        }, 120);
+      }
+
       let prevScrollY = window.scrollY || window.pageYOffset || 0;
       let rafId = null;
       let active = false;
@@ -1802,7 +1832,10 @@
       const states = Array.from({ length: total }, () => ({ op: 0, y: MAX_Y }));
 
       const lerp = (a, b, t) => a + (b - a) * t;
-      const vh = () => window.innerHeight || document.documentElement.clientHeight;
+      const vh = () => {
+        const stable = parseFloat(root.style.getPropertyValue('--stable-vh'));
+        return stable ? stable * 100 : (window.innerHeight || document.documentElement.clientHeight);
+      };
 
       function initializeImages() {
         bgImgs.forEach((img, i) => {
@@ -1952,7 +1985,7 @@
 
         if (on) {
           window.addEventListener('scroll', updateStates, { passive: true });
-          window.addEventListener('resize', updateStates);
+          window.addEventListener('resize', handleStableResize);
           updateStates();
 
           if (!rafId) {
@@ -1960,7 +1993,7 @@
           }
         } else {
           window.removeEventListener('scroll', updateStates);
-          window.removeEventListener('resize', updateStates);
+          window.removeEventListener('resize', handleStableResize);
 
           if (rafId) {
             cancelAnimationFrame(rafId);
@@ -1983,15 +2016,17 @@
       }
 
       window.addEventListener('scroll', checkPos, { passive: true });
-      window.addEventListener('resize', checkPos);
+      window.addEventListener('resize', handleStableResize);
 
       document.addEventListener('DOMContentLoaded', function () {
+        setStableViewportHeight(true);
         initializeImages();
         checkPos();
       });
 
       window.addEventListener('load', checkPos);
 
+      setStableViewportHeight(true);
       initializeImages();
 
       const modal = document.getElementById('familySiteModal');
@@ -2253,6 +2288,7 @@
     })();
   </script>
 </section>
+
 
 
 
