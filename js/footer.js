@@ -30,15 +30,15 @@
     }
 
     #footerElite .navGrid{
-      display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:2.2rem;
+      display:flex;
+      align-items:flex-start;
+      gap:3rem;
       border-bottom:1px solid var(--line);
       padding-bottom:2rem;
     }
 
     #footerElite .brandCol{
-      grid-column:span 4;
+      flex:0 0 260px;
       display:flex;
       flex-direction:column;
       gap:.9rem;
@@ -54,8 +54,16 @@
       line-height:1.55;
     }
 
+    #footerElite .menuRow{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      flex:1 1 0;
+      gap:2rem 3rem;
+      min-width:0;
+    }
+
     #footerElite .col{
-      grid-column:span 2;
+      min-width:0;
     }
 
     #footerElite h4{
@@ -63,6 +71,7 @@
       font-size:1rem;
       font-weight:800;
       color:#fff;
+      white-space:nowrap;
     }
 
     #footerElite ul{
@@ -275,15 +284,18 @@
 
     @media(max-width:900px){
       #footerElite .navGrid{
-        grid-template-columns:repeat(6,1fr);
+        flex-direction:column;
+        gap:2rem;
       }
 
       #footerElite .brandCol{
-        grid-column:1/-1;
+        flex:none;
+        width:100%;
       }
 
-      #footerElite .col{
-        grid-column:span 2;
+      #footerElite .menuRow{
+        grid-template-columns:repeat(3,1fr);
+        gap:2rem 2.5rem;
       }
 
       #footerElite .footBar{
@@ -314,22 +326,14 @@
       }
     }
 
-    @media(max-width:760px){
+    @media(max-width:600px){
       #footerElite .wrap{
-        padding:3rem 1.15rem 2rem;
+        padding:2.5rem 1.15rem 2rem;
       }
 
-      #footerElite .navGrid{
-        grid-template-columns:repeat(6,1fr);
-        gap:1.5rem 1rem;
-      }
-
-      #footerElite .brandCol{
-        grid-column:1/-1;
-      }
-
-      #footerElite .col{
-        grid-column:span 3;
+      #footerElite .menuRow{
+        grid-template-columns:repeat(2,1fr);
+        gap:1.8rem 1.5rem;
       }
 
       #footerElite .familyDropdown{
@@ -349,32 +353,41 @@
         </p>
       </div>
 
-      <div class="col">
-        <h4>회사소개</h4>
-        <ul>
-          <li><a href="./ceo.html">회사소개</a></li>
-        </ul>
-      </div>
+      <div class="menuRow">
+        <div class="col">
+          <h4>회사소개</h4>
+          <ul>
+            <li><a href="./ceo.html">회사소개</a></li>
+          </ul>
+        </div>
 
-      <div class="col">
-        <h4>대표 인사말</h4>
-        <ul>
-          <li><a href="./ceo.html">대표 인사말</a></li>
-        </ul>
-      </div>
-      
-      <div class="col">
-        <h4>비전 & 철학</h4>
-        <ul>
-          <li><a href="./vision.html">비전 & 철학</a></li>
-        </ul>
-      </div>
+        <div class="col">
+          <h4>대표 인사말</h4>
+          <ul>
+            <li><a href="./ceo.html">대표 인사말</a></li>
+          </ul>
+        </div>
+        
+        <div class="col">
+          <h4>비전 & 철학</h4>
+          <ul>
+            <li><a href="./vision.html">비전 & 철학</a></li>
+          </ul>
+        </div>
 
-      <div class="col">
-        <h4>오시는 길</h4>
-        <ul>
-          <li><a href="./location.html">오시는 길</a></li>
-        </ul>
+        <div class="col">
+          <h4>산하 독립 연구소</h4>
+          <ul>
+            <li><a href="https://biznovalab.com" target="_blank" rel="noopener noreferrer">비즈니스 혁신 연구소</a></li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <h4>오시는 길</h4>
+          <ul>
+            <li><a href="./location.html">오시는 길</a></li>
+          </ul>
+        </div>
       </div>
     </div>
 
