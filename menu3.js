@@ -37,7 +37,7 @@
     #nbbioHeaderLocal.at-top .bar:hover{ background:var(--white); border-color:var(--line); }
     #nbbioHeaderLocal.at-top .bar:hover .gnb>li>a{ color:var(--ink); }
 
-    /* ✅ PC Hover 시 "세부메뉴/패널 없이" 글자색만 녹색 */
+    /* ✅ PC Hover 시 글자색 녹색 */
     #nbbioHeaderLocal .gnb>li>a{
       display:block;padding:10px 6px;font-weight:700;color:var(--ink);
       letter-spacing:-.2px;text-decoration:none;transition:color .26s ease;
@@ -73,10 +73,79 @@
     #nbbioHeaderLocal .gnb{display:flex;gap:76px;margin:0;padding:0;}
     #nbbioHeaderLocal .gnb>li{list-style:none;position:relative;}
 
-    /* ✅ 2뎁스/호버 패널 전부 숨김 */
+    /* ✅ 기존 2뎁스/호버 패널 숨김 (has-sub 제외) */
     #nbbioHeaderLocal .dep2{display:none!important;}
     #nbbioHeaderLocal .megalite{display:none!important;}
     #nbbioHeaderLocal .down{display:none!important;}
+
+    /* ===================== PC 서브메뉴 드롭다운 ===================== */
+    #nbbioHeaderLocal .gnb>li .sub-menu{
+      position:absolute;
+      top:100%;
+      left:50%;
+      transform:translateX(-50%);
+      min-width:200px;
+      background:var(--white);
+      border:1px solid var(--line);
+      border-radius:12px;
+      box-shadow:0 8px 24px rgba(16,24,40,.10);
+      padding:8px 0;
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .22s ease, visibility .22s ease, transform .22s ease;
+      transform:translateX(-50%) translateY(6px);
+      z-index:10;
+      pointer-events:none;
+    }
+    #nbbioHeaderLocal .gnb>li:hover .sub-menu,
+    #nbbioHeaderLocal .gnb>li:focus-within .sub-menu{
+      opacity:1;
+      visibility:visible;
+      transform:translateX(-50%) translateY(0);
+      pointer-events:auto;
+    }
+    #nbbioHeaderLocal .gnb>li .sub-menu a{
+      display:block;
+      padding:10px 20px;
+      font-size:14px;
+      font-weight:600;
+      color:var(--ink);
+      text-decoration:none;
+      white-space:nowrap;
+      transition:background .18s ease, color .18s ease;
+    }
+    #nbbioHeaderLocal .gnb>li .sub-menu a:hover{
+      background:#f0faf8;
+      color:var(--brand);
+    }
+
+    /* ✅ at-top 상태에서 서브메뉴는 항상 흰 배경/어두운 글자 */
+    #nbbioHeaderLocal.at-top .gnb>li .sub-menu{
+      background:var(--white);
+    }
+    #nbbioHeaderLocal.at-top .gnb>li .sub-menu a{
+      color:var(--ink);
+    }
+    #nbbioHeaderLocal.at-top .gnb>li .sub-menu a:hover{
+      background:#f0faf8;
+      color:var(--brand);
+    }
+
+    /* 서브메뉴가 있는 메뉴 화살표 표시 (PC) */
+    #nbbioHeaderLocal .gnb>li.has-sub>a::after{
+      content:'';
+      display:inline-block;
+      width:0;height:0;
+      margin-left:5px;
+      vertical-align:middle;
+      border-left:4px solid transparent;
+      border-right:4px solid transparent;
+      border-top:5px solid currentColor;
+      transition:transform .22s ease;
+    }
+    #nbbioHeaderLocal .gnb>li.has-sub:hover>a::after{
+      transform:rotate(180deg);
+    }
 
     /* Right actions */
     #nbbioHeaderLocal .actions{display:flex;align-items:center;gap:12px;}
@@ -121,10 +190,11 @@
     #nbbioHeaderLocal .mega .topline .brand img{height:32px;}
     #nbbioHeaderLocal .mega .icons{display:flex;gap:16px;align-items:center;}
     #nbbioHeaderLocal .mega .iconBtn{width:36px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--white);display:grid;place-items:center;cursor:pointer;}
-    #nbbioHeaderLocal .mega .grid{display:grid;grid-template-columns:repeat(4,minmax(200px,1fr));gap:60px;margin-top:40px;}
+    #nbbioHeaderLocal .mega .grid{display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:48px;margin-top:40px;}
     #nbbioHeaderLocal .mega .col h3{font-size:28px;line-height:1.2;letter-spacing:-.4px;font-weight:900;color:#111;margin:0 0 18px;}
     #nbbioHeaderLocal .mega .col a{display:block;padding:10px 0;color:#111;text-decoration:none;font-size:16px;font-weight:700;}
     #nbbioHeaderLocal .mega .col a:hover{color:var(--brand);}
+    #nbbioHeaderLocal .mega .col .mega-sub-label{font-size:13px;color:#888;font-weight:500;margin-top:4px;}
     #nbbioHeaderLocal .mega .watermark{position:absolute;right:40px;bottom:34px;opacity:.08;}
     #nbbioHeaderLocal .mega .watermark svg{width:220px;height:auto;}
     #nbbioHeaderLocal .mega.act{visibility:visible;pointer-events:auto;}
@@ -157,19 +227,66 @@
       color:#111;
     }
 
-    /* ✅ 모바일: 단일 버튼 4개 */
+    /* ✅ 모바일: 메뉴 리스트 */
     #nbbioHeaderLocal .mlist{margin:0;padding:0;list-style:none;}
-    #nbbioHeaderLocal .mlist li{border-bottom:1px solid #eceff2;}
-    #nbbioHeaderLocal .mlist a{
-      display:block;
-      padding:18px 6px;
+    #nbbioHeaderLocal .mlist>li{border-bottom:1px solid #eceff2;}
+    #nbbioHeaderLocal .mlist>li>a,
+    #nbbioHeaderLocal .mlist>li>.m-acc-btn{
+      display:flex!important;
+      align-items:center;
+      width:100%;
+      min-height:62px;
+      padding:0 6px;
       font-weight:800;
       font-size:20px;
       color:#111;
       text-decoration:none;
       letter-spacing:-.2px;
+      line-height:1.4;
+      box-sizing:border-box;
+      margin:0;
     }
-    #nbbioHeaderLocal .mlist a:active{opacity:.7;}
+    #nbbioHeaderLocal .mlist>li>a:active{opacity:.7;}
+
+    /* ✅ 모바일 아코디언 버튼 추가 스타일 */
+    #nbbioHeaderLocal .m-acc-btn{
+      justify-content:space-between;
+      background:none;border:none;
+      cursor:pointer;
+      font-family:inherit;
+      text-align:left;
+      gap:12px;
+    }
+    #nbbioHeaderLocal .m-acc-btn .m-arrow{
+      display:flex;align-items:center;justify-content:center;
+      width:24px;height:24px;
+      flex-shrink:0;
+      transition:transform .25s ease;
+    }
+    #nbbioHeaderLocal .m-acc-btn .m-arrow svg{display:block;}
+    #nbbioHeaderLocal .m-acc-btn[aria-expanded="true"] .m-arrow{
+      transform:rotate(180deg);
+    }
+    #nbbioHeaderLocal .m-sub-list{
+      list-style:none;margin:0;padding:0 0 0 16px;
+      max-height:0;overflow:hidden;
+      transition:max-height .3s ease, padding-bottom .3s ease;
+    }
+    #nbbioHeaderLocal .m-sub-list.open{
+      max-height:200px;
+      padding-bottom:12px;
+    }
+    #nbbioHeaderLocal .m-sub-list li a{
+      display:block;
+      padding:12px 6px;
+      font-size:16px;
+      font-weight:600;
+      color:#444;
+      text-decoration:none;
+      letter-spacing:-.1px;
+    }
+    #nbbioHeaderLocal .m-sub-list li a:active{opacity:.7;}
+    #nbbioHeaderLocal .m-sub-list li a:hover{color:var(--brand);}
 
     /* 브레이크포인트 */
     @media (max-width:1279.98px){
@@ -192,6 +309,12 @@
           <li role="none"><a role="menuitem" data-anchor="company" href="./introduce.html">회사소개</a></li>
           <li role="none"><a role="menuitem" data-anchor="greeting" href="./ceo.html">대표 인사말</a></li>
           <li role="none"><a role="menuitem" data-anchor="vision" href="./vision.html">비전 &amp; 철학</a></li>
+          <li role="none" class="has-sub">
+            <a role="menuitem" href="javascript:void(0);">산하 독립 연구소</a>
+            <div class="sub-menu">
+              <a href="https://biznovalab.com" target="_blank" rel="noopener noreferrer">비즈니스 혁신 연구소</a>
+            </div>
+          </li>
           <li role="none"><a role="menuitem" data-anchor="location" href="./location.html">오시는 길</a></li>
         </ul>
       </nav>
@@ -224,6 +347,10 @@
           <div class="col"><h3>회사소개</h3><a data-anchor="company" href="./introduce.html">회사소개</a></div>
           <div class="col"><h3>대표 인사말</h3><a data-anchor="greeting" href="./ceo.html">대표 인사말</a></div>
           <div class="col"><h3>비전&철학</h3><a data-anchor="vision" href="./vision.html">비전 &amp; 철학</a></div>
+          <div class="col">
+            <h3>산하 독립 연구소</h3>
+            <a href="https://biznovalab.com" target="_blank" rel="noopener noreferrer">비즈니스 혁신 연구소</a>
+          </div>
           <div class="col"><h3>오시는 길</h3><a data-anchor="location" href="./location.html">오시는 길</a></div>
         </div>
 
@@ -251,6 +378,15 @@
         <li><a data-anchor="company" href="./introduce.html">회사소개</a></li>
         <li><a data-anchor="greeting" href="./ceo.html">대표 인사말</a></li>
         <li><a data-anchor="vision" href="./vision.html">비전 &amp; 철학</a></li>
+        <li>
+          <button class="m-acc-btn" type="button" aria-expanded="false">
+            <span>산하 독립 연구소</span>
+            <span class="m-arrow"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 8l5 5 5-5" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <ul class="m-sub-list">
+            <li><a href="https://biznovalab.com" target="_blank" rel="noopener noreferrer">비즈니스 혁신 연구소</a></li>
+          </ul>
+        </li>
         <li><a data-anchor="location" href="./location.html">오시는 길</a></li>
       </ul>
     </nav>
@@ -292,6 +428,17 @@
       li.addEventListener('mouseleave', () => li.classList.remove('is-on'));
       li.addEventListener('focusin', () => { if (isDesktop()) li.classList.add('is-on'); });
       li.addEventListener('focusout', () => li.classList.remove('is-on'));
+    });
+
+    /* ========= 모바일 아코디언 서브메뉴 ========= */
+    root.querySelectorAll('.m-acc-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        const subList = btn.nextElementSibling;
+        if (!subList) return;
+        btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        subList.classList.toggle('open', !expanded);
+      });
     });
 
     /* ========= PC: 햄버거 → 전체 메가메뉴 ========= */
@@ -405,7 +552,6 @@
       }
 
       // ✅ 3) 같은 페이지인데 targetId가 없거나 요소가 없으면: 기본 href 동작 그대로(막지 않음)
-      // (예: ../introduce.html 같은 링크도 여기서 정상 작동)
     }
 
     // 헤더 GNB / 메가 / 드로어 모두에서 잡기
