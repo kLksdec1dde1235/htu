@@ -3593,7 +3593,7 @@
     }
 
     #bookshelf-gallery .bsg-head{
-      max-width:1240px;
+      max-width:min(1600px, calc(100vw - 80px));
       margin:0 auto 24px;
       padding:0 36px;
       display:flex;
@@ -3643,13 +3643,9 @@
       box-shadow:0 12px 26px rgba(0,55,28,.32);
     }
 
-    #bookshelf-gallery .bsg-nav-btn:active{
-      transform:scale(.94);
-    }
-
     #bookshelf-gallery .bsg-sw{
       position:relative;
-      max-width:1240px;
+      max-width:min(1600px, calc(100vw - 80px));
       margin:0 auto 52px;
       padding:0 36px;
       overflow:visible;
@@ -3823,9 +3819,6 @@
       background:linear-gradient(180deg,#0a6833 0%,#004722 100%);
       color:#fff;
       transform:translateY(-3px);
-      box-shadow:
-        0 16px 30px rgba(0,55,28,.45),
-        inset 0 1px 0 rgba(255,255,255,.2);
     }
 
     #bookshelf-gallery .bsg-card:hover .bsg-cover-sub::after{
@@ -3965,36 +3958,13 @@
       background:linear-gradient(180deg,#0a6833 0%,#004722 100%);
     }
 
-    @media (min-width:1400px){
-      #bookshelf-gallery .bsg-head,
-      #bookshelf-gallery .bsg-sw{
-        max-width:1460px;
-      }
-
-      #bookshelf-gallery .bsg-row{
-        justify-content:center !important;
-        overflow-x:hidden !important;
-        cursor:default !important;
-      }
-
-      #bookshelf-gallery .bsg-card{
-        width:250px;
-        height:356px;
-        min-width:250px;
-      }
-
-      #bookshelf-gallery .bsg-nav{
-        opacity:0 !important;
-        pointer-events:none !important;
-      }
-    }
-
     @media (max-width:820px){
       #bookshelf-gallery{
         padding:38px 0 52px;
       }
 
       #bookshelf-gallery .bsg-head{
+        max-width:100%;
         padding:0 20px;
         margin-bottom:18px;
       }
@@ -4014,7 +3984,6 @@
         padding:10px 20px 6px 20px;
       }
 
-      /* 모바일 첫 이미지 왼쪽 여백 */
       #bookshelf-gallery .bsg-card:first-child{
         margin-left:6px;
       }
@@ -4068,7 +4037,7 @@
   <div class="bsg-sw">
     <div class="bsg-row bsg-main-row">
 
-        <div class="bsg-card" data-t="MAXQ 뷰티 멤버" data-s="FIVE VOICES, ONE TRUTH" data-img-src="./img/column-7.jpg" data-pdf-url="https://drive.google.com/file/d/1_hmG-ASDrEasy6J8pLVxGQjhgzLHb3ZX/view">
+      <div class="bsg-card" data-t="MAXQ 뷰티 멤버" data-s="FIVE VOICES, ONE TRUTH" data-img-src="./img/column-7.jpg" data-pdf-url="https://drive.google.com/file/d/1_hmG-ASDrEasy6J8pLVxGQjhgzLHb3ZX/view">
         <div class="bsg-cover">
           <div class="bsg-cover-content">
             <div class="bsg-cover-title">MAXQ 뷰티 멤버</div>
@@ -4076,7 +4045,6 @@
           </div>
         </div>
       </div>
-
 
       <div class="bsg-card" data-t="김경일 교수" data-s="당신의 얼굴은 당신의 뇌가 만듭니다." data-img-src="./img/column1.jpg" data-pdf-url="https://drive.google.com/file/d/1ymT9M-kdGsT6mSInTX81itOXbqBW-ta1/view?usp=drive_link">
         <div class="bsg-cover">
@@ -4087,7 +4055,7 @@
         </div>
       </div>
 
-            <div class="bsg-card" data-t="이유리 대표" data-s="아름다움은 건강에서 시작됩니다" data-img-src="./img/column5.jpg" data-pdf-url="https://drive.google.com/file/d/1l5OxKvSQ57Wsj76fLOy5X8UKAqkHJC-e/view?usp=drive_link">
+      <div class="bsg-card" data-t="이유리 대표" data-s="아름다움은 건강에서 시작됩니다" data-img-src="./img/column5.jpg" data-pdf-url="https://drive.google.com/file/d/1l5OxKvSQ57Wsj76fLOy5X8UKAqkHJC-e/view?usp=drive_link">
         <div class="bsg-cover">
           <div class="bsg-cover-content">
             <div class="bsg-cover-title">이유리 대표</div>
@@ -4122,8 +4090,6 @@
           </div>
         </div>
       </div>
-
-
 
     </div>
 
@@ -4166,8 +4132,9 @@
       function checkScrollable(){
         if(!mainRow) return;
 
-        var forceDesktopFull = window.innerWidth >= 1400;
-        var isScrollable = !forceDesktopFull && mainRow.scrollWidth > mainRow.clientWidth + 2;
+        mainRow.classList.remove('is-centered');
+
+        var isScrollable = mainRow.scrollWidth > mainRow.clientWidth + 2;
 
         gallery.classList.toggle('is-scrollable', isScrollable);
         mainRow.classList.toggle('is-centered', !isScrollable);
@@ -4424,6 +4391,7 @@
 
       requestAnimationFrame(checkScrollable);
       setTimeout(checkScrollable, 300);
+      setTimeout(checkScrollable, 800);
     })();
   </script>
 </section>
