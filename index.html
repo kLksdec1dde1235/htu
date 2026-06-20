@@ -4406,6 +4406,400 @@
   </script>
 </section>
 
+<section id="yt-autoplay-reel" class="yt-autoplay-reel" aria-label="영상 소개">
+  <div class="yar-inner yar-anim">
+    <div class="yar-stage">
+      <div class="yar-ratio">
+        <!-- 이 div는 YouTube API가 동일 id의 iframe으로 교체합니다 -->
+        <div id="yar-player"></div>
+      </div>
+
+      <!-- 음소거 해제 버튼 (호버 시 부드럽게 노출) -->
+      <button class="yar-sound" type="button" aria-label="소리 켜기" data-muted="true">
+        <span class="yar-sound-ico" aria-hidden="true">
+          <!-- muted icon -->
+          <svg class="yar-ico is-muted" viewBox="0 0 24 24" fill="none">
+            <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/>
+            <path d="M16 9l5 5M21 9l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <!-- unmuted icon -->
+          <svg class="yar-ico is-unmuted" viewBox="0 0 24 24" fill="none">
+            <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/>
+            <path d="M16.5 8.5a5 5 0 0 1 0 7M18.8 6a8 8 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="yar-sound-txt">소리 켜기</span>
+      </button>
+
+      <!-- 진행 인디케이터 (영상 개수만큼 점으로 표시) -->
+      <div class="yar-dots" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <style>
+    /* ===== 스코프 루트 ===== */
+    #yt-autoplay-reel{
+      container-type: inline-size;
+      container-name: yarwrap;
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: #000;
+      line-height: 0;            /* 비디오 하단 여백 제거 */
+      font-family: "Noto Sans KR", "Pretendard", system-ui, -apple-system, sans-serif;
+    }
+    #yt-autoplay-reel *{ box-sizing: border-box; }
+
+    #yt-autoplay-reel .yar-inner{
+      width: 100%;
+      position: relative;
+    }
+
+    /* ===== 등장 애니메이션 (영상 재생과 독립) ===== */
+    #yt-autoplay-reel .yar-anim{
+      opacity: 0;
+      transform: translateY(7cqw);
+      will-change: opacity, transform;
+    }
+    #yt-autoplay-reel .yar-anim.is-in{
+      animation: yar-fadeInUp 1s cubic-bezier(.16,.84,.34,1) forwards;
+    }
+    @keyframes yar-fadeInUp{
+      from{ opacity: 0; transform: translateY(7cqw); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== 무대 ===== */
+    #yt-autoplay-reel .yar-stage{
+      position: relative;       /* 내부 absolute의 기준 → 외부 레이아웃 영향 없음 */
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* 16:9 반응형 비율 박스 */
+    #yt-autoplay-reel .yar-ratio{
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;      /* 16:9 = 9/16 */
+      background: #000;
+    }
+    #yt-autoplay-reel .yar-ratio > iframe,
+    #yt-autoplay-reel .yar-ratio > #yar-player{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* 호버 시 미세하게 떠오르는 그라데이션 (버튼 가독성 확보) */
+    #yt-autoplay-reel .yar-stage::after{
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 28cqw;
+      max-height: 160px;
+      background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+      opacity: 0;
+      transition: opacity .35s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+    #yt-autoplay-reel .yar-stage:hover::after{ opacity: 1; }
+
+    /* ===== 소리 켜기 버튼 ===== */
+    #yt-autoplay-reel .yar-sound{
+      position: absolute;
+      right: 3cqw;
+      bottom: 3cqw;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.4cqw;
+      padding: 1.6cqw 2.6cqw;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      background: rgba(15,15,18,.62);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      transform: translateY(1.4cqw);
+      transition: opacity .35s ease, transform .35s ease, background .2s ease, border-color .2s ease;
+    }
+    #yt-autoplay-reel .yar-stage:hover .yar-sound{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #yt-autoplay-reel .yar-sound:hover{
+      background: rgba(15,15,18,.85);
+      border-color: rgba(255,255,255,.7);
+    }
+    #yt-autoplay-reel .yar-sound:focus-visible{
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #yt-autoplay-reel .yar-sound-ico{
+      display: inline-flex;
+      width: 4.4cqw;
+      height: 4.4cqw;
+      min-width: 16px; min-height: 16px;
+      max-width: 26px; max-height: 26px;
+    }
+    #yt-autoplay-reel .yar-ico{ width: 100%; height: 100%; }
+    #yt-autoplay-reel .yar-ico.is-unmuted{ display: none; }
+    /* 음소거 해제 상태 */
+    #yt-autoplay-reel .yar-sound[data-muted="false"] .yar-ico.is-muted{ display: none; }
+    #yt-autoplay-reel .yar-sound[data-muted="false"] .yar-ico.is-unmuted{ display: block; }
+
+    #yt-autoplay-reel .yar-sound-txt{
+      font-size: 3.2cqw;
+      white-space: nowrap;
+    }
+    /* 데스크톱 상한 (큰 화면에서 버튼이 과대해지는 것 방지) */
+    @container yarwrap (min-width: 760px){
+      #yt-autoplay-reel .yar-sound{
+        right: 22px; bottom: 22px;
+        gap: 9px; padding: 11px 18px;
+      }
+      #yt-autoplay-reel .yar-sound-txt{ font-size: 15px; }
+    }
+
+    /* ===== 진행 점 인디케이터 ===== */
+    #yt-autoplay-reel .yar-dots{
+      position: absolute;
+      left: 3cqw;
+      bottom: 3.6cqw;
+      z-index: 3;
+      display: flex;
+      gap: 1.4cqw;
+      opacity: 0;
+      transition: opacity .35s ease;
+      pointer-events: none;
+    }
+    #yt-autoplay-reel .yar-stage:hover .yar-dots{ opacity: 1; }
+    #yt-autoplay-reel .yar-dot{
+      width: 1.8cqw; height: 1.8cqw;
+      min-width: 7px; min-height: 7px;
+      max-width: 10px; max-height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.4);
+      transition: background .25s ease, transform .25s ease;
+    }
+    #yt-autoplay-reel .yar-dot.is-active{
+      background: #fff;
+      transform: scale(1.25);
+    }
+    @container yarwrap (min-width: 760px){
+      #yt-autoplay-reel .yar-dots{ left: 22px; bottom: 24px; gap: 8px; }
+    }
+
+    /* ===== 터치 기기: 호버 불가 → 버튼 항상 노출 ===== */
+    @media (hover: none){
+      #yt-autoplay-reel .yar-sound{ opacity: 1; transform: none; }
+      #yt-autoplay-reel .yar-stage::after{ opacity: 1; }
+    }
+
+    /* ===== 모션 최소화 선호 존중 ===== */
+    @media (prefers-reduced-motion: reduce){
+      #yt-autoplay-reel .yar-anim{ opacity: 1; transform: none; animation: none; }
+      #yt-autoplay-reel .yar-sound,
+      #yt-autoplay-reel .yar-stage::after,
+      #yt-autoplay-reel .yar-dots{ transition: none; }
+    }
+  </style>
+
+  <script>
+  (function(){
+    "use strict";
+
+    /* ======================================================
+       ① 여기에 유튜브 링크를 넣으세요 (개수 제한 없음)
+          - watch?v=, youtu.be, shorts/, embed/ 모두 인식
+          - 순서대로 자동재생되며 마지막 영상 후 처음으로 순환
+       ====================================================== */
+    var YAR_VIDEOS = [
+      "https://youtu.be/PHYQM4anPBA",
+      "https://youtu.be/ufwNfp5KGT0",
+      "https://youtu.be/Hhz9KihAZIE",
+      "https://youtu.be/O7HgwKDpVTY",
+      "https://youtu.be/5gZPWLko0Ng"
+
+    ];
+    /* ====================================================== */
+
+    var SECTION_ID = "yt-autoplay-reel";
+    var section = document.getElementById(SECTION_ID);
+    if(!section) return;
+
+    // 유튜브 URL/ID → videoId 추출
+    function extractId(input){
+      if(!input) return null;
+      input = String(input).trim();
+      // 이미 11자리 ID 형태면 그대로 사용
+      if(/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+      var m;
+      m = input.match(/[?&]v=([a-zA-Z0-9_-]{11})/);        if(m) return m[1];
+      m = input.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);     if(m) return m[1];
+      m = input.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);      if(m) return m[1];
+      m = input.match(/\/embed\/([a-zA-Z0-9_-]{11})/);       if(m) return m[1];
+      m = input.match(/\/live\/([a-zA-Z0-9_-]{11})/);        if(m) return m[1];
+      return null;
+    }
+
+    var ids = YAR_VIDEOS.map(extractId).filter(Boolean);
+    if(ids.length === 0){
+      // 영상이 없으면 조용히 종료 (레이아웃은 비율 박스만 유지)
+      return;
+    }
+
+    var player = null;
+    var current = 0;
+    var userWantsSound = false; // 사용자가 소리를 켰는지 기억 → 다음 영상에도 유지
+
+    var soundBtn = section.querySelector(".yar-sound");
+    var soundTxt = section.querySelector(".yar-sound-txt");
+    var dotsWrap = section.querySelector(".yar-dots");
+
+    // 점 인디케이터 생성
+    var dotEls = [];
+    if(dotsWrap){
+      for(var i=0;i<ids.length;i++){
+        var d = document.createElement("span");
+        d.className = "yar-dot" + (i===0 ? " is-active" : "");
+        dotsWrap.appendChild(d);
+        dotEls.push(d);
+      }
+    }
+    function updateDots(){
+      for(var i=0;i<dotEls.length;i++){
+        dotEls[i].classList.toggle("is-active", i === current);
+      }
+    }
+
+    /* ---- YouTube IFrame API 멱등 로더 (다른 코드와 충돌 방지) ---- */
+    function loadYTApi(cb){
+      if(window.YT && window.YT.Player){ cb(); return; }
+      window.__yarApiQueue = window.__yarApiQueue || [];
+      window.__yarApiQueue.push(cb);
+      // 기존 콜백을 보존하면서 체이닝
+      if(!window.__yarApiHooked){
+        window.__yarApiHooked = true;
+        var prev = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function(){
+          if(typeof prev === "function"){ try{ prev(); }catch(e){} }
+          var q = window.__yarApiQueue || [];
+          window.__yarApiQueue = [];
+          for(var i=0;i<q.length;i++){ try{ q[i](); }catch(e){} }
+        };
+      }
+      if(!document.getElementById("__yar_yt_api")){
+        var tag = document.createElement("script");
+        tag.id = "__yar_yt_api";
+        tag.src = "https://www.youtube.com/iframe_api";
+        var first = document.getElementsByTagName("script")[0];
+        if(first && first.parentNode){ first.parentNode.insertBefore(tag, first); }
+        else { document.head.appendChild(tag); }
+      }
+    }
+
+    function applySoundState(){
+      if(!player) return;
+      if(userWantsSound){
+        try{ player.unMute(); player.setVolume(100); }catch(e){}
+      }else{
+        try{ player.mute(); }catch(e){}
+      }
+      if(soundBtn){
+        soundBtn.setAttribute("data-muted", userWantsSound ? "false" : "true");
+        soundBtn.setAttribute("aria-label", userWantsSound ? "음소거" : "소리 켜기");
+      }
+      if(soundTxt){ soundTxt.textContent = userWantsSound ? "음소거" : "소리 켜기"; }
+    }
+
+    function buildPlayer(){
+      player = new YT.Player("yar-player", {
+        videoId: ids[0],
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          rel: 0,
+          playsinline: 1,
+          modestbranding: 1,
+          disablekb: 1,
+          fs: 0,
+          iv_load_policy: 3
+        },
+        events: {
+          onReady: function(e){
+            try{ e.target.mute(); }catch(err){}
+            try{ e.target.playVideo(); }catch(err){}
+            applySoundState();
+          },
+          onStateChange: function(e){
+            // 영상 종료 → 다음 영상으로 연속 재생
+            if(e.data === YT.PlayerState.ENDED){
+              current = (current + 1) % ids.length;
+              updateDots();
+              try{ player.loadVideoById(ids[current]); }catch(err){}
+              // loadVideoById는 자동 재생됨 → 소리 상태만 재적용
+              setTimeout(applySoundState, 250);
+            }
+          }
+        }
+      });
+    }
+
+    // 사운드 버튼: 음소거 해제 / 재설정 토글
+    if(soundBtn){
+      soundBtn.addEventListener("click", function(){
+        userWantsSound = !userWantsSound;
+        applySoundState();
+      });
+    }
+
+    // 등장 애니메이션 (영상 재생과 별개)
+    var animEl = section.querySelector(".yar-anim");
+    if(animEl){
+      if("IntersectionObserver" in window){
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if(en.isIntersecting){
+              en.target.classList.add("is-in");
+              io.unobserve(en.target);
+            }
+          });
+        }, { threshold: 0.18 });
+        io.observe(animEl);
+      }else{
+        animEl.classList.add("is-in");
+      }
+    }
+
+    // DOM 준비되면 즉시 플레이어 생성 → 로드 순간 자동재생
+    function init(){ loadYTApi(buildPlayer); }
+    if(document.readyState === "loading"){
+      document.addEventListener("DOMContentLoaded", init);
+    }else{
+      init();
+    }
+  })();
+  </script>
+</section>
+
 <section id="newsSlideSection" aria-label="뉴스 슬라이드 섹션" style="position: relative;">
   <style>
     /* ===============================
@@ -7012,6 +7406,19 @@
     })();
   </script>
 </section> -->
+
+
+<!-- =====================================================================
+     YOUTUBE AUTOPLAY REEL  ·  section id="yt-autoplay-reel"
+     - 페이지 로드 즉시 무소음 자동재생
+     - 마우스 호버 시 "소리 켜기" 버튼 노출 → 클릭으로 음소거 해제/재설정
+     - 여러 링크를 넣으면 끝날 때마다 다음 영상으로 연속 자동전환(마지막→처음 순환)
+     - #yt-autoplay-reel 스코프 전용 / 다른 섹션과 상호 간섭 없음
+     ↓↓↓ 아래 YAR_VIDEOS 배열에 유튜브 링크만 채워 넣으면 됩니다 ↓↓↓
+     ===================================================================== -->
+
+
+
   <div id="footer_template"></div>
 
  
