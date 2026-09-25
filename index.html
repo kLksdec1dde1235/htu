@@ -5181,6 +5181,21 @@ LONGER" data-img-src="./img/pos-8.jpg" data-pdf-url="https://drive.google.com/fi
       track.addEventListener('pointerup', endDrag);
       track.addEventListener('pointercancel', endDrag);
 
+      /* ── 휠로 슬라이드 넘어가는 것 차단 ──
+         - 트랙패드 좌우 스와이프 / Shift+휠 → 슬라이드 이동 막음
+         - 세로 휠 → 막지 않고 페이지(다음 섹션)로 그대로 전달 */
+      track.addEventListener('wheel', function(e){
+        var horizontal = e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        if(!horizontal) return;
+
+        e.preventDefault();
+
+        /* Shift+휠은 원래 의도가 세로 스크롤인 경우가 많으므로 페이지로 넘겨줌 */
+        if(e.shiftKey && Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+          window.scrollBy({ top: e.deltaY, behavior: 'auto' });
+        }
+      }, { passive:false });
+
       /* ── 카드 클릭 / 키보드 ── */
       track.addEventListener('click', function(e){
         if(drag.moved){ drag.moved = false; return; }
