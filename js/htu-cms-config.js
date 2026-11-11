@@ -3,4 +3,4 @@
    관리자(Vercel) 주소가 바뀌면 아래 한 줄만 수정하세요. (끝에 / 없이)
    ※ 관리자 > 대시보드 > 기존 사이트 연결 에서 받은 파일은 주소가 이미 들어가 있습니다.
    ===================================================================== */
-window.HTU_CMS_ENDPOINT = 'https://YOUR-CMS.vercel.app';
+window.HTU_CMS_ENDPOINT = 'https://htu-admin.vercel.app';
