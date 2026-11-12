@@ -1,4 +1,4 @@
-/*! HTU CMS site 6ffd9f95 */
+/*! HTU CMS site 74166828 */
 /* =====================================================================
    HTU 다국어 — 언어 선택 · 페이지 문구 자동 번역 (모든 페이지 공용)
    - 언어 결정: ?lang= → 방문자가 직접 고른 언어 → 첫 방문은 접속 국가(관리자 서버가 판별) → 한국어
@@ -102,8 +102,10 @@
   }
 
   // 첫 방문: 접속 국가로 언어 결정
+  I18N.guess = browserGuess();
   I18N.ready = decided ? Promise.resolve(lang) : new Promise(function (resolve) {
-    hide(2200);
+    // 한국어 브라우저는 가리지 않고 바로 표시 (대부분의 방문자 → 첫 화면이 빨라짐)
+    if (I18N.guess !== 'ko') hide(1500);
     var done = false;
     function finish(l, d) {
       if (done) return;
@@ -119,7 +121,7 @@
     }
     var ep = endpoint();
     if (!ep || !window.fetch) return finish(browserGuess());
-    setTimeout(function () { finish(browserGuess()); }, 1800);
+    setTimeout(function () { finish(browserGuess()); }, 1200);
     fetch(ep + '/api/public/geo', { credentials: 'omit', cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) { d && d.lang ? finish(d.lang, d) : finish(browserGuess()); })
@@ -226,7 +228,7 @@
 
   // 첫 방문(캐시 없음)일 때만 잠깐 가렸다가 번역 후 표시
   var firstVisit = !Object.keys(cache).length;
-  if (firstVisit) hide(1600);
+  if (firstVisit) hide(1200);
 
   function start() {
     run(document.body).then(show, show);

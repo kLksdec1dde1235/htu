@@ -1,58 +1,14 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<!--  메인 페이지  -->
-	<url>
-		<loc>https://htuglobal.com/</loc>
-		<lastmod>2026-07-03</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>1.0</priority>
-	</url>
-	
-	<url>
-		<loc>https://htuglobal.com/introduce.html</loc>
-		<lastmod>2026-07-03</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.8</priority>
-	</url>
-	
-	<url>
-		<loc>https://htuglobal.com/ceo.html</loc>
-		<lastmod>2026-07-03</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.8</priority>
-	</url>
-	
-	<url>
-		<loc>https://htuglobal.com/vision.html</loc>
-		<lastmod>2026-07-03</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.6</priority>
-	</url>
-	
-	<url>
-		<loc>https://htuglobal.com/location.html</loc>
-		<lastmod>2026-07-03</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.6</priority>
-	</url>
-
-	<url>
-		<loc>https://htuglobal.com/news.html</loc>
-		<lastmod>2026-11-11</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.7</priority>
-	</url>
-
-	<url>
-		<loc>https://htuglobal.com/event.html</loc>
-		<lastmod>2026-11-11</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.7</priority>
-	</url>
-
-	<url>
-		<loc>https://htuglobal.com/notice.html</loc>
-		<lastmod>2026-11-11</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.7</priority>
-	</url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://htuglobal.com/</loc><lastmod>2026-11-12</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://htuglobal.com/ceo.html</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://htuglobal.com/consulting.html</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://htuglobal.com/event.html</loc><lastmod>2026-11-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htuglobal.com/introduce.html</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://htuglobal.com/location.html</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://htuglobal.com/news.html</loc><lastmod>2026-11-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htuglobal.com/notice.html</loc><lastmod>2026-11-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htuglobal.com/vision.html</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://htuglobal.com/posts/notice-92a9474c-f175-47b0-a4f6-d8f4a50d1152.html</loc><lastmod>2026-11-11</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://htuglobal.com/posts/notice-046b59b1-2992-4b54-8d84-bedc69bb69f3.html</loc><lastmod>2026-11-11</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>
