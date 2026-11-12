@@ -1,4 +1,4 @@
-/*! HTU CMS site 74166828 */
+/*! HTU CMS site d9cb7295 */
 /* =====================================================================
    HTU 다국어 — 언어 선택 · 페이지 문구 자동 번역 (모든 페이지 공용)
    - 언어 결정: ?lang= → 방문자가 직접 고른 언어 → 첫 방문은 접속 국가(관리자 서버가 판별) → 한국어
@@ -68,15 +68,20 @@
       var userChosen = ls(KEY + '_user') === '1';
       var bad = langs.indexOf(I18N.lang) < 0 || (!userChosen && st.detect === 'off' && I18N.lang !== 'ko');
       if (!bad) return;
-      try { if (sessionStorage.getItem('htu_lang_fix')) return; sessionStorage.setItem('htu_lang_fix', '1'); } catch (e) { }
-      ls(KEY, null); ls(KEY + '_user', null); ls(KEY + '_at', null);
-      location.reload();
+      // 페이지를 다시 불러오지 않음 (보던 화면 · 영상이 튕기지 않게) — 이번 화면은 한국어로 두고 다음 방문부터 적용
+      ls(KEY, 'ko'); ls(KEY + '_user', null); ls(KEY + '_at', String(Date.now()));
+      I18N.pagesOff = true;
+      if (I18N.lang !== 'ko') { applyLang('ko'); I18N.decided = true; }
     },
   };
   Object.keys(LANGS).forEach(function (c) { I18N.names[c] = LANGS[c].name; I18N.short[c] = LANGS[c].short; });
 
   var style = document.createElement('style');
-  style.textContent = 'html.htu-tr-wait body{opacity:0!important} html body{transition:opacity .25s ease}';
+  style.textContent = 'html.htu-tr-wait body{opacity:0!important} html body{transition:opacity .25s ease}'
+    // 글자가 칸 밖으로 넘치지 않게: 긴 단어 · 주소는 줄바꿈, 중국어 · 일본어는 띄어쓰기가 없어 keep-all 을 풀어야 줄이 바뀜
+    + ' body *{overflow-wrap:break-word}'
+    + ' html[lang^="zh"] body *,html[lang^="ja"] body *{word-break:normal!important;line-break:auto;overflow-wrap:anywhere}'
+    + ' html:not([lang="ko"]) body p,html:not([lang="ko"]) body li,html:not([lang="ko"]) body h1,html:not([lang="ko"]) body h2,html:not([lang="ko"]) body h3,html:not([lang="ko"]) body h4,html:not([lang="ko"]) body span,html:not([lang="ko"]) body a,html:not([lang="ko"]) body div{word-break:normal!important;hyphens:auto}';
   document.head.appendChild(style);
   function hide(ms) {
     document.documentElement.classList.add('htu-tr-wait');

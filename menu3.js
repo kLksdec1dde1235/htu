@@ -1,5 +1,5 @@
-/*! HTU CMS site 74166828 */
-window.HTU_SITE_VERSION = '74166828';
+/*! HTU CMS site d9cb7295 */
+window.HTU_SITE_VERSION = 'd9cb7295';
 // ./menu3.js — HTU 헤더 메뉴 (HTU CMS 연동판)
 // 메뉴 · 로고는 관리자 > 헤더 메뉴 에서 수정합니다.
 // 관리자에 연결되지 않으면 아래 DEFAULT 메뉴로 표시됩니다.
@@ -313,6 +313,10 @@ window.HTU_SITE_VERSION = '74166828';
     }
 
     /* ===== HTU CMS 추가 ===== */
+    /* 메뉴 글자가 두 줄로 깨지지 않게 + 화면 폭에 따라 간격 자동 조절 */
+    #nbbioHeaderLocal .gnb>li>a{ white-space:nowrap; }
+    #nbbioHeaderLocal .gnb{ gap:clamp(22px, 3.6vw, 76px); }
+    #nbbioHeaderLocal .bar .wrap nav{ min-width:0; }
     #nbbioHeaderLocal .m-sub-list.open{ max-height:640px; }
     #nbbioHeaderLocal .gnb .ext, #nbbioHeaderLocal .mega .ext, #nbbioHeaderLocal .mlist .ext{ font-size:.78em; opacity:.6; margin-left:3px; }
     #nbbioHeaderLocal .cta{
@@ -462,8 +466,8 @@ window.HTU_SITE_VERSION = '74166828';
   var scriptsP = null;
   function ensureScripts() {
     if (!scriptsP) {
-      scriptsP = (endpoint() ? Promise.resolve() : loadScript('./js/htu-cms-config.js?v=74166828'))
-        .then(function () { return window.HTU_I18N ? null : loadScript('./js/htu-i18n.js?v=74166828'); })
+      scriptsP = (endpoint() ? Promise.resolve() : loadScript('./js/htu-cms-config.js?v=d9cb7295'))
+        .then(function () { return window.HTU_I18N ? null : loadScript('./js/htu-i18n.js?v=d9cb7295'); })
         .then(function () { return endpoint(); });
     }
     return scriptsP;
