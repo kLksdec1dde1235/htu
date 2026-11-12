@@ -1,5 +1,5 @@
-/*! HTU CMS site 6ffd9f95 */
-window.HTU_SITE_VERSION = '6ffd9f95';
+/*! HTU CMS site d182d276 */
+window.HTU_SITE_VERSION = 'd182d276';
 // ./menu3.js — HTU 헤더 메뉴 (HTU CMS 연동판)
 // 메뉴 · 로고는 관리자 > 헤더 메뉴 에서 수정합니다.
 // 관리자에 연결되지 않으면 아래 DEFAULT 메뉴로 표시됩니다.
@@ -462,8 +462,8 @@ window.HTU_SITE_VERSION = '6ffd9f95';
   var scriptsP = null;
   function ensureScripts() {
     if (!scriptsP) {
-      scriptsP = (endpoint() ? Promise.resolve() : loadScript('./js/htu-cms-config.js?v=6ffd9f95'))
-        .then(function () { return window.HTU_I18N ? null : loadScript('./js/htu-i18n.js?v=6ffd9f95'); })
+      scriptsP = (endpoint() ? Promise.resolve() : loadScript('./js/htu-cms-config.js?v=d182d276'))
+        .then(function () { return window.HTU_I18N ? null : loadScript('./js/htu-i18n.js?v=d182d276'); })
         .then(function () { return endpoint(); });
     }
     return scriptsP;
@@ -493,7 +493,12 @@ window.HTU_SITE_VERSION = '6ffd9f95';
             return fetch(ep + withLang('/api/public/layout'), { credentials: 'omit' });
           }).then(function (r) { return r.ok ? r.json() : null; });
         });
-    window.__htuLayoutP = src.then(function (d) {
+    window.__htuLayoutP = src.catch(function () { return null; }).then(function (d) {
+      if (d && d.menus && !d.error) return d;
+      // 관리자 연결 실패 → 사이트 백업(js/htu-cms-data.js) 사용
+      if (window.HTU_CMS_SNAPSHOT) return window.HTU_CMS_SNAPSHOT.layout;
+      return loadScript('./js/htu-cms-data.js').then(function () { return window.HTU_CMS_SNAPSHOT ? window.HTU_CMS_SNAPSHOT.layout : null; }, function () { return null; });
+    }).then(function (d) {
       if (!d || !d.menus) return null;
       var layout = {
         settings: { header: (d.settings && d.settings.header) || {}, footer: (d.settings && d.settings.footer) || {}, i18n: (d.settings && d.settings.i18n) || {} },
@@ -818,7 +823,9 @@ window.HTU_SITE_VERSION = '6ffd9f95';
     }
 
     // 흰 배경 페이지(뉴스·공지·이벤트)는 data-theme="solid" → 항상 흰 헤더
-    function applyTopState(y) { (!solid && y <= 30) ? root.classList.add('at-top') : root.classList.remove('at-top'); }
+    // 맨 위 투명 헤더는 어두운 메인 영상(#nwHero)이 보일 때만 — 영상이 없거나 아직 비어 있으면 흰 헤더 (글자가 안 보이는 문제 방지)
+    function darkHero() { var h = document.getElementById('nwHero'); return !!(h && h.offsetHeight > 240 && h.querySelector('.slide')); }
+    function applyTopState(y) { (!solid && y <= 30 && darkHero()) ? root.classList.add('at-top') : root.classList.remove('at-top'); }
 
     function handleScrollDirection() {
       const y = window.scrollY || 0;
@@ -908,6 +915,8 @@ window.HTU_SITE_VERSION = '6ffd9f95';
     window.addEventListener('resize', resetStates);
 
     applyTopState(window.scrollY || 0);
+    [150, 600, 1500, 3000].forEach(function (ms) { setTimeout(function () { applyTopState(window.scrollY || 0); }, ms); });
+    if (window.__htuCmsP) window.__htuCmsP.then(function () { setTimeout(function () { applyTopState(window.scrollY || 0); }, 50); });
     root.classList.add('scroll-up');
     setHoveringClass(false);
     syncLogo();
